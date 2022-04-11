@@ -1,1 +1,3 @@
-# This folder contains all the ui of our project.
+# Screens
+
+- This folder contains all the ui of our project.

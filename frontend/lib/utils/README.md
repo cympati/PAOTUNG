@@ -1,3 +1,4 @@
-# This folder contains the utilities/common functions of our application.
+# Utils
 
-# All the services for the client side.
+- This folder contains the utilities/common functions of our application.
+- All the services for the client side.
