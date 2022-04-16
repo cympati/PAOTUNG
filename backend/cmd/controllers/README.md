@@ -1,4 +1,4 @@
 # Controllers
 
-- This folder control 'models' and some 'routes' folder.
-- Endpoints
+- This folder control 'models' folder.
+- Route w/endpoint

@@ -11,9 +11,9 @@ import (
 
 var Gorm *gorm.DB
 
-// func Init() {
-
-// }
+func Init() {
+	migrate()
+}
 
 func migrate() error {
 	if err := Gorm.AutoMigrate(
