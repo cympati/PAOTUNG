@@ -12,6 +12,6 @@ type User struct {
 	PhoneNumber        *string    `gorm:"type:VARCHAR(10); not null"`
 	BirthDate          *time.Time `gorm:"not null"`
 	JoinDate           *time.Time `gorm:"not null"`
-	PathProfilePicture *string    `gorm:"type:VARCHAR(255)`
+	PathProfilePicture *string    `gorm:"type:VARCHAR(255)"`
 	Balance            *int64     `gorm:"default:0; not null"`
 }
