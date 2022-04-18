@@ -90,7 +90,8 @@ class _OnboardingState extends State<Onboarding> {
                   );
                 }
                 _controller.nextPage(
-                    duration: Duration(milliseconds: 500), curve: Curves.ease);
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeIn);
               },
               color: currentIndex == contents.length - 1
                   ? AppColors.mainColor
