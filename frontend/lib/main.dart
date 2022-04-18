@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: RouteConstant.route(),
       initialRoute: "/",
-      theme: ThemeConstant.theme,
+      // theme: ThemeConstant.theme,
     );
   }
 }
