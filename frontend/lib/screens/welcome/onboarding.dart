@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/main.dart';
-import 'package:paotung_frontend/screens/welcome/contenr_model.dart';
+import 'package:paotung_frontend/screens/welcome/content_model.dart';
 import 'package:paotung_frontend/screens/main/dashborad.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
 
