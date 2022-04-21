@@ -30,9 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          //Title
-          Spacer(flex: 2,),
+          //Login Title
+          SizedBox(height: 80,),
           Container(
+            height: 60,
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: const Text(
@@ -56,12 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
               textAlign: TextAlign.left,
             ),
           ),
+          SizedBox(height: 20,),
           //input text
-          Spacer(),
-          textInputFeild(title: "Email", onChange: (value){}, obscure: false, ),
+          textInputFeild(title: "Username", onChange: (value){}, obscure: false ),
           textInputFeild(title: "Password", onChange: (value){}, obscure: true ),
           //Go to signup page
-          Spacer(flex: 8,),
+          Spacer(),
           Container(
             padding: EdgeInsets.only(bottom: 20),
             child: RichText(
