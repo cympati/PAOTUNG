@@ -59,8 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           SizedBox(height: 20,),
           //input text
-          textInputFeild(title: "Username", onChange: (value){}, obscure: false ),
-          textInputFeild(title: "Password", onChange: (value){}, obscure: true ),
+          textInputField(title: "Username", onChange: (value){}, obscure: false ),
+          textInputField(title: "Password", onChange: (value){}, obscure: true ),
           //Go to signup page
           Spacer(),
           Container(
