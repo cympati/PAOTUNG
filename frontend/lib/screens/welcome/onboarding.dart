@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/main.dart';
+import 'package:paotung_frontend/screens/login/login.dart';
 import 'package:paotung_frontend/screens/welcome/contenr_model.dart';
-import 'package:paotung_frontend/screens/main/dashborad.dart';
+import 'package:paotung_frontend/widgets/common/button.dart';
 
 class Onboarding extends StatefulWidget {
   @override
@@ -74,40 +77,28 @@ class _OnboardingState extends State<Onboarding> {
               ),
             ),
           ),
-          Container(
-            height: 60,
-            margin: EdgeInsets.only(bottom: 80, left: 40, right: 40),
-            width: double.infinity,
-            child: FlatButton(
-              child: Text(
-                currentIndex == contents.length - 1 ? "Get Started" : "Next",
-                style: TextStyle(fontSize: 16),
-              ),
+          RoundedButton(
+              text:
+                  currentIndex == contents.length - 1 ? "Get Started" : "Next",
               onPressed: () {
                 if (currentIndex == contents.length - 1) {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => Dashboard(),
+                      builder: (_) => LoginScreen(),
                     ),
                   );
                 }
                 _controller.nextPage(
-                  duration: Duration(milliseconds: 500),
-                  curve: Curves.ease,
-                );
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeIn);
               },
               color: currentIndex == contents.length - 1
-                  ? Color.fromRGBO(34, 176, 126, 1)
-                  : Color.fromRGBO(230, 234, 242, 1),
+                  ? AppColors.mainColor
+                  : AppColors.lightgrey,
               textColor: currentIndex == contents.length - 1
                   ? Colors.white
-                  : Colors.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-          )
+                  : Colors.black)
         ],
       ),
     );
@@ -120,9 +111,8 @@ class _OnboardingState extends State<Onboarding> {
       margin: EdgeInsets.only(right: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: currentIndex == index
-            ? Color.fromRGBO(34, 176, 126, 1)
-            : Color.fromRGBO(230, 234, 242, 1),
+        color:
+            currentIndex == index ? AppColors.mainColor : AppColors.lightgrey,
       ),
     );
   }

@@ -59,8 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           SizedBox(height: 20,),
           //input text
-          textInputField(title: "Username", onChange: (value){}, obscure: false ),
-          textInputField(title: "Password", onChange: (value){}, obscure: true ),
+          textInputField(title: "Username", obscure: false ),
+          textInputField(title: "Password", obscure: true ),
           //Go to signup page
           Spacer(),
           Container(
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
           RoundedButton(
             text: "Log in", 
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
               }, 
             color: AppColors.mainColor, 
             textColor: Colors.white)

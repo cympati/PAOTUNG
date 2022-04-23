@@ -58,10 +58,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           SizedBox(height: 20,),
           //input text
-          textInputField(title: "Email", onChange: (value){}, obscure: false ),
-          textInputField(title: "Username", onChange: (value){}, obscure: false),
-          textInputField(title: "Password", onChange: (value){}, obscure: true ),
-          textInputField(title: "Confirm Password", onChange: (value){}, obscure: true),
+          textInputField(title: "Email",  obscure: false ),
+          textInputField(title: "Username",  obscure: false ),
+          textInputField(title: "Password",  obscure: true ),
+          textInputField(title: "Confirm Password", obscure: true ),
           //Go to login page
           Spacer(),
           Container(
@@ -80,7 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           RoundedButton(
             text: "Create Account", 
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
               }, 
             color: AppColors.mainColor, 
             textColor: Colors.white)
