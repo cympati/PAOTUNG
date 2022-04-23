@@ -14,8 +14,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   _SplashScreenState() {
     async.Timer(const Duration(milliseconds: 2500), () {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) =>  Onboarding()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Onboarding()));
     });
   }
   @override
