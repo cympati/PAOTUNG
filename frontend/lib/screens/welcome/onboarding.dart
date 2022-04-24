@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/main.dart';
-import 'package:paotung_frontend/screens/main/mainpage.dart';
+import 'package:paotung_frontend/screens/login/login.dart';
 import 'package:paotung_frontend/screens/welcome/content_model.dart';
-import 'package:paotung_frontend/screens/main/dashborad.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
 
 class Onboarding extends StatefulWidget {
@@ -86,7 +85,7 @@ class _OnboardingState extends State<Onboarding> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => MainPage(),
+                      builder: (_) => LoginScreen(),
                     ),
                   );
                 }
