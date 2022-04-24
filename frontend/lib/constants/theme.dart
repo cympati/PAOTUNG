@@ -7,6 +7,8 @@ class AppColors {
   static final Color secondaryColor = Color(0xFFF6c008);
   static final Color thirdaryColor = Color(0xFFFE8453);
   static final Color lightgrey = Color(0xFFE6EAF2);
+  static final Color grey = Color(0xFFA1a8AC);
+  static final Color MedGrey = Color(0xFF465C67);
 }
 
 // class ThemeConstant {
