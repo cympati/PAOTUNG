@@ -12,6 +12,6 @@ type Transaction struct {
 	Price           *uint64          `gorm:"not null"`
 	CategoryId      *uint64          `gorm:"not null"`
 	Category        *Category        `gorm:"foreignKey:CategoryId"`
-	UserId          *uint64          `gorm:"not null"`
-	User            *User            `gorm:"foreignKey:UserId"`
+	OwnerId         *uint64          `gorm:"not null"`
+	Owner           *User            `gorm:"foreignKey:OwnerId"`
 }

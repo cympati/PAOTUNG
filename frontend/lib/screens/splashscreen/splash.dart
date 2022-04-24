@@ -1,6 +1,7 @@
 import 'dart:async' as async;
 
 import 'package:flutter/material.dart';
+import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/welcome/onboarding.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,14 +14,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   _SplashScreenState() {
     async.Timer(const Duration(milliseconds: 2500), () {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) =>  Onboarding()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Onboarding()));
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF22B07E),
+      backgroundColor: AppColors.mainColor,
       body: Center(
           child: Text(
         "PAOTUNG",
