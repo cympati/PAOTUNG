@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
+	jwtware "github.com/gofiber/jwt/v3"
 
 	"paotung-backend/cmd/models/common"
 	"paotung-backend/pkg/utils/configs"

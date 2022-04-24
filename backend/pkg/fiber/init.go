@@ -6,8 +6,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	// "paotung-backend/cmd/models/endpoints"
-	// "paotung-backend/pkg/fiber/middlewares"
+	"paotung-backend/cmd/controllers"
+	"paotung-backend/pkg/fiber/middlewares"
 
 	"paotung-backend/cmd/models/common"
 	"paotung-backend/pkg/utils/configs"
@@ -34,13 +34,9 @@ func Init() {
 	})
 
 	// Register API endpoints
-	// apiGroup := app.Group("api/")
-
-	// apiGroup.Use(middlewares.Limiter)
-	// apiGroup.Use(middlewares.Cors)
-	// apiGroup.Use(middlewares.Recover)
-
-	// endpoints.Init(apiGroup)
+	apiGroup := app.Group("api/")
+	apiGroup.Use(middlewares.Cors)
+	controllers.Init(apiGroup)
 
 	// Register not found handler
 	app.Use(notfoundHandler)
