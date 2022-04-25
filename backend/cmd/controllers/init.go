@@ -3,12 +3,13 @@ package controllers
 import (
 	"github.com/gofiber/fiber/v2"
 	// 	"paotung-backend/pkg/utils/config"
+	Account "paotung-backend/cmd/models/endpoints/account"
 )
 
 func Init(router fiber.Router) {
 	// * Account
-	//account := router.Group("account/")
-	//account.Post("login", account.Login)
+	account := router.Group("account/")
+	account.Post("login", Account.Login)
 	//account.Post("register", account.Register)
 	//
 	//// * Profile

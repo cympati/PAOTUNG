@@ -10,7 +10,7 @@ import (
 )
 
 func Login(c *fiber.Ctx) error {
-	body := new(request)
+	body := new(loginRequest)
 	if err := c.BodyParser(&body); err != nil { // Get req form client side
 		return &common.GenericError{
 			Message: "Unable to parse body",
@@ -20,9 +20,9 @@ func Login(c *fiber.Ctx) error {
 
 	// * Check user existence
 	var user *models.User
-	if result := database.Gorm.First(&user, "user_name = ?", body.Username); result.Error != nil {
+	if result := database.Gorm.First(&user, "email = ?", body.Email); result.Error != nil {
 		return &common.GenericError{
-			Message: "Your account, " + body.Username + ", does not exist.",
+			Message: "Your account does not exist.",
 		}
 	} else if result.RowsAffected == 0 {
 		return &common.GenericError{
@@ -59,8 +59,8 @@ func Login(c *fiber.Ctx) error {
 
 		return c.JSON(response{
 			Success: true,
-			IsLogin: true,
 			Token:   token, // Jwt token
+			Message: "Your login successful.",
 		})
 	}
 }
