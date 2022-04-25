@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:paotung_frontend/screens/main/dashborad.dart';
+import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
 import 'package:paotung_frontend/screens/signup/signup.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
