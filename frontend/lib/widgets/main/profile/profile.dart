@@ -1,6 +1,9 @@
 //
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/models/user.dart';
+import 'package:paotung_frontend/screens/profile/edit_profile_page.dart';
+import 'package:paotung_frontend/utils/user_preferences.dart';
 
 class profileSection extends StatefulWidget {
   const profileSection({Key? key}) : super(key: key);
@@ -10,7 +13,7 @@ class profileSection extends StatefulWidget {
 }
 
 class _profileSectionState extends State<profileSection> {
-  String username = "Barbie Roberts";
+  User user = UserPreferences.myUser;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,11 +29,21 @@ class _profileSectionState extends State<profileSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              username,
+              user.username,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16,),
-            Text("Edit Profile",style: TextStyle(color: AppColors.grey),),
+            SizedBox(
+              height: 16,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => EditProfilePage()));
+              },
+                child: Text(
+              "Edit Profile",
+              style: TextStyle(color: AppColors.grey),
+            )),
           ],
         ),
       ],
