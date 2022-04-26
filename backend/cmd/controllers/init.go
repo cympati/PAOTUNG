@@ -10,7 +10,7 @@ func Init(router fiber.Router) {
 	// * Account
 	account := router.Group("account/")
 	account.Post("login", Account.Login)
-	//account.Post("register", account.Register)
+	account.Post("register", Account.Register)
 	//
 	//// * Profile
 	//profile := router.Group("profile/", middlewares.Jwt)

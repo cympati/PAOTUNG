@@ -3,13 +3,15 @@ package account
 import (
 	"github.com/gofiber/fiber/v2"
 	"paotung-backend/cmd/models/common"
+	"paotung-backend/cmd/models/dto/account"
 	"paotung-backend/pkg/database"
 	"paotung-backend/pkg/database/models"
+	"paotung-backend/pkg/utils/text"
 	"time"
 )
 
 func Register(c *fiber.Ctx) error {
-	body := new(registerRequest)
+	body := new(account.RegisterRequest)
 	if err := c.BodyParser(&body); err != nil {
 		return &common.GenericError{
 			Message: "Unable to parse body",
@@ -19,21 +21,36 @@ func Register(c *fiber.Ctx) error {
 
 	// * Validate new register
 	// * Validate password pattern
-	// * Validator maybe in frontend
-	//password := body.Password
-	//if len(password) < 8 || len(password) > 255 || !text.PrintableASCII(password) {
-	//	return &common.GenericError{
-	//		Code:    "INVALID_INFORMATION",
-	//		Message: "Password length must be between 8 to 255 characters",
-	//	}
-	//}
+	password := body.Password
+	if len(password) < 8 || len(password) > 255 || !text.PrintableASCII(password) {
+		return &common.GenericError{
+			Code:    "INVALID_INFORMATION",
+			Message: "Password length must be between 8 to 255 characters",
+		}
+	}
 
-	// * Check user already exist
+	// * Check email already exist
 	var user *models.User
-	if result := database.Gorm.First(&user, "email = ? AND user_name = ?", body.Email, body.Username); result.RowsAffected > 0 {
+	if result := database.Gorm.First(&user, "email = ?", body.Email); result.RowsAffected > 0 {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
 			Message: "This account has already registered",
+		}
+	}
+
+	// * Check username already exist
+	if result := database.Gorm.First(&user, "user_name = ?", body.UserName); result.RowsAffected > 0 {
+		return &common.GenericError{
+			Code:    "INVALID_INFORMATION",
+			Message: "This username has already registered",
+		}
+	}
+
+	// Create account record in database
+	if result := database.Gorm.Create(&user); result.Error != nil {
+		return &common.GenericError{
+			Message: "Unable to create database record",
+			Err:     result.Error,
 		}
 	}
 
@@ -50,7 +67,7 @@ func Register(c *fiber.Ctx) error {
 			Expires: time.Now().Add(168 * time.Hour), // 168 hours = 7 days (× 24)
 		})
 
-		return c.JSON(response{
+		return c.JSON(account.Response{
 			Success: true,
 			Token:   token, // Jwt token
 			Message: "Your account has been created.",

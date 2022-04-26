@@ -3,6 +3,7 @@ package account
 import (
 	"github.com/gofiber/fiber/v2"
 	"paotung-backend/cmd/models/common"
+	"paotung-backend/cmd/models/dto/account"
 	"paotung-backend/pkg/database"
 	"paotung-backend/pkg/database/models"
 
@@ -10,7 +11,7 @@ import (
 )
 
 func Login(c *fiber.Ctx) error {
-	body := new(loginRequest)
+	body := new(account.LoginRequest)
 	if err := c.BodyParser(&body); err != nil { // Get req form client side
 		return &common.GenericError{
 			Message: "Unable to parse body",
@@ -57,7 +58,7 @@ func Login(c *fiber.Ctx) error {
 			Expires: time.Now().Add(168 * time.Hour), // 168 hours = 7 days (× 24)
 		})
 
-		return c.JSON(response{
+		return c.JSON(account.Response{
 			Success: true,
 			Token:   token, // Jwt token
 			Message: "Your login successful.",
