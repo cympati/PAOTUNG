@@ -15,8 +15,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: ManifestConstant.appName,
       theme: ThemeData(
-        fontFamily: 'Poppins'
-      ),
+          fontFamily: 'Poppins',
+          scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
       debugShowCheckedModeBanner: false,
       routes: RouteConstant.route(),
       initialRoute: "/",
