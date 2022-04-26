@@ -14,6 +14,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: ManifestConstant.appName,
+      theme: ThemeData(
+        fontFamily: 'Poppins'
+      ),
       debugShowCheckedModeBanner: false,
       routes: RouteConstant.route(),
       initialRoute: "/",

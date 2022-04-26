@@ -58,7 +58,7 @@ class _OnboardingState extends State<Onboarding> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
@@ -68,7 +68,7 @@ class _OnboardingState extends State<Onboarding> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 140),
+            margin: EdgeInsets.only(bottom: 130),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(

@@ -7,7 +7,7 @@ import 'package:paotung_frontend/widgets/common/button.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({ Key? key }) : super(key: key);
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -19,10 +19,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     super.initState();
-    _recognizer = TapGestureRecognizer()..onTap = (){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-    };
+    _recognizer = TapGestureRecognizer()
+      ..onTap = () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      };
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           //Signup Title
-          SizedBox(height: 80,),
+          SizedBox(
+            height: 80,
+          ),
           Container(
             height: 60,
             alignment: Alignment.centerLeft,
@@ -38,9 +43,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: const Text(
               "Create Account",
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 32,
-              ), 
+              ),
               textAlign: TextAlign.left,
             ),
           ),
@@ -52,38 +57,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
-              ), 
+                fontWeight: FontWeight.w500,
+              ),
               textAlign: TextAlign.left,
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           //input text
-          textInputField(title: "Email",  obscure: false ),
-          textInputField(title: "Username",  obscure: false ),
-          textInputField(title: "Password",  obscure: true ),
-          textInputField(title: "Confirm Password", obscure: true ),
+          textInputField(title: "Email", obscure: false),
+          textInputField(title: "Username", obscure: false),
+          textInputField(title: "Password", obscure: true),
+          textInputField(title: "Confirm Password", obscure: true),
           //Go to login page
           Spacer(),
           Container(
             padding: EdgeInsets.only(bottom: 20),
             child: RichText(
-              text: TextSpan(
-                children: <TextSpan>[
-                  TextSpan(text: "Already have an accout? ", style: TextStyle(color: Colors.grey)),
-                  TextSpan(text: "Log in", style: TextStyle(color: AppColors.mainColor), recognizer: _recognizer)
-                ]
-              ),
-
+              text: TextSpan(children: <TextSpan>[
+                TextSpan(
+                    text: "Already have an accout? ",
+                    style: TextStyle(color: Colors.grey)),
+                TextSpan(
+                    text: "Log in",
+                    style: TextStyle(color: AppColors.mainColor),
+                    recognizer: _recognizer)
+              ]),
             ),
           ),
           //Button
           RoundedButton(
-            text: "Create Account", 
-            onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
-              }, 
-            color: AppColors.mainColor, 
-            textColor: Colors.white)
+              text: "Create Account",
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Dashboard()));
+              },
+              color: AppColors.mainColor,
+              textColor: Colors.white)
         ],
       ),
     );
