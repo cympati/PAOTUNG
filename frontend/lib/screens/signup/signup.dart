@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/screens/login/login.dart';
-import 'package:paotung_frontend/screens/main/dashborad.dart';
+import 'package:paotung_frontend/screens/main/mainpage.dart';
+import 'package:paotung_frontend/widgets/authentication/login.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
 import 'package:paotung_frontend/constants/theme.dart';
@@ -31,37 +32,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         children: <Widget>[
           //Signup Title
           SizedBox(height: 80,),
-          Container(
-            height: 60,
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: const Text(
-              "Create Account",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 32,
-              ), 
-              textAlign: TextAlign.left,
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: const Text(
-              "register PAOTUNG to be rich 🤑 ",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ), 
-              textAlign: TextAlign.left,
-            ),
-          ),
+          AuthenTitle(title: "Create Account", description: "register PAOTUNG to be rich 🤑 "),
           SizedBox(height: 20,),
-          //input text
-          textInputField(title: "Email",  obscure: false ),
-          textInputField(title: "Username",  obscure: false ),
-          textInputField(title: "Password",  obscure: true ),
-          textInputField(title: "Confirm Password", obscure: true ),
+          //Input text
+          textInputField(title: "Email",  obscure: false, text: '', onChanged: (value) {  }, ),
+          textInputField(title: "Username",  obscure: false, text: '', onChanged: (value) {  }, ),
+          textInputField(title: "Password",  obscure: true, text: '', onChanged: (value) {  }, ),
+          textInputField(title: "Confirm Password", obscure: true, text: '', onChanged: (value) {  }, ),
           //Go to login page
           Spacer(),
           Container(
@@ -80,7 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           RoundedButton(
             text: "Create Account", 
             onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage()));
               }, 
             color: AppColors.mainColor, 
             textColor: Colors.white)
