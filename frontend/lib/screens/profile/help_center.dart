@@ -10,7 +10,7 @@ class HelpCenter extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          //Don't forget to add Appbar widgets
+          //Don't forget to add Appbar widgets that YOK have been created
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             height: 100,
