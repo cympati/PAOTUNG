@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' as material;
-import 'package:paotung_frontend/screens/categorysetting/category_setting.dart';
+import 'package:paotung_frontend/screens/main/profile/newcategory.dart';
 import 'package:paotung_frontend/screens/main/profile/categorysetting.dart';
 import 'package:paotung_frontend/screens/splashscreen/splash.dart';
 import 'package:paotung_frontend/screens/welcome/onboarding.dart';
@@ -12,6 +12,7 @@ class RouteConstant {
       '/welcome': (_) => Onboarding(),
       '/mainpage': (_) => MainPage(),
       '/categorysetting': (_) => CategorySetting(),
+      '/newcategory': (_) => NewCategory(),
     };
   }
 }
