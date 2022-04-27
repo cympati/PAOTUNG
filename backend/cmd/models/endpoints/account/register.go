@@ -7,6 +7,7 @@ import (
 	"paotung-backend/pkg/database"
 	"paotung-backend/pkg/database/models"
 	"paotung-backend/pkg/utils/text"
+	"regexp"
 	"time"
 )
 
@@ -30,7 +31,20 @@ func Register(c *fiber.Ctx) error {
 	}
 
 	// * Check email already exist
-	var user *models.User
+	user := models.User{
+		Email:    &body.Email,
+		Password: &body.Password,
+		UserName: &body.UserName,
+	}
+
+	// * Validate email
+	var emailRegex = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	if !emailRegex.Match([]byte(body.Email)) {
+		return &common.GenericError{
+			Message: "Malformed email address, please type a correct email.",
+		}
+	}
+
 	if result := database.Gorm.First(&user, "email = ?", body.Email); result.RowsAffected > 0 {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
