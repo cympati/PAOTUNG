@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/login/login.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
-import '../../widgets/common/list_item.dart';
-import '../../widgets/main/profile/profile.dart';
+import 'package:paotung_frontend/widgets/common/list_item.dart';
+import 'package:paotung_frontend/widgets/main/profile/profile.dart';
+
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _MyPageState extends State<MyPage> {
         padding: EdgeInsets.symmetric(vertical: 32.0, horizontal: 40.0),
         child: Column(
           children: [
+            //Title
             Container(
               height: 100,
               alignment: Alignment.centerLeft,
@@ -28,9 +30,11 @@ class _MyPageState extends State<MyPage> {
                 style: TextStyle(
                     color: AppColors.mainColor,
                     fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.none),
               ),
             ),
+            //User pic & username
             profileSection(),
             SizedBox(
               height: 60,
@@ -42,8 +46,8 @@ class _MyPageState extends State<MyPage> {
             //Log out
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
               },
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -52,7 +56,12 @@ class _MyPageState extends State<MyPage> {
                         Border(bottom: BorderSide(color: AppColors.lightgrey))),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                  child: Text("Log out", style: TextStyle(fontSize: 16)),
+                  child: Text("Log out",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                          decoration: TextDecoration.none)),
                 ),
               ),
             ),

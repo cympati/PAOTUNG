@@ -15,25 +15,36 @@ class _CustomAppBarState extends State<CustomAppBar> {
     var divwidth = MediaQuery.of(context).size.width;
     return Container(
       height: 120,
-      alignment: Alignment.centerLeft,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.navigate_before_rounded),
-          ),
-          Container(
-            width: divwidth*0.8,
-            alignment: Alignment.center,
-            child: Text(
-              widget.title,
-              style: TextStyle(fontSize: 20, color: Colors.black, ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 40, horizontal: 30),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //Icon
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.navigate_before_rounded,
+                size: 36,
+              ),
             ),
-          ),
-        ],
+            //Text
+            Container(
+              width: divwidth * 0.8,
+              alignment: Alignment.center,
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black,
+                    decoration: TextDecoration.none),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -26,7 +26,7 @@ class listItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(title,style: TextStyle(fontSize: 16)),
+                Text(title,style: TextStyle(fontSize: 16,fontWeight: FontWeight.normal, color: Colors.black, decoration: TextDecoration.none)),
                 const Icon(Icons.navigate_next_rounded),
               ],
             ),

@@ -1,4 +1,3 @@
-//
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/models/user.dart';
@@ -30,20 +29,30 @@ class _profileSectionState extends State<profileSection> {
           children: [
             Text(
               user.username,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.none),
             ),
             SizedBox(
               height: 16,
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => EditProfilePage()));
-              },
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditProfilePage()));
+                },
                 child: Text(
-              "Edit Profile",
-              style: TextStyle(color: AppColors.grey),
-            )),
+                  "Edit Profile",
+                  style: TextStyle(
+                      color: AppColors.grey,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      decoration: TextDecoration.none),
+                )),
           ],
         ),
       ],
