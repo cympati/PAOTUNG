@@ -15,7 +15,7 @@ class Category extends StatelessWidget {
         children: [
           Row(
             children: [
-              ColorDot(color),
+              ColorDots(color: color),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [Text(text)],
@@ -35,9 +35,24 @@ class Category extends StatelessWidget {
     );
   }
 
-  Container ColorDot(
-    Color color,
-  ) {
+  // Container ColorDot(
+  //   Color color,
+  // ) {
+  //   return Container(
+  //     height: 20,
+  //     width: 20,
+  //     decoration:
+  //         BoxDecoration(borderRadius: BorderRadius.circular(20), color: color),
+  //   );
+  // }
+}
+
+class ColorDots extends StatelessWidget {
+  final Color color;
+  const ColorDots({Key? key, required this.color}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 20,
       width: 20,

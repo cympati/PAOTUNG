@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/main/profile/categorysetting.dart';
-import 'package:paotung_frontend/widgets/category/categorycolormodel.dart';
+import 'package:paotung_frontend/widgets/category/category.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
 import 'package:paotung_frontend/widgets/common/customappbar.dart';
 import 'package:paotung_frontend/widgets/common/dropdownbuttonformfield.dart';
@@ -19,21 +19,15 @@ class _NewCategoryState extends State<NewCategory> {
   Color mycolor = Colors.lightBlue;
   var _categoryval;
   List _types = ['Expense', 'Income'];
-  var _colorval;
-  List _categorycolor = [
-    'Red',
-    'Pink',
-    'Purple',
-    'Indigo',
-    'Light-blue',
-    'Teal',
-    'Green',
-    'Light-green',
-    'Lime',
-    'Yellow',
-    'Amber',
-    'Orange'
-  ];
+
+  void changeColor(Color color) {
+    setState(() {
+      pickerColor = color;
+    });
+  }
+
+  Color color = AppColors.mainColor;
+  Color pickerColor = AppColors.secondaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +41,7 @@ class _NewCategoryState extends State<NewCategory> {
           textInputField(title: "Category", obscure: false),
           DropdownButtons(
             title: "Transaction type",
-            hinttext: "please select one",
+            hinttext: "",
             value: _categoryval,
             onChanged: (value) {
               setState(() {
@@ -61,51 +55,58 @@ class _NewCategoryState extends State<NewCategory> {
               );
             }).toList(),
           ),
-          ElevatedButton(
-            onPressed: () {
-              showDialog(context: context, 
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text('Pick a color!'),
-                  content: SingleChildScrollView(
-                    child: BlockPicker(
-                      pickerColor: mycolor,
-                      onColorChanged: (Color color) {
-                        setState(() {
-                          mycolor = color;
-                        });
-                      },
-                    ),
-                    ),
-                    actions: <Widget>[
-                      ElevatedButton(
-                         child: const Text('DONE'),
-                         onPressed: () {
-                           Navigator.of(context).pop();
-                         },
-                         )
-                    ],
-                  );
-                
-              });
-            }, child: null,
-          ),
-          // DropdownButtons(
-          //   title: "Color",
-          //   hinttext: "please select one",
-          //   value: _colorval,
-          //   onChanged: (value) {
-          //     setState(() {
-          //       _colorval = value;
-          //     });
-          //   },
-          //   item: _categorycolor.map((value) {
-          //     return DropdownMenuItem(
-          //       value: value,
-          //       child: Text(value),
-          //     );
-          //   }).toList(),
-          // ),
+          Expanded(
+              child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+            child: Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Color"),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.mainColor)),
+                        prefixIcon: Icon(
+                          Icons.circle,
+                          color: mycolor,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.arrow_drop_down_outlined),
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Pick a color!'),
+                                    content: SingleChildScrollView(
+                                      child: BlockPicker(
+                                        pickerColor: mycolor,
+                                        onColorChanged: (Color color) {
+                                          setState(() {
+                                            mycolor = color;
+                                            print(color);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                          child: const Text('DONE'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          })
+                                    ],
+                                  );
+                                });
+                          },
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          )),
           Spacer(),
           RoundedButton(
               text: "Add",
