@@ -16,7 +16,7 @@ class HelpCenter extends StatelessWidget {
             height: 100,
             alignment: Alignment.centerLeft,
             child: Text(
-              "FQA",
+              "FAQ",
               style: TextStyle(
                   color: AppColors.mainColor,
                   fontSize: 24,

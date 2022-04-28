@@ -34,20 +34,20 @@ class _DashboardState extends State<Dashboard> {
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: <Widget>[
-              Container(
-                height: 48,
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  "Weekly Financial Overview",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              BarChartTwo(),
-              const SizedBox(height: 24,),
+              // Container(
+              //   height: 48,
+              //   alignment: Alignment.centerLeft,
+              //   child: const Text(
+              //     "Weekly Financial Overview",
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.w500,
+              //       fontSize: 16,
+              //     ),
+              //     textAlign: TextAlign.left,
+              //   ),
+              // ),
+              // BarChartTwo(),
+              //const SizedBox(height: 24,),
               Container(
                 height: 48,
                 alignment: Alignment.centerLeft,
