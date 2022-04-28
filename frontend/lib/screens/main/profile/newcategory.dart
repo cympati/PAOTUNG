@@ -38,7 +38,10 @@ class _NewCategoryState extends State<NewCategory> {
           SizedBox(
             height: 40,
           ),
-          textInputField(title: "Category", obscure: false),
+          textInputField(
+            title: "Category",
+            obscure: false,
+          ),
           DropdownButtons(
             title: "Transaction type",
             hinttext: "",
@@ -95,7 +98,11 @@ class _NewCategoryState extends State<NewCategory> {
                                       ElevatedButton(
                                           child: const Text('DONE'),
                                           onPressed: () {
-                                            Navigator.of(context).pop();
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CategorySetting()));
                                           })
                                     ],
                                   );

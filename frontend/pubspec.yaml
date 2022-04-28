@@ -40,6 +40,8 @@ dependencies:
   hive: ^2.1.0
   phosphor_flutter: ^1.4.0
   flutter_colorpicker: ^1.0.3
+  sqflite:
+  path:
 
 dev_dependencies:
   flutter_test:
