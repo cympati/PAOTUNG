@@ -20,7 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void initState() {
     super.initState();
     _recognizer = TapGestureRecognizer()..onTap = (){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
     };
   }
   @override
@@ -30,11 +30,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           //Signup Title
-          SizedBox(height: 80,),
+          const SizedBox(height: 80,),
           Container(
             height: 60,
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
             child: const Text(
               "Create Account",
               style: TextStyle(
@@ -46,7 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
             child: const Text(
               "register PAOTUNG to be rich 🤑 ",
               style: TextStyle(
@@ -56,20 +56,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
               textAlign: TextAlign.left,
             ),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           //input text
           textInputField(title: "Email",  obscure: false ),
           textInputField(title: "Username",  obscure: false ),
           textInputField(title: "Password",  obscure: true ),
           textInputField(title: "Confirm Password", obscure: true ),
           //Go to login page
-          Spacer(),
+          const Spacer(),
           Container(
-            padding: EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(bottom: 20),
             child: RichText(
               text: TextSpan(
                 children: <TextSpan>[
-                  TextSpan(text: "Already have an accout? ", style: TextStyle(color: Colors.grey)),
+                  const TextSpan(text: "Already have an accout? ", style: TextStyle(color: Colors.grey)),
                   TextSpan(text: "Log in", style: TextStyle(color: AppColors.mainColor), recognizer: _recognizer)
                 ]
               ),
