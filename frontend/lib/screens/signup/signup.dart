@@ -15,6 +15,28 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+
+  final _emailKey = GlobalKey<FormState>();
+  final _usernameKey = GlobalKey<FormState>();
+  final _passwordKey = GlobalKey<FormState>();
+  final _confirmKey = GlobalKey<FormState>();
+
+  void _checkEmail(){
+
+  }
+
+  void _checkUsername(){
+
+  }
+
+  void _checkPassword(){
+
+  }
+
+  void _checkConfirm(){
+
+  }
+
   late TapGestureRecognizer _recognizer;
 
   @override
@@ -35,10 +57,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           AuthenTitle(title: "Create Account", description: "register PAOTUNG to be rich 🤑 "),
           SizedBox(height: 20,),
           //Input text
-          textInputField(title: "Email",  obscure: false, text: '', onChanged: (value) {  }, ),
-          textInputField(title: "Username",  obscure: false, text: '', onChanged: (value) {  }, ),
-          textInputField(title: "Password",  obscure: true, text: '', onChanged: (value) {  }, ),
-          textInputField(title: "Confirm Password", obscure: true, text: '', onChanged: (value) {  }, ),
+          textInputField(title: "Email",  obscure: false, text: '', onChanged: (value) {  },  formKey: _emailKey),
+          textInputField(title: "Username",  obscure: false, text: '', onChanged: (value) {  }, formKey: _usernameKey,),
+          textInputField(title: "Password",  obscure: true, text: '', onChanged: (value) {  }, formKey: _passwordKey,),
+          textInputField(title: "Confirm Password", obscure: true, text: '', onChanged: (value) {  }, formKey: _confirmKey,),
           //Go to login page
           Spacer(),
           Container(
@@ -50,7 +72,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextSpan(text: "Log in", style: TextStyle(color: AppColors.mainColor), recognizer: _recognizer)
                 ]
               ),
-
             ),
           ),
           //Button

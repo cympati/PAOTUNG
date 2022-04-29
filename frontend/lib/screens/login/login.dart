@@ -15,6 +15,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  
+  final _emailKey = GlobalKey<FormState>();
+  final _passwordKey = GlobalKey<FormState>();
+
+  void _checkEmail(){
+
+  }
+
+  void _checkPassword(){
+
+  }
 
   late TapGestureRecognizer _recognizer;
 
@@ -36,8 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
           AuthenTitle(title: "Login", description: "Welcome back to PAOTUNG!💰"),
           SizedBox(height: 20,),
           //Input text
-          textInputField(title: "Username", obscure: false, text: '', onChanged: (value) { }, ),
-          textInputField(title: "Password", obscure: true, text: '', onChanged: (value) {  }, ),
+          textInputField(title: "Email", obscure: false, text: '', onChanged: (value) { }, formKey: _emailKey),
+          textInputField(title: "Password", obscure: true, text: '', onChanged: (value) { }, formKey: _passwordKey,),
           //Go to signup page
           Spacer(),
           Container(
@@ -56,6 +67,11 @@ class _LoginScreenState extends State<LoginScreen> {
           RoundedButton(
             text: "Log in", 
             onPressed: (){
+              /*
+              if(){
+
+              }
+              */
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage()));
               }, 
             color: AppColors.mainColor, 
