@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:paotung_frontend/screens/main/dashborad.dart';
+import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
 import 'package:paotung_frontend/screens/signup/signup.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: const Text(
               "Login",
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 32,
               ), 
               textAlign: TextAlign.left,
@@ -53,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
+                fontWeight: FontWeight.w500,
               ), 
               textAlign: TextAlign.left,
             ),
