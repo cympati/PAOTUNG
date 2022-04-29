@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/models/user.dart';
+import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/profile/profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 import 'package:paotung_frontend/widgets/common/app_bar.dart';
@@ -26,7 +27,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               //App bar
               CustomAppBar(title: "Edit Profile"),
               //Picture
-              ProfilePicEdit(imagePath: user.imagePath, onClicked: () async {},),
+              EditProfilePic(imagePath: user.imagePath, ),
               SizedBox(height: 48,),
               //Input
               textInputField(title: "Email", obscure: false, text: user.email, onChanged: (value){}),
@@ -38,7 +39,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               RoundedButton(
                 text: "Save", 
                 onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => MyPage())));}, 
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => MainPage())));}, 
                   color: AppColors.mainColor, 
                   textColor: Colors.white
                 )

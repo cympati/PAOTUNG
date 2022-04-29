@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'dart:io';
 
-class ProfilePicEdit extends StatelessWidget {
+class EditProfilePic extends StatefulWidget {
   final String imagePath;
 
-  final VoidCallback onClicked;
+  const EditProfilePic({
+    Key? key,
+    required this.imagePath,
+  }) : super(key: key);
 
-  const ProfilePicEdit({Key? key, required this.imagePath, required this.onClicked,}) : super(key: key);
+  @override
+  State<EditProfilePic> createState() => _EditProfilePicState();
+}
+
+class _EditProfilePicState extends State<EditProfilePic> {
+  File? imageFile;
+  late PickedFile? _imageFile;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +37,19 @@ class ProfilePicEdit extends StatelessWidget {
   }
 
   Widget buildImage() {
-    final image = NetworkImage(imagePath);
+    final image = NetworkImage(widget.imagePath);
 
     return ClipOval(
       child: Material(
-        color: Colors.transparent,
+        color: AppColors.lightgrey,
         child: Ink.image(
-          image: image,
+          image: image, //_imageFile == null ? image : FileImage(File(_imageFile!.path)) as ImageProvider,
           fit: BoxFit.cover,
           width: 128,
           height: 128,
-          child: InkWell(onTap: onClicked),
+          child: InkWell(onTap: () {
+            getImage(source: ImageSource.gallery);
+          }),
         ),
       ),
     );
@@ -60,12 +73,18 @@ class ProfilePicEdit extends StatelessWidget {
     required Widget child,
     required double all,
     required Color color,
-  }) =>
-      ClipOval(
+  }) => ClipOval(
         child: Container(
           padding: EdgeInsets.all(all),
           color: color,
           child: child,
         ),
       );
+
+  void getImage({required ImageSource source}) async {
+    final pickedFile = await _picker.getImage(source: source,imageQuality: 70);
+    setState(() {
+      _imageFile = pickedFile!;
+    });
+  }
 }

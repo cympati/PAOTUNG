@@ -16,7 +16,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return Container(
       height: 120,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 40, horizontal: 30),
+        padding: EdgeInsets.only(left: 30, top: 40, bottom: 40),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
