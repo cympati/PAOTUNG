@@ -1,4 +1,4 @@
-package errors
+package common
 
 type ErrorResponse struct {
 	Success bool   `json:"success"`

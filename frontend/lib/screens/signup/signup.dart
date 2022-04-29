@@ -21,8 +21,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.initState();
     _recognizer = TapGestureRecognizer()
       ..onTap = () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       };
   }
 
@@ -33,13 +33,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           //Signup Title
-          SizedBox(
+          const SizedBox(
             height: 80,
           ),
           Container(
             height: 60,
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
             child: const Text(
               "Create Account",
               style: TextStyle(
@@ -51,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
             child: const Text(
               "register PAOTUNG to be rich 🤑 ",
               style: TextStyle(
@@ -62,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               textAlign: TextAlign.left,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           //input text
@@ -71,12 +71,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
           textInputField(title: "Password", obscure: true),
           textInputField(title: "Confirm Password", obscure: true),
           //Go to login page
-          Spacer(),
+          const Spacer(),
           Container(
-            padding: EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(bottom: 20),
             child: RichText(
               text: TextSpan(children: <TextSpan>[
-                TextSpan(
+                const TextSpan(
                     text: "Already have an accout? ",
                     style: TextStyle(color: Colors.grey)),
                 TextSpan(
@@ -91,7 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               text: "Create Account",
               onPressed: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Dashboard()));
+                    MaterialPageRoute(builder: (context) => const Dashboard()));
               },
               color: AppColors.mainColor,
               textColor: Colors.white)
