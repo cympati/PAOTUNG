@@ -24,7 +24,7 @@ class Category extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.close,
               color: Colors.grey,
             ),

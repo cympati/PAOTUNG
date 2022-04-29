@@ -11,10 +11,10 @@ class RouteConstant {
     return <String, material.WidgetBuilder>{
       '/': (_) => const SplashScreen(),
       '/welcome': (_) => Onboarding(),
-      '/mainpage': (_) => MainPage(),
-      '/categorysetting': (_) => CategorySetting(),
-      '/newcategory': (_) => NewCategory(),
-      '/helpcenter': (_) => HelpCenter(),
+      '/mainpage': (_) => const MainPage(),
+      '/categorysetting': (_) => const CategorySetting(),
+      '/newcategory': (_) => const NewCategory(),
+      '/helpcenter': (_) => const HelpCenter(),
     };
   }
 }
