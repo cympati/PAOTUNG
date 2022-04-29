@@ -24,11 +24,13 @@ class RoundedButton extends StatelessWidget {
           style: TextStyle( fontSize: 16),
         ),
         onPressed: onPressed,
+        
         color: color,
         textColor: textColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
+        
       ),
     );
   }

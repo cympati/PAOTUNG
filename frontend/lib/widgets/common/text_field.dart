@@ -5,8 +5,11 @@ class textInputField extends StatefulWidget {
   final String title;
   final bool obscure;
 
-  textInputField({Key? key, required this.title, required this.obscure})
-      : super(key: key);
+  textInputField({
+    Key? key,
+    required this.title,
+    required this.obscure,
+  }) : super(key: key);
 
   @override
   State<textInputField> createState() => _textInputFieldState();
