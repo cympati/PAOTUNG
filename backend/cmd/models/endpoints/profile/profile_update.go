@@ -35,31 +35,37 @@ func PatchHandler(c *fiber.Ctx) error {
 	var user *models.User
 
 	// * Check email already exist
-	if result := database.Gorm.First(&user, "email = ?", body.Email); result.RowsAffected > 0 {
+	if result := database.Gorm.First(&user, "email = ? AND id != ?", body.Email, claims.UserId); result.RowsAffected > 0 {
+		if result := database.Gorm.First(&user, "user_name = ? AND id != ?", body.UserName, claims.UserId); result.RowsAffected > 0 {
+			return &common.GenericError{
+				Code:    "INVALID_INFORMATION",
+				Message: "This email and username have already used",
+			}
+		}
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
 			Message: "This email has already used",
 		}
-	}
-
-	// * Check username already exist
-	if result := database.Gorm.First(&user, "user_name = ?", body.UserName); result.RowsAffected > 0 {
-		return &common.GenericError{
-			Code:    "INVALID_INFORMATION",
-			Message: "This username has already used",
-		}
-	}
-
-	// * Update user info
-	if result := database.Gorm.First(&user, "id = ?", claims.UserId).
-		Updates(
-			models.User{
-				Email:    &body.Email,
-				UserName: &body.UserName,
-				Password: &body.Password,
-			}); result.Error != nil {
-		return &common.GenericError{
-			Message: "Unable to update user information",
+	} else if result.RowsAffected == 0 {
+		// * Check username already exist
+		if result := database.Gorm.First(&user, "user_name = ? AND id != ?", body.UserName, claims.UserId); result.RowsAffected > 0 {
+			return &common.GenericError{
+				Code:    "INVALID_INFORMATION",
+				Message: "This username has already used",
+			}
+		} else if result.RowsAffected == 0 {
+			// * Update user info
+			if result := database.Gorm.First(&user, "id = ?", claims.UserId).
+				Updates(
+					models.User{
+						Email:    &body.Email,
+						UserName: &body.UserName,
+						Password: &body.Password,
+					}); result.Error != nil {
+				return &common.GenericError{
+					Message: "Unable to update user information",
+				}
+			}
 		}
 	}
 

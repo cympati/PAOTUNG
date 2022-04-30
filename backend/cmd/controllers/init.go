@@ -2,8 +2,11 @@ package controllers
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"paotung-backend/pkg/fiber/middlewares"
+
 	// 	"paotung-backend/pkg/utils/config"
 	Account "paotung-backend/cmd/models/endpoints/account"
+	Profile "paotung-backend/cmd/models/endpoints/profile"
 )
 
 func Init(router fiber.Router) {
@@ -13,9 +16,9 @@ func Init(router fiber.Router) {
 	account.Post("register", Account.Register)
 	//
 	//// * Profile
-	//profile := router.Group("profile/", middlewares.Jwt)
+	profile := router.Group("profile/", middlewares.Jwt)
 	//profile.Get("info/:user_id", profile.GetHandler)
-	//profile.Patch(":user_id", profile.PatchHandler)
+	profile.Patch("update", Profile.PatchHandler)
 	//
 	//// * Transaction
 	//transaction := router.Group("transaction/", middlewares.Jwt)
