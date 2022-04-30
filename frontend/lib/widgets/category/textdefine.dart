@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paotung_frontend/constants/theme.dart';
 
 class TextDefine extends StatelessWidget {
   final String text1;
@@ -11,7 +12,17 @@ class TextDefine extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
       child: Row(
-        children: [Text(text1), const Spacer(), Text(text2)],
+        children: [
+          Text(
+            text1,
+            style: TextStyle(color: AppColors.mainColor),
+          ),
+          const Spacer(),
+          Text(
+            text2,
+            style: TextStyle(color: AppColors.grey),
+          )
+        ],
       ),
     );
   }

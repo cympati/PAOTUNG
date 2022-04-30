@@ -17,7 +17,7 @@ class NewCategory extends StatefulWidget {
 
 class _NewCategoryState extends State<NewCategory> {
   Color mycolor = Colors.lightBlue;
-  var _categoryval;
+  var _transactionval;
   List _types = ['Expense', 'Income'];
 
   void changeColor(Color color) {
@@ -45,10 +45,10 @@ class _NewCategoryState extends State<NewCategory> {
           DropdownButtons(
             title: "Transaction type",
             hinttext: "",
-            value: _categoryval,
+            value: _transactionval,
             onChanged: (value) {
               setState(() {
-                _categoryval = value;
+                _transactionval = value;
               });
             },
             item: _types.map((value) {
@@ -117,6 +117,7 @@ class _NewCategoryState extends State<NewCategory> {
           Spacer(),
           RoundedButton(
               text: "Add",
+              bottom: 20,
               onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => CategorySetting()));

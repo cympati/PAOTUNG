@@ -34,6 +34,7 @@ class _textInputFieldState extends State<textInputField> {
                 onSubmitted: (value) {
                   print("Title name: $value");
                 },
+                
               ),
             ],
           ),
