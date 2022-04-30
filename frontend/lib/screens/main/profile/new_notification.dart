@@ -4,7 +4,7 @@ import 'package:paotung_frontend/screens/main/profile/notification_setting.dart'
 import 'package:paotung_frontend/widgets/common/button.dart';
 import 'package:paotung_frontend/widgets/common/customappbar.dart';
 import 'package:paotung_frontend/widgets/common/date_picker.dart';
-import 'package:paotung_frontend/widgets/common/dropdownbuttonformfield.dart';
+import 'package:paotung_frontend/widgets/common/dropdown_button_formfield.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
 import 'package:paotung_frontend/widgets/common/time_picker.dart';
 
@@ -44,8 +44,8 @@ class _NewNotificationState extends State<NewNotification> {
               );
             }).toList(),
           ),
-          DatePicker(),
-          TimePicker(),
+          const DatePicker(),
+          const TimePicker(),
           Spacer(),
           RoundedButton(
               text: "Add",

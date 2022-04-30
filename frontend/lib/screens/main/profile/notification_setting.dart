@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:paotung_frontend/screens/main/profile/newnotification.dart';
+import 'package:paotung_frontend/screens/main/profile/new_notification.dart';
 import 'package:paotung_frontend/widgets/category/textdefine.dart';
 import 'package:paotung_frontend/widgets/common/customappbar.dart';
 import 'package:paotung_frontend/widgets/common/notification.dart';

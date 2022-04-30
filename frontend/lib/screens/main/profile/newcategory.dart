@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/screens/main/profile/categorysetting.dart';
+import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/widgets/category/category.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
 import 'package:paotung_frontend/widgets/common/customappbar.dart';
-import 'package:paotung_frontend/widgets/common/dropdownbuttonformfield.dart';
+import 'package:paotung_frontend/widgets/common/dropdown_button_formfield.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
