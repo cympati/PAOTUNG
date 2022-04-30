@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/models/user.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
-import 'package:paotung_frontend/screens/profile/profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 import 'package:paotung_frontend/widgets/common/app_bar.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';

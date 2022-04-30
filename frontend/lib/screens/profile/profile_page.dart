@@ -44,7 +44,7 @@ class _MyPageState extends State<MyPage> {
             listItem(title: "Notification Setting", routes: MainPage()),
             listItem(title: "Help Center", routes: MainPage()),
             //Log out
-            GestureDetector(
+            InkWell(
               onTap: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => LoginScreen()));
@@ -54,7 +54,7 @@ class _MyPageState extends State<MyPage> {
                 decoration: BoxDecoration(
                     border:
                         Border(bottom: BorderSide(color: AppColors.lightgrey))),
-                child: Padding(
+                child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
                   child: Text("Log out",
                       style: TextStyle(

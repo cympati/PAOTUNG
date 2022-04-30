@@ -16,7 +16,6 @@ class EditProfilePic extends StatefulWidget {
 }
 
 class _EditProfilePicState extends State<EditProfilePic> {
-  File? imageFile;
   late PickedFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
 
@@ -43,7 +42,7 @@ class _EditProfilePicState extends State<EditProfilePic> {
       child: Material(
         color: AppColors.lightgrey,
         child: Ink.image(
-          image: image, //_imageFile == null ? image : FileImage(File(_imageFile!.path)) as ImageProvider,
+          image: image,//_imageFile == null ? image : FileImage(File(_imageFile!.path)) as ImageProvider,
           fit: BoxFit.cover,
           width: 128,
           height: 128,
@@ -84,7 +83,7 @@ class _EditProfilePicState extends State<EditProfilePic> {
   void getImage({required ImageSource source}) async {
     final pickedFile = await _picker.getImage(source: source,imageQuality: 70);
     setState(() {
-      _imageFile = pickedFile!;
+      _imageFile = pickedFile;
     });
   }
 }

@@ -21,15 +21,17 @@ class _profileSectionState extends State<profileSection> {
       children: [
         CircleAvatar(
           maxRadius: 40.0,
-          child: const Text('user'),
+          backgroundColor: AppColors.lightgrey,
+          backgroundImage: NetworkImage(user.imagePath),
         ),
-        Padding(padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12)),
+        const Padding(
+            padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12)),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               user.username,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
