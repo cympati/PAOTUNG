@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
+import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/signup/signup.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
@@ -90,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
               bottom: 60,
               onPressed: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Dashboard()));
+                    MaterialPageRoute(builder: (context) => MainPage()));
               },
               color: AppColors.mainColor,
               textColor: Colors.white)

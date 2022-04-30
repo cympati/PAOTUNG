@@ -117,7 +117,7 @@ class _NewCategoryState extends State<NewCategory> {
           Spacer(),
           RoundedButton(
               text: "Add",
-              bottom: 20,
+              bottom: 80,
               onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => CategorySetting()));

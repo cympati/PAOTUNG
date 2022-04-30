@@ -56,7 +56,7 @@ class _NewNotificationState extends State<NewNotification> {
                         builder: (context) => NotificationSetting()));
               },
               color: AppColors.mainColor,
-              bottom: 20,
+              bottom: 80,
               textColor: Colors.white)
         ],
       ),

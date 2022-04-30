@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/main/account/account_page.dart';
 import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
+import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
 import 'package:paotung_frontend/screens/main/profile/profile_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   List pages = [
     AccountPage(),
     Dashboard(),
-    MyPage(),
+    NotificationSetting(),
   ];
 
   int currentIndex = 0;
