@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
-class CustomAppBar extends StatefulWidget {
+class BackwardAppbar extends StatefulWidget {
   final String title;
-  const CustomAppBar({Key? key, required this.title}) : super(key: key);
+  const BackwardAppbar({Key? key, required this.title}) : super(key: key);
 
   @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
+  State<BackwardAppbar> createState() => _BackwardAppbarState();
 }
 
-class _CustomAppBarState extends State<CustomAppBar> {
+class _BackwardAppbarState extends State<BackwardAppbar> {
   @override
   Widget build(BuildContext context) {
     var divwidth = MediaQuery.of(context).size.width;

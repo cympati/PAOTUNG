@@ -3,7 +3,7 @@ import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/models/user.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
-import 'package:paotung_frontend/widgets/common/app_bar.dart';
+import 'package:paotung_frontend/widgets/common/backward_appbar.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
 import 'package:paotung_frontend/widgets/main/profile/edit_profile_pic.dart';
@@ -24,7 +24,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           child: ListView(
             children: [
               //App bar
-              CustomAppBar(title: "Edit Profile"),
+              BackwardAppbar(title: "Edit Profile"),
               //Picture
               EditProfilePic(imagePath: user.imagePath, ),
               SizedBox(height: 48,),
