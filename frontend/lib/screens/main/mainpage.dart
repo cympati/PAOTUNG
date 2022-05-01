@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/screens/account/account_page.dart';
-import 'package:paotung_frontend/screens/main/dashborad.dart';
-import 'package:paotung_frontend/screens/profile/profile_page.dart';
+import 'package:paotung_frontend/screens/main/account/account_page.dart';
+import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
+import 'package:paotung_frontend/screens/main/profile/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

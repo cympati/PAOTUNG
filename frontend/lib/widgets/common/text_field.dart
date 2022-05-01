@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
 class textInputField extends StatefulWidget {
-
   final String title;
   final bool obscure;
   final String text;
@@ -10,14 +9,21 @@ class textInputField extends StatefulWidget {
   final String? Function(String?)? validator;
   final GlobalKey<FormState>? formKey;
 
-  textInputField({ Key? key, required this.title, required this.obscure, required this.text, required this.onChanged, this.validator, this.formKey}) : super(key: key);
+  textInputField(
+      {Key? key,
+      required this.title,
+      required this.obscure,
+      required this.text,
+      required this.onChanged,
+      this.validator,
+      this.formKey})
+      : super(key: key);
 
   @override
   State<textInputField> createState() => _textInputFieldState();
 }
 
 class _textInputFieldState extends State<textInputField> {
-
   late final TextEditingController controller;
 
   @override
@@ -37,7 +43,7 @@ class _textInputFieldState extends State<textInputField> {
     return Material(
       child: Container(
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.symmetric(horizontal: 40,vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
           child: Form(
             key: widget.formKey,
             child: Column(
@@ -49,16 +55,12 @@ class _textInputFieldState extends State<textInputField> {
                   controller: controller,
                   obscureText: widget.obscure,
                   decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.mainColor)
-                    )
-                  ),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.mainColor))),
                 ),
               ],
             ),
-          ) 
-        ),
+          )),
     );
-    
   }
 }

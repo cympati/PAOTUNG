@@ -1,11 +1,11 @@
 package main
 
-// import (
-// 	"pkg/database"
-// 	"pkg/fiber"
-// )
+import (
+	"paotung-backend/pkg/database"
+	"paotung-backend/pkg/fiber"
+)
 
 func main() {
-	// database.Init()
-	// fiber.Init()
+	database.Init()
+	fiber.Init()
 }
