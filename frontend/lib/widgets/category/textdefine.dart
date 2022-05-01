@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
 class TextDefine extends StatelessWidget {
-  final String text1;
-  final String text2;
-  const TextDefine({Key? key, required this.text1, required this.text2})
+  final String categotyText;
+  final String buttonText;
+  const TextDefine(
+      {Key? key, required this.categotyText, required this.buttonText})
       : super(key: key);
 
   @override
@@ -13,6 +14,16 @@ class TextDefine extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
       child: Row(
         children: [
+<<<<<<< HEAD
+          Text(categotyText),
+          const Spacer(),
+          FlatButton(
+              textColor: AppColors.mainColor,
+              child: Text(buttonText),
+              onPressed: () {
+                print("");
+              }),
+=======
           Text(
             text1,
             style: TextStyle(color: AppColors.mainColor),
@@ -22,6 +33,7 @@ class TextDefine extends StatelessWidget {
             text2,
             style: TextStyle(color: AppColors.grey),
           )
+>>>>>>> main
         ],
       ),
     );

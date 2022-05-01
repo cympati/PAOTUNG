@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Category extends StatelessWidget {
+class CategoryBox extends StatelessWidget {
   final Color color;
   final String text;
 
-  const Category({Key? key, required this.color, required this.text})
+  const CategoryBox({Key? key, required this.color, required this.text})
       : super(key: key);
 
   @override
@@ -28,23 +28,12 @@ class Category extends StatelessWidget {
               Icons.close,
               color: Colors.grey,
             ),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => print("delete this category"),
           )
         ],
       ),
     );
   }
-
-  // Container ColorDot(
-  //   Color color,
-  // ) {
-  //   return Container(
-  //     height: 20,
-  //     width: 20,
-  //     decoration:
-  //         BoxDecoration(borderRadius: BorderRadius.circular(20), color: color),
-  //   );
-  // }
 }
 
 class ColorDots extends StatelessWidget {

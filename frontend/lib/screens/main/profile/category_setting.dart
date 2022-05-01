@@ -1,7 +1,9 @@
+// import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/main/profile/newcategory.dart';
-import 'package:paotung_frontend/widgets/category/category.dart';
+import 'package:paotung_frontend/widgets/category/category_box.dart';
 import 'package:paotung_frontend/widgets/category/textdefine.dart';
 import 'package:paotung_frontend/widgets/common/customappbar.dart';
 
@@ -13,17 +15,37 @@ class CategorySetting extends StatefulWidget {
 }
 
 class _CategorySettingState extends State<CategorySetting> {
+// List<Object> incomeCategories = [{color:Color(0xFF26C6DA), name: "Salary" },{color:Color(0xFF26C6DA), name: "Salary" },];
+
+  // List<Map<dynamic, Object>> incomeCategories = [
+  //   {color: Color(0xFF26C6DA), name: "Salary"},
+  //   {color: Color(0xFF26C6DA), name: "Salary"},
+  // ];
+
+  // final incomeCategories = <Object>[
+  //   {color: Color(0xFF26C6DA), name: "Salary"},
+  //   {color: Color(0xFF26C6DA), name: "Salary"},
+  // ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CloseAppBar(title: 'Category Setting'),
+      appBar: const CloseAppBar(title: 'Category Setting'),
       body: Column(
-        children: [
-          TextDefine(text1: "Income", text2: "Clear All"),
-          Category(color: Color(0xFF26C6DA), text: "Salary"),
-          Category(color: Color(0xFFEC407A), text: "Bonus"),
-          Category(color: Color(0xFF795548), text: "Collect"),
-          Category(color: Color(0xFFF6C008), text: "Interest"),
+        children: const [
+          TextDefine(categotyText: "Income", buttonText: "Clear All"),
+          // incomeCategories.map(((e) {
+          //   return CategoryBox(color: e.color, text: e.text);
+          // })).toList(),
+
+          // incomeCategories.forEach((e) {
+          //   return CategoryBox(color: e.color, text: e.text);
+          // }),
+
+          CategoryBox(color: Color(0xFF26C6DA), text: "Salary"),
+          CategoryBox(color: Color(0xFFEC407A), text: "Bonus"),
+          CategoryBox(color: Color(0xFF795548), text: "Collect"),
+          CategoryBox(color: Color(0xFFF6C008), text: "Interest"),
         ],
       ),
       floatingActionButton: FloatingActionButton(
