@@ -14,6 +14,7 @@ class TextDefine extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
       child: Row(
         children: [
+<<<<<<< HEAD
           Text(categotyText),
           const Spacer(),
           FlatButton(
@@ -22,6 +23,17 @@ class TextDefine extends StatelessWidget {
               onPressed: () {
                 print("");
               }),
+=======
+          Text(
+            text1,
+            style: TextStyle(color: AppColors.mainColor),
+          ),
+          const Spacer(),
+          Text(
+            text2,
+            style: TextStyle(color: AppColors.grey),
+          )
+>>>>>>> main
         ],
       ),
     );

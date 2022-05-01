@@ -68,7 +68,11 @@ class _OnboardingState extends State<Onboarding> {
             ),
           ),
           Container(
+<<<<<<< HEAD
             margin: const EdgeInsets.only(bottom: 130),
+=======
+            margin: EdgeInsets.only(bottom: 180),
+>>>>>>> main
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
@@ -80,6 +84,7 @@ class _OnboardingState extends State<Onboarding> {
           RoundedButton(
               text:
                   currentIndex == contents.length - 1 ? "Get Started" : "Next",
+              bottom: 55,
               onPressed: () {
                 if (currentIndex == contents.length - 1) {
                   Navigator.pushReplacement(
