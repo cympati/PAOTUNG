@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/screens/login/login.dart';
+import 'package:paotung_frontend/screens/main/mainpage.dart';
+import 'package:paotung_frontend/widgets/authentication/login.dart';
 import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
@@ -14,6 +16,19 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final _emailKey = GlobalKey<FormState>();
+  final _usernameKey = GlobalKey<FormState>();
+  final _passwordKey = GlobalKey<FormState>();
+  final _confirmKey = GlobalKey<FormState>();
+
+  void _checkEmail() {}
+
+  void _checkUsername() {}
+
+  void _checkPassword() {}
+
+  void _checkConfirm() {}
+
   late TapGestureRecognizer _recognizer;
 
   @override
@@ -33,43 +48,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           //Signup Title
-          const SizedBox(
+          SizedBox(
             height: 80,
           ),
-          Container(
-            height: 60,
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: const Text(
-              "Create Account",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 32,
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: const Text(
-              "register PAOTUNG to be rich 🤑 ",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-                fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          const SizedBox(
+          AuthenTitle(
+              title: "Create Account",
+              description: "register PAOTUNG to be rich 🤑 "),
+          SizedBox(
             height: 20,
           ),
-          //input text
-          textInputField(title: "Email", obscure: false),
-          textInputField(title: "Username", obscure: false),
-          textInputField(title: "Password", obscure: true),
-          textInputField(title: "Confirm Password", obscure: true),
+          //Input text
+          textInputField(
+              title: "Email",
+              obscure: false,
+              text: '',
+              onChanged: (value) {},
+              formKey: _emailKey),
+          textInputField(
+            title: "Username",
+            obscure: false,
+            text: '',
+            onChanged: (value) {},
+            formKey: _usernameKey,
+          ),
+          textInputField(
+            title: "Password",
+            obscure: true,
+            text: '',
+            onChanged: (value) {},
+            formKey: _passwordKey,
+          ),
+          textInputField(
+            title: "Confirm Password",
+            obscure: true,
+            text: '',
+            onChanged: (value) {},
+            formKey: _confirmKey,
+          ),
           //Go to login page
           const Spacer(),
           Container(
@@ -91,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               text: "Create Account",
               onPressed: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Dashboard()));
+                    MaterialPageRoute(builder: (context) => MainPage()));
               },
               color: AppColors.mainColor,
               textColor: Colors.white)
