@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/models/user.dart';
-import 'package:paotung_frontend/screens/profile/edit_profile_page.dart';
+import 'package:paotung_frontend/screens/main/profile/edit_profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 
 class profileSection extends StatefulWidget {
