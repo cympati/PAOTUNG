@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/main.dart';
-import 'package:paotung_frontend/screens/login/login.dart';
+import 'package:paotung_frontend/screens/start/login/login.dart';
 import 'package:paotung_frontend/screens/welcome/content_model.dart';
-import 'package:paotung_frontend/widgets/common/button.dart';
+import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 
 class Onboarding extends StatefulWidget {
   @override
@@ -68,11 +68,7 @@ class _OnboardingState extends State<Onboarding> {
             ),
           ),
           Container(
-<<<<<<< HEAD
             margin: const EdgeInsets.only(bottom: 130),
-=======
-            margin: EdgeInsets.only(bottom: 180),
->>>>>>> main
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(

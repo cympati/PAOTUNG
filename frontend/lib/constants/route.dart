@@ -3,7 +3,7 @@ import 'package:paotung_frontend/screens/main/account/presentation/add_transacti
 import 'package:paotung_frontend/screens/main/profile/newcategory.dart';
 import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
-import 'package:paotung_frontend/screens/profile/help_center.dart';
+import 'package:paotung_frontend/screens/help_center/help_center.dart';
 import 'package:paotung_frontend/screens/splashscreen/splash.dart';
 import 'package:paotung_frontend/screens/welcome/onboarding.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
@@ -16,7 +16,6 @@ class RouteConstant {
       '/mainpage': (_) => const MainPage(),
       '/categorysetting': (_) => const CategorySetting(),
       '/newcategory': (_) => const NewCategory(),
-      '/helpcenter': (_) => const HelpCenter(),
       '/addtransaction': (_) => const AddTransaction(),
       '/helpcenter': (_) => const HelpCenter(),
       '/notisetting': (_) => const NotificationSetting(),

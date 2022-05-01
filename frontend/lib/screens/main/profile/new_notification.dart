@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
-import 'package:paotung_frontend/widgets/common/button.dart';
+import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/widgets/common/customappbar.dart';
 import 'package:paotung_frontend/widgets/common/date_picker.dart';
 import 'package:paotung_frontend/widgets/common/dropdown_button_formfield.dart';
-import 'package:paotung_frontend/widgets/common/text_field.dart';
+import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:paotung_frontend/widgets/common/time_picker.dart';
 
 class NewNotification extends StatefulWidget {
@@ -27,7 +27,7 @@ class _NewNotificationState extends State<NewNotification> {
           SizedBox(
             height: 40,
           ),
-          textInputField(title: "Name", obscure: false),
+          textInputField(title: "Name", obscure: false, text: '', onChanged: (value) {  },),
           DropdownButtons(
             title: "transaction type",
             hinttext: "",

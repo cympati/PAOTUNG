@@ -20,7 +20,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
       appBar: CloseAppBar(title: "Notification Setting"),
       body: Column(
         children: [
-          TextDefine(text1: "All Notifications", text2: "Clear All"),
+          TextDefine(categotyText: "All Notifications", buttonText: "Clear All"),
           NotificationTitle(title: "Electric Bill"),
           NotificationTitle(title: "Saving 5 THB"),
           NotificationTitle(title: "Don't forget to record!"),

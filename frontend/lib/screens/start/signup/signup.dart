@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:paotung_frontend/screens/login/login.dart';
+import 'package:paotung_frontend/screens/start/login/login.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/widgets/authentication/login.dart';
 import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
-import 'package:paotung_frontend/widgets/common/text_field.dart';
-import 'package:paotung_frontend/widgets/common/button.dart';
+import 'package:paotung_frontend/widgets/common/text_input_field.dart';
+import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
 class SignUpScreen extends StatefulWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
-import 'package:paotung_frontend/widgets/common/button.dart';
+import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/widgets/common/customappbar.dart';
 import 'package:paotung_frontend/widgets/common/date_picker.dart';
 import 'package:paotung_frontend/widgets/common/dropdown_button_formfield.dart';
-import 'package:paotung_frontend/widgets/common/text_field.dart';
+import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key}) : super(key: key);
@@ -61,8 +61,8 @@ class _AddTransactionState extends State<AddTransaction> {
               );
             }).toList(),
           ),
-          textInputField(title: "Amount", obscure: false),
-          textInputField(title: "Name", obscure: false),
+          textInputField(title: "Amount", obscure: false, text: 'test', onChanged: (e) { print("text"); },),
+          textInputField(title: "Name", obscure: false, text: 'test', onChanged: (e) { print("text"); },),
           DatePicker(),
           SizedBox(
             height: 20,

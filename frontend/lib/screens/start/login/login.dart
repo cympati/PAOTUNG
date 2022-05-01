@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
-import 'package:paotung_frontend/screens/signup/signup.dart';
+import 'package:paotung_frontend/screens/start/signup/signup.dart';
 import 'package:paotung_frontend/widgets/authentication/login.dart';
-import 'package:paotung_frontend/widgets/common/text_field.dart';
-import 'package:paotung_frontend/widgets/common/button.dart';
+import 'package:paotung_frontend/widgets/common/text_input_field.dart';
+import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
 class LoginScreen extends StatefulWidget {

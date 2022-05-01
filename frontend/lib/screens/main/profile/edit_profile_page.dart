@@ -4,8 +4,8 @@ import 'package:paotung_frontend/models/user.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 import 'package:paotung_frontend/widgets/common/backward_appbar.dart';
-import 'package:paotung_frontend/widgets/common/button.dart';
-import 'package:paotung_frontend/widgets/common/text_field.dart';
+import 'package:paotung_frontend/widgets/common/rounded_button.dart';
+import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:paotung_frontend/widgets/main/profile/edit_profile_pic.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -40,7 +40,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onPressed: (){
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => MainPage())));}, 
                   color: AppColors.mainColor, 
-                  textColor: Colors.white
+                  textColor: Colors.white, bottom: 0,
                 )
             ],
           ),
