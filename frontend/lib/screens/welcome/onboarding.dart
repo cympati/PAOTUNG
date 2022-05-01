@@ -50,13 +50,13 @@ class _OnboardingState extends State<Onboarding> {
                         contents[i].image,
                         height: 300,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         contents[i].title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
@@ -68,7 +68,7 @@ class _OnboardingState extends State<Onboarding> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 130),
+            margin: const EdgeInsets.only(bottom: 130),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(

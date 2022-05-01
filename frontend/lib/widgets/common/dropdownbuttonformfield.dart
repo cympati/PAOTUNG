@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/widgets/category/category.dart';
+import 'package:paotung_frontend/widgets/category/category_box.dart';
 
 class DropdownButtons extends StatelessWidget {
   final String title;

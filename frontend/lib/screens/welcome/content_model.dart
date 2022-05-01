@@ -8,7 +8,7 @@ class UnboardingContent {
 List<UnboardingContent> contents = [
   UnboardingContent(
     title: 'Record your daily income\nand expenses',
-    image: 'lib/asset/images/Money-back guarantee.svg',
+    image: 'lib/asset/images/Money-back-guarantee.svg',
   ),
   UnboardingContent(
       title: 'Record your daily income\nand expenses',

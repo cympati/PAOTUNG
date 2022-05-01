@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/main/profile/categorysetting.dart';
-import 'package:paotung_frontend/widgets/category/category.dart';
+import 'package:paotung_frontend/widgets/category/category_box.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
 import 'package:paotung_frontend/widgets/common/customappbar.dart';
 import 'package:paotung_frontend/widgets/common/dropdownbuttonformfield.dart';

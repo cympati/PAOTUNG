@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/widgets/common/overview_pie_chart.dart';
-import '../../widgets/common/bar_chart.dart';
+import '../../../widgets/common/bar_chart.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+        body: SingleChildScrollView(
             child: Column(children: <Widget>[
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -28,8 +28,9 @@ class _DashboardState extends State<Dashboard> {
               fontWeight: FontWeight.bold),
         ),
       ),
-      
-      const SizedBox(height: 24,),
+      const SizedBox(
+        height: 24,
+      ),
       Container(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
@@ -61,7 +62,9 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               const OverviewPieChart(),
-              const SizedBox(height: 24,),
+              const SizedBox(
+                height: 24,
+              ),
               Container(
                 height: 48,
                 alignment: Alignment.centerLeft,
@@ -75,7 +78,9 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               const OverviewPieChart(),
-              const SizedBox(height: 40,),
+              const SizedBox(
+                height: 40,
+              ),
             ],
           )),
     ])));
