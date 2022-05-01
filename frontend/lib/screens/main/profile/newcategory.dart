@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/screens/main/profile/categorysetting.dart';
+import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/widgets/category/category.dart';
 import 'package:paotung_frontend/widgets/common/button.dart';
 import 'package:paotung_frontend/widgets/common/customappbar.dart';
-import 'package:paotung_frontend/widgets/common/dropdownbuttonformfield.dart';
+import 'package:paotung_frontend/widgets/common/dropdown_button_formfield.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -17,7 +17,7 @@ class NewCategory extends StatefulWidget {
 
 class _NewCategoryState extends State<NewCategory> {
   Color mycolor = Colors.lightBlue;
-  var _categoryval;
+  var _transactionval;
   List _types = ['Expense', 'Income'];
 
   void changeColor(Color color) {
@@ -45,10 +45,10 @@ class _NewCategoryState extends State<NewCategory> {
           DropdownButtons(
             title: "Transaction type",
             hinttext: "",
-            value: _categoryval,
+            value: _transactionval,
             onChanged: (value) {
               setState(() {
-                _categoryval = value;
+                _transactionval = value;
               });
             },
             item: _types.map((value) {
@@ -117,6 +117,7 @@ class _NewCategoryState extends State<NewCategory> {
           Spacer(),
           RoundedButton(
               text: "Add",
+              bottom: 80,
               onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => CategorySetting()));

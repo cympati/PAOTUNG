@@ -104,6 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           //Button
           RoundedButton(
               text: "Create Account",
+              bottom: 60,
               onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => MainPage()));

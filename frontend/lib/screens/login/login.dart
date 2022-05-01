@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
+import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/signup/signup.dart';
 import 'package:paotung_frontend/widgets/authentication/login.dart';
 import 'package:paotung_frontend/widgets/common/text_field.dart';
@@ -83,6 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
           //Button
           RoundedButton(
               text: "Log in",
+              bottom: 60,
               onPressed: () {
                 /*
               if(){
