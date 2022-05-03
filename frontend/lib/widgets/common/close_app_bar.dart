@@ -14,6 +14,7 @@ class CloseAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: Text(title),
       centerTitle: true,
@@ -22,6 +23,9 @@ class CloseAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       actions: [
         IconButton(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
           icon: Icon(
             Icons.close,
             color: Colors.black,

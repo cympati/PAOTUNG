@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/my_custom_expansion_tile.dart';
 import '../../constants/theme.dart';
 
@@ -8,6 +9,9 @@ class HelpCenter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: BackwardAppBar(
+        title: "Help Center",
+      ),
       body: Column(
         children: <Widget>[
           //Don't forget to add Appbar widgets that YOK have been created
@@ -28,22 +32,19 @@ class HelpCenter extends StatelessWidget {
                   unselectedWidgetColor: AppColors.mainColor,
                   primarySwatch: Colors.grey,
                   dividerColor: Colors.transparent),
-              child: const MyCustomeExpandTile()
-          ),
+              child: const MyCustomeExpandTile()),
           Theme(
               data: ThemeData(
                   unselectedWidgetColor: AppColors.mainColor,
                   primarySwatch: Colors.grey,
                   dividerColor: Colors.transparent),
-              child: const MyCustomeExpandTile()
-          ),
+              child: const MyCustomeExpandTile()),
           Theme(
               data: ThemeData(
                   unselectedWidgetColor: AppColors.mainColor,
                   primarySwatch: Colors.grey,
                   dividerColor: Colors.transparent),
-              child: const MyCustomeExpandTile()
-          ),
+              child: const MyCustomeExpandTile()),
         ],
       ),
     );

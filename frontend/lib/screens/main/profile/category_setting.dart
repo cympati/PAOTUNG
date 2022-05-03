@@ -5,7 +5,8 @@ import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/main/profile/newcategory.dart';
 import 'package:paotung_frontend/widgets/category/category_box.dart';
 import 'package:paotung_frontend/widgets/category/text_define.dart';
-import 'package:paotung_frontend/widgets/common/custom_app_bar.dart';
+import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
+import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
 
 class CategorySetting extends StatefulWidget {
   const CategorySetting({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _CategorySettingState extends State<CategorySetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CloseAppBar(title: 'Category Setting'),
+      appBar: const BackAppBar(title: 'Category Setting'),
       body: Column(
         children: const [
           TextDefine(categotyText: "Income", buttonText: "Clear All"),

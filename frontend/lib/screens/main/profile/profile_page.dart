@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/screens/category/category_setting.dart';
+import 'package:paotung_frontend/screens/help_center/help_center.dart';
+import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
+import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
 import 'package:paotung_frontend/screens/start/login/login.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/widgets/common/list_item.dart';
@@ -40,9 +44,9 @@ class _MyPageState extends State<MyPage> {
               height: 60,
             ),
             //list
-            listItem(title: "Category Setting", routes: MainPage()),
-            listItem(title: "Notification Setting", routes: MainPage()),
-            listItem(title: "Help Center", routes: MainPage()),
+            listItem(title: "Category Setting", routes: CategorySetting()),
+            listItem(title: "Notification Setting", routes: NotificationSetting()),
+            listItem(title: "Help Center", routes: HelpCenter()),
             //Log out
             InkWell(
               onTap: () {

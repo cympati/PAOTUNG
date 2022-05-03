@@ -1,50 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
-class BackwardAppbar extends StatefulWidget {
+class BackwardAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const BackwardAppbar({Key? key, required this.title}) : super(key: key);
+  const BackwardAppBar({Key? key, required this.title}) : super(key: key);
 
   @override
-  State<BackwardAppbar> createState() => _BackwardAppbarState();
-}
+  Size get preferredSize => Size.fromHeight(60.0);
 
-class _BackwardAppbarState extends State<BackwardAppbar> {
   @override
   Widget build(BuildContext context) {
-    var divwidth = MediaQuery.of(context).size.width;
-    return Container(
-      height: 120,
-      child: Padding(
-        padding: EdgeInsets.only(left: 30, top: 40, bottom: 40),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //Icon
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.navigate_before_rounded,
-                size: 36,
-              ),
-            ),
-            //Text
-            Container(
-              width: divwidth * 0.8,
-              alignment: Alignment.center,
-              child: Text(
-                widget.title,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black,
-                    decoration: TextDecoration.none),
-              ),
-            ),
-          ],
+    return AppBar(
+      backgroundColor: Colors.white,
+      title: Text(title),
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+          color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
+      elevation: 0,
+      leading: new IconButton(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        icon: Icon(
+          Icons.navigate_before_rounded,
+          color: Colors.black,
         ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
       ),
     );
   }

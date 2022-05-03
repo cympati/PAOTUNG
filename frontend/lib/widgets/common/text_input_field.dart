@@ -41,16 +41,20 @@ class _textInputFieldState extends State<textInputField> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      
       child: Container(
+        
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
           child: Form(
+            
             key: widget.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(widget.title),
                 TextFormField(
+                  
                   validator: widget.validator,
                   controller: controller,
                   obscureText: widget.obscure,

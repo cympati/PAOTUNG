@@ -4,7 +4,7 @@ import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/widgets/category/category_box.dart';
 import 'package:paotung_frontend/widgets/common/rounded_button.dart';
-import 'package:paotung_frontend/widgets/common/custom_app_bar.dart';
+import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/dropdown_form_field.dart';
 import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
