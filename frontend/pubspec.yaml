@@ -66,11 +66,7 @@ flutter:
   uses-material-design: true
   assets:
     - lib/asset/images/Invest.svg
-<<<<<<< HEAD
     - lib/asset/images/Money-back-guarantee.svg
-=======
-    - lib/asset/images/Money-back guarantee.svg
->>>>>>> main
     - lib/asset/images/Notifications.svg
 
   # To add assets to your application, add an assets section, like this:

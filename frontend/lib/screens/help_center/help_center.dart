@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:paotung_frontend/widgets/common/mycustom_expansion_tile.dart';
+import 'package:paotung_frontend/widgets/common/my_custom_expansion_tile.dart';
 import '../../constants/theme.dart';
 
 class HelpCenter extends StatelessWidget {
