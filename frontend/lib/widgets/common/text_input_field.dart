@@ -40,8 +40,7 @@ class _textInputFieldState extends State<textInputField> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
+    return Container(
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
           child: Form(
@@ -60,7 +59,7 @@ class _textInputFieldState extends State<textInputField> {
                 ),
               ],
             ),
-          )),
+          ),
     );
   }
 }

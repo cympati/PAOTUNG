@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   List pages = [
     AccountPage(),
     Dashboard(),
-    NotificationSetting(),
+    MyPage(),
   ];
 
   int currentIndex = 0;
