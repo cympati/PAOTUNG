@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class CategoryBox extends StatelessWidget {
   final Color color;
-  final String text;
+  final String name;
 
-  const CategoryBox({Key? key, required this.color, required this.text})
+  const CategoryBox({Key? key, required this.color, required this.name})
       : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class CategoryBox extends StatelessWidget {
               ColorDots(color: color),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(text)],
+                children: [Text(name)],
               )
             ],
           ),
