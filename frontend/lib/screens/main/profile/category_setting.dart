@@ -31,7 +31,7 @@ class _CategorySettingState extends State<CategorySetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BackAppBar(title: 'Category Setting'),
+      appBar: const BackwardAppBar(title: 'Category Setting'),
       body: Column(
         children: const [
           TextDefine(categotyText: "Income", buttonText: "Clear All"),

@@ -19,7 +19,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BackAppBar(title: "Notification Setting"),
+      appBar: const BackwardAppBar(title: "Notification Setting"),
       body: Column(
         children: [
           TextDefine(categotyText: "All Notifications", buttonText: "Clear All"),
