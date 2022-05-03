@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/utils/extensions.dart';
+import 'package:paotung_frontend/widgets/main/account/month_tab.dart';
+import 'package:paotung_frontend/widgets/main/account/today_tab.dart';
 
 enum Tab { today, month }
 
@@ -43,7 +45,10 @@ class _ExpenseTabState extends State<ExpenseTab> {
             ),
           ),
         ),
-        
+        IndexedStack(
+          index: currentTab.index,
+          children: const [TodayTab(), MonthTab()],
+        ),
       ],
     );
   }
