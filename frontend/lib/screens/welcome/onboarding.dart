@@ -6,6 +6,8 @@ import 'package:paotung_frontend/screens/start/login/login.dart';
 import 'package:paotung_frontend/screens/welcome/content_model.dart';
 import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 
+import '../start/sign_up/sign_up.dart';
+
 class Onboarding extends StatefulWidget {
   @override
   _OnboardingState createState() => _OnboardingState();
@@ -84,15 +86,10 @@ class _OnboardingState extends State<Onboarding> {
               bottom: 100,
               onPressed: () {
                 if (currentIndex == contents.length - 1) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => LoginScreen(),
-                    ),
-                  );
+                  Navigator.pushReplacementNamed(context, '/register');
                 }
                 _controller.nextPage(
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     curve: Curves.easeIn);
               },
               color: currentIndex == contents.length - 1
