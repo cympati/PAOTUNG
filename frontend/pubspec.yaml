@@ -43,6 +43,7 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   sqflite:
   path:
+  gap: ^2.0.0
 
 dev_dependencies:
   flutter_test:
