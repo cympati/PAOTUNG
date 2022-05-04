@@ -61,8 +61,22 @@ class _AddTransactionState extends State<AddTransaction> {
               );
             }).toList(),
           ),
-          textInputField(title: "Amount", obscure: false, text: 'test', onChanged: (e) { print("text"); },),
-          textInputField(title: "Name", obscure: false, text: 'test', onChanged: (e) { print("text"); },),
+          textInputField(
+            title: "Amount",
+            obscure: false,
+            text: 'test',
+            onChanged: (e) {
+              print("text");
+            },
+          ),
+          textInputField(
+            title: "Name",
+            obscure: false,
+            text: 'test',
+            onChanged: (e) {
+              print("text");
+            },
+          ),
           DatePicker(),
           SizedBox(
             height: 20,
@@ -71,8 +85,7 @@ class _AddTransactionState extends State<AddTransaction> {
               text: "Add",
               bottom: 30,
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => MainPage()));
+                Navigator.pushReplacementNamed(context, '/mainpage');
               },
               color: AppColors.mainColor,
               textColor: Colors.white)

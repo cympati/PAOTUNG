@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/category/categories.dart';
 import 'package:paotung_frontend/core/data/services/category_income_service.dart';
-import 'package:paotung_frontend/screens/main/profile/newcategory.dart';
+import 'package:paotung_frontend/screens/main/profile/new_category.dart';
 import 'package:paotung_frontend/widgets/category/category_box.dart';
 import 'package:paotung_frontend/widgets/category/text_define.dart';
 import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
@@ -53,7 +53,7 @@ class _CategorySettingState extends State<CategorySetting> {
       // appBar: const CloseAppBar(title: 'Category Setting'),
       body: ListView(
         children: [
-          const BackwardAppbar(title: "Category Setting"),
+          const BackwardAppBar(title: "Category Setting"),
           const TextDefine(categotyText: "Income", buttonText: "Clear All"),
           Container(
             height: 10,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' as material;
 import 'package:paotung_frontend/screens/main/account/presentation/add_transaction.dart';
 import 'package:paotung_frontend/screens/main/account/presentation/show_transaction.dart';
-import 'package:paotung_frontend/screens/main/profile/newcategory.dart';
+import 'package:paotung_frontend/screens/main/profile/new_category.dart';
 import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
 import 'package:paotung_frontend/screens/help_center/help_center.dart';
@@ -15,8 +15,8 @@ class RouteConstant {
   static Map<String, material.WidgetBuilder> route() {
     return <String, material.WidgetBuilder>{
       '/': (_) => const SplashScreen(),
-      '/welcome': (_) =>  Onboarding(),
-      '/register': (_) => SignUpScreen(),
+      '/welcome': (_) => Onboarding(),
+      '/register': (_) => const SignUpScreen(),
       '/mainpage': (_) => const MainPage(),
       '/categorysetting': (_) => const CategorySetting(),
       '/newcategory': (_) => const NewCategory(),

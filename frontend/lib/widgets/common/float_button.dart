@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
-import '../../screens/main/profile/newcategory.dart';
+import '../../screens/main/profile/new_category.dart';
 
 class FloattingButton extends StatelessWidget {
   final Color color;

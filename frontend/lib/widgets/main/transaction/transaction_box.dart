@@ -1,12 +1,12 @@
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/widgets/category/colordot.dart';
+import 'package:paotung_frontend/widgets/category/color_dot.dart';
 
 class TransactionBox extends StatelessWidget {
   final String title;
   final String text;
-  final Color color;
+  final int color;
   final double amount;
   const TransactionBox({
     Key? key,
@@ -26,7 +26,7 @@ class TransactionBox extends StatelessWidget {
         children: [
           Row(
             children: [
-              ColorDots(color: color),
+              ColorDots(color: 4293673082),
               Gap(10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

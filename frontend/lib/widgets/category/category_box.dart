@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../constants/theme.dart';
-import 'package:paotung_frontend/widgets/category/colordot.dart';
+import 'package:paotung_frontend/widgets/category/color_dot.dart';
 
 class CategoryBox extends StatelessWidget {
   final int color;
@@ -49,21 +49,5 @@ class CategoryBox extends StatelessWidget {
             ],
           ),
         ));
-  }
-}
-
-class ColorDots extends StatelessWidget {
-  final int color;
-
-  const ColorDots({Key? key, required this.color}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 20,
-      width: 20,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20), color: Color(color)),
-    );
   }
 }

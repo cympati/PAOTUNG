@@ -6,7 +6,7 @@ class BackwardAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BackwardAppBar({Key? key, required this.title}) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(70.0);
+  Size get preferredSize => const Size.fromHeight(70.0);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class BackwardAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Colors.white,
         title: Text(title),
         centerTitle: true,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
         elevation: 0,
         leading: new IconButton(

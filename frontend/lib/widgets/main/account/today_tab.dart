@@ -16,23 +16,23 @@ class TodayTab extends StatelessWidget {
             "Today",
             style: TextStyle(color: AppColors.grey, fontSize: 14),
           ),
-          TransactionBox(
-            color: Color(0xFF26C6DA),
+          const TransactionBox(
+            color: 4280731354,
             text: "Salary",
             title: "Part time",
-            amount: "+300.00",
+            amount: 300.00,
           ),
-          TransactionBox(
-            color: Color(0xFF795548),
+          const TransactionBox(
+            color: 4293673082,
             text: "Coffee",
             title: "Starbuck",
-            amount: "-150.00",
+            amount: -150.00,
           ),
-          TransactionBox(
-            color: Color(0xFFEC407A),
+          const TransactionBox(
+            color: 2321232132,
             text: "Personal",
             title: "Shopping",
-            amount: "-250.00",
+            amount: -250.00,
           ),
         ],
       ),

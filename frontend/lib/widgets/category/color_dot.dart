@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorDots extends StatelessWidget {
-  final Color color;
+  final int color;
   const ColorDots({Key? key, required this.color}) : super(key: key);
 
   @override
@@ -9,8 +9,8 @@ class ColorDots extends StatelessWidget {
     return Container(
       height: 20,
       width: 20,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(20), color: color),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20), color: Color(color)),
     );
   }
 }

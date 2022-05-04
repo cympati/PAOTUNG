@@ -3,54 +3,61 @@ import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/widgets/main/transaction/transaction_box.dart';
 
 class MonthTab extends StatelessWidget {
-  const MonthTab({ Key? key }) : super(key: key);
+  const MonthTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text("Today", style: TextStyle(color: AppColors.grey, fontSize: 14),),
-          TransactionBox(
-            color: Color(0xFF26C6DA),
+          Text(
+            "Today",
+            style: TextStyle(color: AppColors.grey, fontSize: 14),
+          ),
+          const TransactionBox(
+            color: 4280731354,
             text: "Salary",
             title: "Part time",
-            amount: "+300.00",
+            amount: 300.00,
           ),
-          TransactionBox(
-            color: Color(0xFF795548),
+          const TransactionBox(
+            color: 4293673082,
             text: "Coffee",
             title: "Starbuck",
-            amount: "-150.00",
+            amount: -150.00,
           ),
-          TransactionBox(
-            color: Color(0xFFEC407A),
+          const TransactionBox(
+            color: 2321232132,
             text: "Personal",
             title: "Shopping",
-            amount: "-250.00",
+            amount: -250.00,
           ),
-          SizedBox(height: 10,),
-          Text("Tue,12 Feb 2022", style: TextStyle(color: AppColors.grey, fontSize: 14),),
-          TransactionBox(
-            color: Color(0xFF26C6DA),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            "Tue,12 Feb 2022",
+            style: TextStyle(color: AppColors.grey, fontSize: 14),
+          ),
+          const TransactionBox(
+            color: 2394369343,
             text: "Salary",
             title: "Part time",
-            amount: "+300.00",
+            amount: 300.00,
           ),
-          TransactionBox(
-            color: Color(0xFF795548),
+          const TransactionBox(
+            color: 4294361096,
             text: "Coffee",
             title: "Starbuck",
-            amount: "-150.00",
+            amount: -150.00,
           ),
-          TransactionBox(
-            color: Color(0xFFEC407A),
+          const TransactionBox(
+            color: 4286141768,
             text: "Personal",
             title: "Shopping",
-            amount: "-250.00",
+            amount: -250.00,
           ),
         ],
       ),
