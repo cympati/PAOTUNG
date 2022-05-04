@@ -7,7 +7,8 @@ import 'package:paotung_frontend/core/data/services/category_income_service.dart
 import 'package:paotung_frontend/screens/main/profile/newcategory.dart';
 import 'package:paotung_frontend/widgets/category/category_box.dart';
 import 'package:paotung_frontend/widgets/category/text_define.dart';
-import 'package:paotung_frontend/widgets/common/custom_app_bar.dart';
+import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
+import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
 
 import '../../../core/data/services/category_expense_service.dart';
 import '../../../widgets/common/backward_app_bar.dart';
@@ -33,8 +34,12 @@ class _CategorySettingState extends State<CategorySetting> {
     // var responseCategoriesIncome = await GetCategoryIncomeService.getData();
     if (mounted) {
       setState(() {
-        _categoriesExpense = [Categories(id: 1, name: "Phone bill", color: 4545124)];
-        _categoriesIncome = [Categories(id: 1, name: "Phone bill", color: 4545124)];
+        _categoriesExpense = [
+          Categories(id: 1, name: "Phone bill", color: 4545124)
+        ];
+        _categoriesIncome = [
+          Categories(id: 1, name: "Phone bill", color: 4545124)
+        ];
         // _categoriesExpense = GetCategoryExpenseService.getCategories(responseCategoriesExpense);
         // _categoriesIncome = GetCategoryIncomeService.getCategories(responseCategoriesIncome);
       });
@@ -46,21 +51,27 @@ class _CategorySettingState extends State<CategorySetting> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: const CloseAppBar(title: 'Category Setting'),
-      body:  ListView(
-        children:  [
+      body: ListView(
+        children: [
           const BackwardAppbar(title: "Category Setting"),
           const TextDefine(categotyText: "Income", buttonText: "Clear All"),
-          Container(height: 10,),
+          Container(
+            height: 10,
+          ),
           // ..._categoriesExpense.map((category) {
           // return CategoryBox(color: category.color, name: category.name);
           // }).toList(),
           const CategoryBox(color: 4280731354, name: "Salary"),
           const CategoryBox(color: 4293673082, name: "Bonus"),
           const CategoryBox(color: 2321232132, name: "Collect"),
-          Container(height: 40,),
+          Container(
+            height: 40,
+          ),
           // const Spacer(),
           const TextDefine(categotyText: "Expense", buttonText: "Clear All"),
-          Container(height: 10,),
+          Container(
+            height: 10,
+          ),
 
           // ..._categoriesIncome.map((category) {
           //   return CategoryBox(color: category.color, name: category.name);
@@ -81,4 +92,3 @@ class _CategorySettingState extends State<CategorySetting> {
     );
   }
 }
-

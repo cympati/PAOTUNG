@@ -45,7 +45,8 @@ class _OnboardingState extends State<Onboarding> {
               },
               itemBuilder: (_, i) {
                 return Padding(
-                  padding: const EdgeInsets.all(40),
+                  padding: const EdgeInsets.only(
+                      left: 40, right: 40, top: 120, bottom: 0),
                   child: Column(
                     children: [
                       SvgPicture.asset(
@@ -53,7 +54,7 @@ class _OnboardingState extends State<Onboarding> {
                         height: 300,
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 2,
                       ),
                       Text(
                         contents[i].title,
@@ -70,7 +71,7 @@ class _OnboardingState extends State<Onboarding> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(bottom: 130),
+            margin: const EdgeInsets.only(bottom: 180),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
@@ -82,7 +83,7 @@ class _OnboardingState extends State<Onboarding> {
           RoundedButton(
               text:
                   currentIndex == contents.length - 1 ? "Get Started" : "Next",
-              bottom: 55,
+              bottom: 100,
               onPressed: () {
                 if (currentIndex == contents.length - 1) {
                   Navigator.pushReplacementNamed(context, '/register');

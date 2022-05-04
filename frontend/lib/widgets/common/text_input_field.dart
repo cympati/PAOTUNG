@@ -42,6 +42,7 @@ class _textInputFieldState extends State<textInputField> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
+          decoration: BoxDecoration(color: Colors.white),
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
           child: Form(
@@ -55,12 +56,14 @@ class _textInputFieldState extends State<textInputField> {
                   controller: controller,
                   obscureText: widget.obscure,
                   decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: AppColors.mainColor))),
                 ),
               ],
             ),
-          )),
+          ),
     );
   }
 }

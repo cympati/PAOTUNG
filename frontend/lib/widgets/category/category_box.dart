@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../constants/theme.dart';
+import 'package:paotung_frontend/widgets/category/colordot.dart';
 
 class CategoryBox extends StatelessWidget {
   final int color;
@@ -13,7 +14,7 @@ class CategoryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 40, right: 40,top: 0, bottom: 10),
+        padding: const EdgeInsets.only(left: 40, right: 40, top: 0, bottom: 10),
         child: Container(
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: AppColors.lightgrey))),
@@ -25,7 +26,15 @@ class CategoryBox extends StatelessWidget {
                   const Gap(10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500,),)],
+                    children: [
+                      Text(
+                        name,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),
