@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/core/data/models/category/categories.dart';
+import 'package:paotung_frontend/core/data/services/category_expense_service.dart';
+import 'package:paotung_frontend/core/data/services/category_income_service.dart';
 
 import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/widgets/category/category_box.dart';
@@ -21,11 +24,14 @@ class _NewCategoryState extends State<NewCategory> {
   var _transactionval;
   List _types = ['Expense', 'Income'];
 
+
   void changeColor(Color color) {
     setState(() {
       pickerColor = color;
     });
   }
+
+
 
   Color color = AppColors.mainColor;
   Color pickerColor = AppColors.secondaryColor;

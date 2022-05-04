@@ -14,13 +14,14 @@ class TextDefine extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
       child: Row(
         children: [
-          Text(categotyText),
+          Text(categotyText, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: AppColors.mainColor),
+          ),
           const Spacer(),
           FlatButton(
-              textColor: AppColors.mainColor,
-              child: Text(buttonText),
+              // textColor: AppColors.mainColor,
+              child: Text(buttonText, style:  TextStyle(fontSize: 14, color: AppColors.grey),),
               onPressed: () {
-                print("");
+                print("Delete category");
               }),
         ],
       ),

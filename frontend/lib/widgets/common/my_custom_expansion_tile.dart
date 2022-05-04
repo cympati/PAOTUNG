@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'custom_expansion_tile.dart';
 
 class MyCustomeExpandTile extends StatefulWidget {
-  const MyCustomeExpandTile({Key? key}) : super(key: key);
+  final question;
+  final answer;
+  const MyCustomeExpandTile({Key? key, required this.question,required this.answer}) : super(key: key);
 
   @override
   State createState() => MyCustomeExpandTileState();
@@ -18,19 +20,19 @@ class MyCustomeExpandTileState extends State<MyCustomeExpandTile> {
       title: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Text(
-          "What is PAOTUNG?",
+          widget.question,
           style: TextStyle(
               color: isExpanded ? const Color(0xFF22B07E) : Colors.black,
               fontSize: 16),
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 232, 249, 241),
-      children: const <Widget>[
+      children:  <Widget>[
         ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 32.0),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 32.0),
           title: Text(
-            'Go to Profile page > Category Setting > Add Button',
-            style: TextStyle(fontSize: 14),
+            widget.answer,
+            style: const TextStyle(fontSize: 14),
           ),
         )
       ],

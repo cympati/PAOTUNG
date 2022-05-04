@@ -9,7 +9,7 @@ class GetCategoryIncomeService {
   }
 
   static List<Categories> getCategoriesIncome(data) {
-    List<dynamic> categoriesIncomeData = data["notes"];
+    List<dynamic> categoriesIncomeData = data["categories_income"];
     List<Categories> tempCategoriesIncome = categoriesIncomeData.map((category) {
       return Categories(
         id: category["id"],

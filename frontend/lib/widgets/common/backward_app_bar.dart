@@ -25,7 +25,7 @@ class _BackwardAppbarState extends State<BackwardAppbar> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Icon(
+              child: const Icon(
                 Icons.navigate_before_rounded,
                 size: 36,
               ),
@@ -36,7 +36,7 @@ class _BackwardAppbarState extends State<BackwardAppbar> {
               alignment: Alignment.center,
               child: Text(
                 widget.title,
-                style: TextStyle(
+                style:const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                     color: Colors.black,

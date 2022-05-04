@@ -9,7 +9,7 @@ class GetCategoryExpenseService {
   }
 
   static List<Categories> getCategoriesExpense(data) {
-    List<dynamic> categoriesExpenseData = data["notes"];
+    List<dynamic> categoriesExpenseData = data["categories_expense"];
     List<Categories> tempCategoriesExpense = categoriesExpenseData.map((category) {
       return Categories(
         id: category["id"],

@@ -44,6 +44,7 @@ dependencies:
   dio: ^4.0.6
   sqflite:
   path:
+  gap: ^2.0.0
 
 dev_dependencies:
   flutter_test:
