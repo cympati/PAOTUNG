@@ -18,7 +18,7 @@ class _DashboardState extends State<Dashboard> {
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
       Padding(
-        padding: const EdgeInsets.only(left: 32, top: 40, right: 32),
+        padding: const EdgeInsets.only(left: 32, top: 32, right: 32),
         child: TextTitle(title: "My finance", size: 24),
       ),
       // const SizedBox(
