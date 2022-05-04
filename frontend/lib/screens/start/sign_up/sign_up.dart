@@ -43,9 +43,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: ListView(
-          children: [
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
             //Signup Title
             SizedBox(
               height: 80,
@@ -113,7 +113,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 textColor: Colors.white)
           ],
         ),
-      ),
     );
   }
 }
