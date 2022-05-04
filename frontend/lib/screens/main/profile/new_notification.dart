@@ -27,7 +27,12 @@ class _NewNotificationState extends State<NewNotification> {
           SizedBox(
             height: 40,
           ),
-          textInputField(title: "Name", obscure: false, text: '', onChanged: (value) {  },),
+          textInputField(
+            title: "Name",
+            obscure: false,
+            text: '',
+            onChanged: (value) {},
+          ),
           DropdownButtons(
             title: "transaction type",
             hinttext: "",
@@ -50,10 +55,7 @@ class _NewNotificationState extends State<NewNotification> {
           RoundedButton(
               text: "Add",
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NotificationSetting()));
+                Navigator.pushReplacementNamed(context, '/notisetting');
               },
               color: AppColors.mainColor,
               bottom: 80,

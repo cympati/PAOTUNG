@@ -9,7 +9,7 @@ import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:paotung_frontend/widgets/main/profile/edit_profile_pic.dart';
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({ Key? key }) : super(key: key);
+  const EditProfilePage({Key? key}) : super(key: key);
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -21,31 +21,53 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: ListView(
-            children: [
-              //App bar
-              BackwardAppBar(title: "Edit Profile"),
-              //Picture
-              EditProfilePic(imagePath: user.imagePath, ),
-              SizedBox(height: 48,),
-              //Input
-              textInputField(title: "Email", obscure: false, text: user.email, onChanged: (value){}),
-              textInputField(title: "Username", obscure: false, text: user.username, onChanged: (value){}),
-              textInputField(title: "Password", obscure: true, text: "", onChanged: (value){}),
-              textInputField(title: "Confirm Password", obscure: true, text: "", onChanged: (value){}),
-              SizedBox(height: 60,),
-              //Log out
-              RoundedButton(
-                text: "Save", 
-                onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => MainPage())));}, 
-                  color: AppColors.mainColor, 
-                  textColor: Colors.white, bottom: 0,
-                )
-            ],
-          ),
-    
-        
+        child: ListView(
+          children: [
+            //App bar
+            BackwardAppBar(title: "Edit Profile"),
+            //Picture
+            EditProfilePic(
+              imagePath: user.imagePath,
+            ),
+            SizedBox(
+              height: 48,
+            ),
+            //Input
+            textInputField(
+                title: "Email",
+                obscure: false,
+                text: user.email,
+                onChanged: (value) {}),
+            textInputField(
+                title: "Username",
+                obscure: false,
+                text: user.username,
+                onChanged: (value) {}),
+            textInputField(
+                title: "Password",
+                obscure: true,
+                text: "",
+                onChanged: (value) {}),
+            textInputField(
+                title: "Confirm Password",
+                obscure: true,
+                text: "",
+                onChanged: (value) {}),
+            SizedBox(
+              height: 60,
+            ),
+            //Log out
+            RoundedButton(
+              text: "Save",
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/mainpage');
+              },
+              color: AppColors.mainColor,
+              textColor: Colors.white,
+              bottom: 0,
+            )
+          ],
+        ),
       ),
     );
   }

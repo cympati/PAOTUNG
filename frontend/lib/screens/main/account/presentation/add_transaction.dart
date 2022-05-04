@@ -83,7 +83,7 @@ class _AddTransactionState extends State<AddTransaction> {
           ),
           RoundedButton(
               text: "Add",
-              bottom: 30,
+              bottom: 10,
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/mainpage');
               },

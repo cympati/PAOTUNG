@@ -39,8 +39,7 @@ class _MyPageState extends State<MyPage> {
             //Log out
             InkWell(
               onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
+                Navigator.popAndPushNamed(context, '/login');
               },
               child: Container(
                 alignment: Alignment.centerLeft,

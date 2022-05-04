@@ -31,8 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     _recognizer = TapGestureRecognizer()
       ..onTap = () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+        Navigator.popAndPushNamed(context, '/register');
       };
   }
 
@@ -91,8 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               }
               */
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => MainPage()));
+                Navigator.popAndPushNamed(context, '/mainpage');
               },
               color: AppColors.mainColor,
               textColor: Colors.white)
