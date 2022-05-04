@@ -16,6 +16,7 @@ class _profileSectionState extends State<profileSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding:  const EdgeInsets.only(top: 10),
         child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

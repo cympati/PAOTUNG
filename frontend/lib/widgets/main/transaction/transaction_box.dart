@@ -21,12 +21,12 @@ class TransactionBox extends StatelessWidget {
     // double number = amount;
     // String str = number.toString();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
       child: Row(
         children: [
           Row(
             children: [
-              ColorDots(color: 4293673082),
+              ColorDots(color: color),
               Gap(10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -25,6 +25,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             //App bar
             BackwardAppBar(title: "Edit Profile"),
+            Container(
+              height: 40,
+            ),
             //Picture
             EditProfilePic(
               imagePath: user.imagePath,
@@ -54,7 +57,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 text: "",
                 onChanged: (value) {}),
             SizedBox(
-              height: 60,
+              height: 50,
             ),
             //Log out
             RoundedButton(
@@ -65,7 +68,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
               color: AppColors.mainColor,
               textColor: Colors.white,
               bottom: 0,
-            )
+            ),
+            Container(
+              height: 40,
+            ),
           ],
         ),
       ),

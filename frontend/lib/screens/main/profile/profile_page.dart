@@ -29,7 +29,7 @@ class _MyPageState extends State<MyPage> {
             //User pic & username
             profileSection(),
             SizedBox(
-              height: 60,
+              height: 55,
             ),
             //list
             listItem(title: "Category Setting", routes: CategorySetting()),

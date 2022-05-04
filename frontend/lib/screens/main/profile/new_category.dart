@@ -37,99 +37,103 @@ class _NewCategoryState extends State<NewCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CloseAppBar(title: "New Category"),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          textInputField(
-            title: "Category",
-            obscure: false,
-            text: '',
-            onChanged: (value) {},
-          ),
-          DropdownButtons(
-            title: "Transaction type",
-            hinttext: "",
-            value: _transactionval,
-            onChanged: (value) {
-              setState(() {
-                _transactionval = value;
-              });
-            },
-            item: _types.map((value) {
-              return DropdownMenuItem(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          ),
-          Expanded(
-              child: Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-            child: Form(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Color"),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.mainColor)),
-                        prefixIcon: Icon(
-                          Icons.circle,
-                          color: mycolor,
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.arrow_drop_down_outlined,
-                            size: 30,
-                          ),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text('Pick a color!'),
-                                    content: SingleChildScrollView(
-                                      child: BlockPicker(
-                                        pickerColor: mycolor,
-                                        onColorChanged: (Color color) {
-                                          setState(() {
-                                            mycolor = color;
-                                            print(color);
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      ElevatedButton(
-                                          child: const Text('DONE'),
-                                          onPressed: () {
-                                            Navigator.popAndPushNamed(
-                                                context, '/categorysetting');
-                                          })
-                                    ],
-                                  );
-                                });
-                          },
-                        )),
-                  ),
-                ],
-              ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
             ),
-          )),
-          Spacer(),
-          RoundedButton(
-              text: "Add",
-              bottom: 80,
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/categorysetting');
+            textInputField(
+              title: "Category",
+              obscure: false,
+              text: '',
+              onChanged: (value) {},
+            ),
+            DropdownButtons(
+              title: "Transaction type",
+              hinttext: "",
+              value: _transactionval,
+              onChanged: (value) {
+                setState(() {
+                  _transactionval = value;
+                });
               },
-              color: AppColors.mainColor,
-              textColor: Colors.white)
-        ],
+              item: _types.map((value) {
+                return DropdownMenuItem(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            Expanded(
+                child: Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              child: Form(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Color"),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.mainColor)),
+                          prefixIcon: Icon(
+                            Icons.circle,
+                            color: mycolor,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.arrow_drop_down_outlined,
+                              size: 30,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Pick a color!'),
+                                      content: SingleChildScrollView(
+                                        child: BlockPicker(
+                                          pickerColor: mycolor,
+                                          onColorChanged: (Color color) {
+                                            setState(() {
+                                              mycolor = color;
+                                              print(color);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                            child: const Text('DONE'),
+                                            onPressed: () => Navigator.of(
+                                                    context,
+                                                    rootNavigator: true)
+                                                .pop())
+                                      ],
+                                    );
+                                  });
+                            },
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            )),
+            Spacer(),
+            RoundedButton(
+                text: "Add",
+                bottom: 80,
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/categorysetting');
+                },
+                color: AppColors.mainColor,
+                textColor: Colors.white)
+          ],
+        ),
       ),
     );
   }

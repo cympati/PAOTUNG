@@ -22,45 +22,48 @@ class _NewNotificationState extends State<NewNotification> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CloseAppBar(title: "New Notification"),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          textInputField(
-            title: "Name",
-            obscure: false,
-            text: '',
-            onChanged: (value) {},
-          ),
-          DropdownButtons(
-            title: "transaction type",
-            hinttext: "",
-            value: _transactionval,
-            onChanged: (value) {
-              setState(() {
-                _transactionval = value;
-              });
-            },
-            item: _types.map((value) {
-              return DropdownMenuItem(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          ),
-          const DatePicker(),
-          const TimePicker(),
-          Spacer(),
-          RoundedButton(
-              text: "Add",
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/notisetting');
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            textInputField(
+              title: "Name",
+              obscure: false,
+              text: '',
+              onChanged: (value) {},
+            ),
+            DropdownButtons(
+              title: "transaction type",
+              hinttext: "",
+              value: _transactionval,
+              onChanged: (value) {
+                setState(() {
+                  _transactionval = value;
+                });
               },
-              color: AppColors.mainColor,
-              bottom: 80,
-              textColor: Colors.white)
-        ],
+              item: _types.map((value) {
+                return DropdownMenuItem(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            const DatePicker(),
+            const TimePicker(),
+            Spacer(),
+            RoundedButton(
+                text: "Add",
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/notisetting');
+                },
+                color: AppColors.mainColor,
+                bottom: 80,
+                textColor: Colors.white)
+          ],
+        ),
       ),
     );
   }
