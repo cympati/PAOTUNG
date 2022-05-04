@@ -24,14 +24,11 @@ class _NewCategoryState extends State<NewCategory> {
   var _transactionval;
   List _types = ['Expense', 'Income'];
 
-
   void changeColor(Color color) {
     setState(() {
       pickerColor = color;
     });
   }
-
-
 
   Color color = AppColors.mainColor;
   Color pickerColor = AppColors.secondaryColor;
@@ -81,7 +78,8 @@ class _NewCategoryState extends State<NewCategory> {
                     TextFormField(
                       decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.mainColor)),
+                              borderSide:
+                                  BorderSide(color: AppColors.mainColor)),
                           prefixIcon: Icon(
                             Icons.circle,
                             color: mycolor,
@@ -111,8 +109,10 @@ class _NewCategoryState extends State<NewCategory> {
                                       actions: <Widget>[
                                         ElevatedButton(
                                             child: const Text('DONE'),
-                                          onPressed: () => Navigator.of(context, rootNavigator: true).pop()
-                                          )
+                                            onPressed: () => Navigator.of(
+                                                    context,
+                                                    rootNavigator: true)
+                                                .pop())
                                       ],
                                     );
                                   });
@@ -128,8 +128,7 @@ class _NewCategoryState extends State<NewCategory> {
                 text: "Add",
                 bottom: 80,
                 onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => CategorySetting()));
+                  Navigator.pushReplacementNamed(context, '/categorysetting');
                 },
                 color: AppColors.mainColor,
                 textColor: Colors.white)

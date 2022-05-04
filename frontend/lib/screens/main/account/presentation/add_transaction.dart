@@ -23,80 +23,88 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CloseAppBar(title: "Add Transactions"),
-      body: ListView(
-        children: [Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-          child: Column(
-
-            children: [
-              SizedBox(
-                height: 55,
+        appBar: CloseAppBar(title: "Add Transactions"),
+        body: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 55,
+                  ),
+                  DropdownButtons(
+                    title: "transaction type",
+                    hinttext: "",
+                    value: _transactionval,
+                    onChanged: (value) {
+                      setState(() {
+                        _transactionval = value;
+                      });
+                    },
+                    item: _types.map((value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  DropdownButtons(
+                    title: "Category",
+                    hinttext: "",
+                    value: _categoryval,
+                    onChanged: (value) {
+                      setState(() {
+                        _categoryval = value;
+                      });
+                    },
+                    item: _category_types.map((value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  textInputField(
+                    title: "Amount",
+                    obscure: false,
+                    text: 'test',
+                    onChanged: (e) {
+                      print("text");
+                    },
+                  ),
+                  textInputField(
+                    title: "Name",
+                    obscure: false,
+                    text: 'test',
+                    onChanged: (e) {
+                      print("text");
+                    },
+                  ),
+                  DatePicker(),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  RoundedButton(
+                      text: "Add",
+                      bottom: 30,
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/mainpage');
+                      },
+                      color: AppColors.mainColor,
+                      textColor: Colors.white)
+                ],
               ),
-              DropdownButtons(
-                title: "transaction type",
-                hinttext: "",
-                value: _transactionval,
-                onChanged: (value) {
-                  setState(() {
-                    _transactionval = value;
-                  });
+            ),
+            RoundedButton(
+                text: "Add",
+                bottom: 10,
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/mainpage');
                 },
-                item: _types.map((value) {
-                  return DropdownMenuItem(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              DropdownButtons(
-                title: "Category",
-                hinttext: "",
-                value: _categoryval,
-                onChanged: (value) {
-                  setState(() {
-                    _categoryval = value;
-                  });
-                },
-                item: _category_types.map((value) {
-                  return DropdownMenuItem(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              textInputField(
-                title: "Amount",
-                obscure: false,
-                text: 'test',
-                onChanged: (e) {
-                  print("text");
-                },
-              ),
-              textInputField(
-                title: "Name",
-                obscure: false,
-                text: 'test',
-                onChanged: (e) {
-                  print("text");
-                },
-              ),
-              DatePicker(),
-              SizedBox(
-                height: 50,
-              ),
-              RoundedButton(
-                  text: "Add",
-                  bottom: 30,
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/mainpage');
-                  },
-                  color: AppColors.mainColor,
-                  textColor: Colors.white)
-            ],
-          ),
-        ),]
-      ),
-    );
+                color: AppColors.mainColor,
+                textColor: Colors.white)
+          ],
+        ));
   }
 }
