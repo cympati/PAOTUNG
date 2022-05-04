@@ -107,7 +107,7 @@ class _NewCategoryState extends State<NewCategory> {
                                       ElevatedButton(
                                           child: const Text('DONE'),
                                           onPressed: () {
-                                            Navigator.popAndPushNamed(
+                                            Navigator.pushReplacementNamed(
                                                 context, '/categorysetting');
                                           })
                                     ],

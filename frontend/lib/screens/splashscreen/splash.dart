@@ -14,15 +14,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   _SplashScreenState() {
     async.Timer(const Duration(milliseconds: 2000), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Onboarding()));
+      Navigator.pushReplacementNamed(context, '/welcome');
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.mainColor,
-      body:  const Center(
+      body: const Center(
           child: Text(
         "PAOTUNG",
         style: TextStyle(

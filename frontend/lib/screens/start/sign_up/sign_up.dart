@@ -35,8 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.initState();
     _recognizer = TapGestureRecognizer()
       ..onTap = () {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
+        Navigator.pushReplacementNamed(context, '/login');
       };
   }
 
@@ -45,74 +44,73 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            //Signup Title
-            SizedBox(
-              height: 80,
-            ),
-            AuthenTitle(
-                title: "Create Account",
-                description: "register PAOTUNG to be rich 🤑 "),
-            SizedBox(
-              height: 20,
-            ),
-            //Input text
-            textInputField(
-                title: "Email",
-                obscure: false,
-                text: '',
-                onChanged: (value) {},
-                formKey: _emailKey),
-            textInputField(
-              title: "Username",
+        children: <Widget>[
+          //Signup Title
+          SizedBox(
+            height: 80,
+          ),
+          AuthenTitle(
+              title: "Create Account",
+              description: "register PAOTUNG to be rich 🤑 "),
+          SizedBox(
+            height: 20,
+          ),
+          //Input text
+          textInputField(
+              title: "Email",
               obscure: false,
               text: '',
               onChanged: (value) {},
-              formKey: _usernameKey,
+              formKey: _emailKey),
+          textInputField(
+            title: "Username",
+            obscure: false,
+            text: '',
+            onChanged: (value) {},
+            formKey: _usernameKey,
+          ),
+          textInputField(
+            title: "Password",
+            obscure: true,
+            text: '',
+            onChanged: (value) {},
+            formKey: _passwordKey,
+          ),
+          textInputField(
+            title: "Confirm Password",
+            obscure: true,
+            text: '',
+            onChanged: (value) {},
+            formKey: _confirmKey,
+          ),
+          //Go to login page
+          const Spacer(),
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.only(bottom: 20),
+            child: RichText(
+              text: TextSpan(children: <TextSpan>[
+                const TextSpan(
+                    text: "Already have an accout? ",
+                    style: TextStyle(color: Colors.grey)),
+                TextSpan(
+                    text: "Log in",
+                    style: TextStyle(color: AppColors.mainColor),
+                    recognizer: _recognizer)
+              ]),
             ),
-            textInputField(
-              title: "Password",
-              obscure: true,
-              text: '',
-              onChanged: (value) {},
-              formKey: _passwordKey,
-            ),
-            textInputField(
-              title: "Confirm Password",
-              obscure: true,
-              text: '',
-              onChanged: (value) {},
-              formKey: _confirmKey,
-            ),
-            //Go to login page
-            const Spacer(),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(bottom: 20),
-              child: RichText(
-                text: TextSpan(children: <TextSpan>[
-                  const TextSpan(
-                      text: "Already have an accout? ",
-                      style: TextStyle(color: Colors.grey)),
-                  TextSpan(
-                      text: "Log in",
-                      style: TextStyle(color: AppColors.mainColor),
-                      recognizer: _recognizer)
-                ]),
-              ),
-            ),
-            //Button
-            RoundedButton(
-                text: "Create Account",
-                bottom: 60,
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => MainPage()));
-                },
-                color: AppColors.mainColor,
-                textColor: Colors.white)
-          ],
-        ),
+          ),
+          //Button
+          RoundedButton(
+              text: "Create Account",
+              bottom: 60,
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/mainpage');
+              },
+              color: AppColors.mainColor,
+              textColor: Colors.white)
+        ],
+      ),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
 import 'package:paotung_frontend/screens/help_center/help_center.dart';
 import 'package:paotung_frontend/screens/splashscreen/splash.dart';
+import 'package:paotung_frontend/screens/start/login/login.dart';
 import 'package:paotung_frontend/screens/welcome/onboarding.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 
@@ -24,6 +25,7 @@ class RouteConstant {
       '/helpcenter': (_) => const HelpCenter(),
       '/notisetting': (_) => const NotificationSetting(),
       '/showtransaction': (_) => const ShowTransaction(),
+      '/login': (_) => const LoginScreen(),
     };
   }
 }
