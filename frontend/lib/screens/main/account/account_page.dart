@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/screens/main/account/presentation/add_transaction.dart';
 import 'package:paotung_frontend/widgets/main/account/expense_tab.dart';
 
 class AccountPage extends StatefulWidget {
@@ -45,6 +46,14 @@ class _AccountPageState extends State<AccountPage> {
           )
         ),  
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddTransaction()));
+        },
+        backgroundColor: AppColors.mainColor,
+        child: Icon(Icons.add),
       ),
     );
   }

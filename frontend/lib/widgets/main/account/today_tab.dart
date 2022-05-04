@@ -12,7 +12,7 @@ class TodayTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text("Today", style: TextStyle(color: AppColors.grey, fontSize: 14),)
+          Text("Today", style: TextStyle(color: AppColors.grey, fontSize: 14),),
           
         ],
       ),

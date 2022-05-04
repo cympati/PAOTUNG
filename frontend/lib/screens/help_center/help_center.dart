@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/widgets/common/my_custom_expansion_tile.dart';
+import 'package:paotung_frontend/widgets/common/text_title.dart';
 import '../../constants/theme.dart';
 
 class HelpCenter extends StatelessWidget {
@@ -11,17 +12,9 @@ class HelpCenter extends StatelessWidget {
       body: Column(
         children: <Widget>[
           //Don't forget to add Appbar widgets that YOK have been created
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            height: 100,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "FAQ",
-              style: TextStyle(
-                  color: AppColors.mainColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold),
-            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 30.0),
+            child: TextTitle(title: "FAQ", size: 32),
           ),
           Theme(
               data: ThemeData(
