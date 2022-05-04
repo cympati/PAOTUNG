@@ -33,6 +33,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.white,
           type: BottomNavigationBarType.fixed,
           onTap: onTap,
           currentIndex: currentIndex,
@@ -43,7 +44,7 @@ class _MainPageState extends State<MainPage> {
           selectedFontSize: 12,
           unselectedFontSize: 12,
           elevation: 8,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               label: "Account",
               icon: Icon(

@@ -9,7 +9,6 @@ import 'package:paotung_frontend/widgets/common/list_item.dart';
 import 'package:paotung_frontend/widgets/common/text_title.dart';
 import 'package:paotung_frontend/widgets/main/profile/profile.dart';
 
-
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
 
@@ -34,7 +33,8 @@ class _MyPageState extends State<MyPage> {
             ),
             //list
             listItem(title: "Category Setting", routes: CategorySetting()),
-            listItem(title: "Notification Setting", routes: NotificationSetting()),
+            listItem(
+                title: "Notification Setting", routes: NotificationSetting()),
             listItem(title: "Help Center", routes: HelpCenter()),
             //Log out
             InkWell(

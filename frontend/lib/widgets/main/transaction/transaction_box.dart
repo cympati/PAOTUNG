@@ -7,7 +7,7 @@ class TransactionBox extends StatelessWidget {
   final String title;
   final String text;
   final Color color;
-  final String amount;
+  final double amount;
   const TransactionBox({
     Key? key,
     required this.color,
@@ -21,7 +21,7 @@ class TransactionBox extends StatelessWidget {
     // double number = amount;
     // String str = number.toString();
     return Padding(
-      padding: const EdgeInsets.symmetric( vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
       child: Row(
         children: [
           Row(
@@ -49,7 +49,7 @@ class TransactionBox extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            amount,
+            amount.toString(),
             style: TextStyle(fontSize: 16, color: AppColors.thirdaryColor),
           )
         ],

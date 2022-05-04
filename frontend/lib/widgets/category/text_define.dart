@@ -11,7 +11,7 @@ class TextDefine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Row(
         children: [
           Text(categotyText),

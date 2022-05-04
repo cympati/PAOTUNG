@@ -24,7 +24,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           child: ListView(
             children: [
               //App bar
-              BackwardAppbar(title: "Edit Profile"),
+              BackwardAppBar(title: "Edit Profile"),
               //Picture
               EditProfilePic(imagePath: user.imagePath, ),
               SizedBox(height: 48,),

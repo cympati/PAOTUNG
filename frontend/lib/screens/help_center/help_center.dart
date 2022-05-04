@@ -10,6 +10,9 @@ class HelpCenter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: BackwardAppBar(
+        title: "Help Center",
+      ),
       body: Column(
         children: <Widget>[
           BackwardAppbar(title: "Help Center"),
@@ -22,22 +25,19 @@ class HelpCenter extends StatelessWidget {
                   unselectedWidgetColor: AppColors.mainColor,
                   primarySwatch: Colors.grey,
                   dividerColor: Colors.transparent),
-              child: const MyCustomeExpandTile()
-          ),
+              child: const MyCustomeExpandTile()),
           Theme(
               data: ThemeData(
                   unselectedWidgetColor: AppColors.mainColor,
                   primarySwatch: Colors.grey,
                   dividerColor: Colors.transparent),
-              child: const MyCustomeExpandTile()
-          ),
+              child: const MyCustomeExpandTile()),
           Theme(
               data: ThemeData(
                   unselectedWidgetColor: AppColors.mainColor,
                   primarySwatch: Colors.grey,
                   dividerColor: Colors.transparent),
-              child: const MyCustomeExpandTile()
-          ),
+              child: const MyCustomeExpandTile()),
         ],
       ),
     );
