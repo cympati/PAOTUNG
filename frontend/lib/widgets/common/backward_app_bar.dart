@@ -6,28 +6,31 @@ class BackwardAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BackwardAppBar({Key? key, required this.title}) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(60.0);
+  Size get preferredSize => Size.fromHeight(70.0);
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      title: Text(title),
-      centerTitle: true,
-      titleTextStyle: TextStyle(
-          color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
-      elevation: 0,
-      leading: new IconButton(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-        icon: Icon(
-          Icons.navigate_before_rounded,
-          color: Colors.black,
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(title),
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+            color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
+        elevation: 0,
+        leading: new IconButton(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          icon: Icon(
+            Icons.navigate_before_rounded,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
       ),
     );
   }

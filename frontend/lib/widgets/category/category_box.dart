@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:paotung_frontend/widgets/category/colordot.dart';
 
 class CategoryBox extends StatelessWidget {
@@ -36,5 +37,3 @@ class CategoryBox extends StatelessWidget {
     );
   }
 }
-
-

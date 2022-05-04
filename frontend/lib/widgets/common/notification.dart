@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paotung_frontend/constants/theme.dart';
 
 class NotificationTitle extends StatelessWidget {
   final String title;
@@ -6,20 +7,29 @@ class NotificationTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-      child: Row(
-        children: [
-         Text(title),
-         const Spacer(),
-          IconButton(
-            icon: const Icon(
-              Icons.close,
-              color: Colors.grey,
-            ),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pop();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: AppColors.lightgrey))),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(title,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                      decoration: TextDecoration.none)),
+              const Icon(Icons.close),
+            ],
+          ),
+        ),
       ),
     );
   }

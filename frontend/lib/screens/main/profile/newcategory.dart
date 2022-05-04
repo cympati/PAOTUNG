@@ -43,9 +43,7 @@ class _NewCategoryState extends State<NewCategory> {
             title: "Category",
             obscure: false,
             text: '',
-            onChanged: (value){
-
-            },
+            onChanged: (value) {},
           ),
           DropdownButtons(
             title: "Transaction type",
@@ -81,7 +79,10 @@ class _NewCategoryState extends State<NewCategory> {
                           color: mycolor,
                         ),
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.arrow_drop_down_outlined),
+                          icon: Icon(
+                            Icons.arrow_drop_down_outlined,
+                            size: 30,
+                          ),
                           onPressed: () {
                             showDialog(
                                 context: context,
