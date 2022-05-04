@@ -25,6 +25,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               //App bar
               BackwardAppBar(title: "Edit Profile"),
+              Container(
+                height: 40,
+              ),
               //Picture
               EditProfilePic(imagePath: user.imagePath, ),
               SizedBox(height: 48,),
@@ -33,7 +36,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               textInputField(title: "Username", obscure: false, text: user.username, onChanged: (value){}),
               textInputField(title: "Password", obscure: true, text: "", onChanged: (value){}),
               textInputField(title: "Confirm Password", obscure: true, text: "", onChanged: (value){}),
-              SizedBox(height: 60,),
+              SizedBox(height: 50,),
               //Log out
               RoundedButton(
                 text: "Save", 
@@ -41,7 +44,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => MainPage())));}, 
                   color: AppColors.mainColor, 
                   textColor: Colors.white, bottom: 0,
-                )
+                ),
+              Container(
+                height: 40,
+              ),
             ],
           ),
     

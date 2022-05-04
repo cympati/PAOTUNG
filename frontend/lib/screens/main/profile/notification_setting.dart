@@ -20,12 +20,12 @@ class _NotificationSettingState extends State<NotificationSetting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const BackwardAppBar(title: "Notification Setting"),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 15,
-          horizontal: 40,
-        ),
-        child: Column(
+      body: ListView(
+        // padding: const EdgeInsets.symmetric(
+        //   vertical: 15,
+        //   horizontal: 40,
+        // ),
+        children: [Column(
           children: [
             TextDefine(
                 categotyText: "All Notifications", buttonText: "Clear All"),
@@ -33,7 +33,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
             NotificationTitle(title: "Saving 5 THB"),
             NotificationTitle(title: "Don't forget to record!"),
           ],
-        ),
+        ),]
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

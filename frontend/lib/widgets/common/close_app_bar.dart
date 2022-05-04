@@ -14,7 +14,7 @@ class CloseAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 45),
       child: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -25,7 +25,7 @@ class CloseAppBar extends StatelessWidget implements PreferredSizeWidget {
         titleTextStyle: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.w500,
-          fontSize: 20,
+          fontSize: 22,
         ),
         elevation: 0,
         actions: [

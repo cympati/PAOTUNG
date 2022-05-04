@@ -7,8 +7,8 @@ class ColorDots extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20,
-      width: 20,
+      height: 24,
+      width: 24,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20), color: Color(color)),
     );

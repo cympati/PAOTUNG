@@ -56,7 +56,7 @@ class _CategorySettingState extends State<CategorySetting> {
           const BackwardAppBar(title: "Category Setting"),
           const TextDefine(categotyText: "Income", buttonText: "Clear All"),
           Container(
-            height: 10,
+            height: 5,
           ),
           // ..._categoriesExpense.map((category) {
           // return CategoryBox(color: category.color, name: category.name);
@@ -65,7 +65,7 @@ class _CategorySettingState extends State<CategorySetting> {
           const CategoryBox(color: 4293673082, name: "Bonus"),
           const CategoryBox(color: 2321232132, name: "Collect"),
           Container(
-            height: 40,
+            height: 30,
           ),
           // const Spacer(),
           const TextDefine(categotyText: "Expense", buttonText: "Clear All"),

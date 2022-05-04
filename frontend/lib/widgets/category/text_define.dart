@@ -11,10 +11,10 @@ class TextDefine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.only(top: 30, bottom: 10, left: 40, right: 40),
       child: Row(
         children: [
-          Text(categotyText, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: AppColors.mainColor),
+          Text(categotyText, style: TextStyle(fontSize: 16,color: AppColors.mainColor),
           ),
           const Spacer(),
           FlatButton(

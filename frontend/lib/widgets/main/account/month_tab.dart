@@ -8,7 +8,7 @@ class MonthTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 32),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -37,6 +37,7 @@ class MonthTab extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          Container(height: 20,),
           Text(
             "Tue,12 Feb 2022",
             style: TextStyle(color: AppColors.grey, fontSize: 14),
