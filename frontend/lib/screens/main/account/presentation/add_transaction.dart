@@ -68,7 +68,7 @@ class _AddTransactionState extends State<AddTransaction> {
                   textInputField(
                     title: "Amount",
                     obscure: false,
-                    text: 'test',
+                    text: '',
                     onChanged: (e) {
                       print("text");
                     },
@@ -76,7 +76,7 @@ class _AddTransactionState extends State<AddTransaction> {
                   textInputField(
                     title: "Name",
                     obscure: false,
-                    text: 'test',
+                    text: '',
                     onChanged: (e) {
                       print("text");
                     },
@@ -96,14 +96,6 @@ class _AddTransactionState extends State<AddTransaction> {
                 ],
               ),
             ),
-            RoundedButton(
-                text: "Add",
-                bottom: 10,
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/mainpage');
-                },
-                color: AppColors.mainColor,
-                textColor: Colors.white)
           ],
         ));
   }
