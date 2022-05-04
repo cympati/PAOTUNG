@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/screens/category/category_setting.dart';
 import 'package:paotung_frontend/screens/help_center/help_center.dart';
 import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
 import 'package:paotung_frontend/screens/start/login/login.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/widgets/common/list_item.dart';
+import 'package:paotung_frontend/widgets/common/text_title.dart';
 import 'package:paotung_frontend/widgets/main/profile/profile.dart';
-
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -26,18 +25,7 @@ class _MyPageState extends State<MyPage> {
         child: Column(
           children: [
             //Title
-            Container(
-              height: 100,
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Profile",
-                style: TextStyle(
-                    color: AppColors.mainColor,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none),
-              ),
-            ),
+            TextTitle(title: "Profile", size: 24),
             //User pic & username
             profileSection(),
             SizedBox(
@@ -45,7 +33,8 @@ class _MyPageState extends State<MyPage> {
             ),
             //list
             listItem(title: "Category Setting", routes: CategorySetting()),
-            listItem(title: "Notification Setting", routes: NotificationSetting()),
+            listItem(
+                title: "Notification Setting", routes: NotificationSetting()),
             listItem(title: "Help Center", routes: HelpCenter()),
             //Log out
             InkWell(
