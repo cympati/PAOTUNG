@@ -10,6 +10,7 @@ import 'package:paotung_frontend/screens/start/login/login.dart';
 import 'package:paotung_frontend/screens/welcome/onboarding.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 
+import '../screens/main/profile/profile_page.dart';
 import '../screens/start/sign_up/sign_up.dart';
 
 class RouteConstant {
@@ -26,6 +27,7 @@ class RouteConstant {
       '/notisetting': (_) => const NotificationSetting(),
       '/showtransaction': (_) => const ShowTransaction(),
       '/login': (_) => const LoginScreen(),
+      '/profile': (_) => const MyPage(),
     };
   }
 }

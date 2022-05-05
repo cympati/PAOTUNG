@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
-class listItem extends StatelessWidget {
+class ListItem extends StatelessWidget {
 
   final String title;
   final Widget routes;
 
-  const listItem({ Key? key, required this.title, required this.routes }) : super(key: key);
+  const ListItem({ Key? key, required this.title, required this.routes }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

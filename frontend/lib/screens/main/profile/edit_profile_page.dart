@@ -63,7 +63,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             RoundedButton(
               text: "Save",
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/mainpage');
+                Navigator.pop(context);
               },
               color: AppColors.mainColor,
               textColor: Colors.white,

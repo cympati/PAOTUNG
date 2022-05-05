@@ -21,7 +21,7 @@ class TextDefine extends StatelessWidget {
               // textColor: AppColors.mainColor,
               child: Text(buttonText, style:  TextStyle(fontSize: 14, color: AppColors.grey),),
               onPressed: () {
-                print("Delete category");
+                print("Delete all");
               }),
         ],
       ),

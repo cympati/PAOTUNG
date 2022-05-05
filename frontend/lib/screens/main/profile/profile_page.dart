@@ -19,8 +19,8 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
+    return ListView(
+      children: [Padding(
         padding: EdgeInsets.symmetric(vertical: 32.0, horizontal: 40.0),
         child: Column(
           children: [
@@ -32,10 +32,10 @@ class _MyPageState extends State<MyPage> {
               height: 55,
             ),
             //list
-            listItem(title: "Category Setting", routes: CategorySetting()),
-            listItem(
+            ListItem(title: "Category Setting", routes: CategorySetting()),
+            ListItem(
                 title: "Notification Setting", routes: NotificationSetting()),
-            listItem(title: "Help Center", routes: HelpCenter()),
+            ListItem(title: "Help Center", routes: HelpCenter()),
             //Log out
             InkWell(
               onTap: () {
@@ -59,7 +59,7 @@ class _MyPageState extends State<MyPage> {
             ),
           ],
         ),
-      ),
+      ),]
     );
   }
 }

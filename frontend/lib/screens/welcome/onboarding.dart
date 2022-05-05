@@ -71,7 +71,7 @@ class _OnboardingState extends State<Onboarding> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(bottom: 180),
+            margin: const EdgeInsets.only(bottom: 80),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
