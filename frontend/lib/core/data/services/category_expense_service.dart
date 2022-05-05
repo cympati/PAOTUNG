@@ -2,21 +2,15 @@ import '../models/category/categories.dart';
 import 'package:dio/dio.dart';
 
 class GetCategoryExpenseService {
-  static Future<Map<String, dynamic>> getData() async {
+  static Future<List<dynamic>> getData() async {
     Response response =
     await Dio().get('https://wwwii.bsthun.com/mock/paotung/expense.json');
     return response.data;
   }
 
-  static List<Categories> getCategoriesExpense(data) {
-    List<dynamic> categoriesExpenseData = data["categories_expense"];
-    List<Categories> tempCategoriesExpense = categoriesExpenseData.map((category) {
-      return Categories(
-        id: category["id"],
-        name: category["name"],
-        color: category["color"],
-      );
-    }).toList();
+  static List<Categories> getCategories(data) {
+    List list = data;
+    List<Categories> tempCategoriesExpense = list.map((category) => Categories.fromJson(category)).toList();
     return tempCategoriesExpense;
   }
 }

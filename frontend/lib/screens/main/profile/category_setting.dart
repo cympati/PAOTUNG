@@ -30,20 +30,13 @@ class _CategorySettingState extends State<CategorySetting> {
   }
 
   Future<void> _readJson() async {
-    // var responseCategoriesExpense = await GetCategoryExpenseService.getData();
-    // var responseCategoriesIncome = await GetCategoryIncomeService.getData();
+    var responseCategoriesExpense = await GetCategoryExpenseService.getData();
+    var responseCategoriesIncome = await GetCategoryIncomeService.getData();
     if (mounted) {
       setState(() {
-        _categoriesExpense = [
-          Categories(id: 1, name: "Phone bill", color: 4545124)
-        ];
-        _categoriesIncome = [
-          Categories(id: 1, name: "Phone bill", color: 4545124)
-        ];
-        // _categoriesExpense = GetCategoryExpenseService.getCategories(responseCategoriesExpense);
-        // _categoriesIncome = GetCategoryIncomeService.getCategories(responseCategoriesIncome);
+        _categoriesExpense = GetCategoryExpenseService.getCategories(responseCategoriesExpense);
+        _categoriesIncome = GetCategoryIncomeService.getCategories(responseCategoriesIncome);
       });
-      print(_categoriesExpense);
     }
   }
 
@@ -58,12 +51,12 @@ class _CategorySettingState extends State<CategorySetting> {
           Container(
             height: 5,
           ),
-          // ..._categoriesExpense.map((category) {
-          // return CategoryBox(color: category.color, name: category.name);
-          // }).toList(),
-          const CategoryBox(color: 4280731354, name: "Salary"),
-          const CategoryBox(color: 4293673082, name: "Bonus"),
-          const CategoryBox(color: 2321232132, name: "Collect"),
+          ..._categoriesExpense.map(( category) {
+          return CategoryBox(color: category.color, name: category.name);
+          }).toList(),
+          // const CategoryBox(color: 4280731354, name: "Salary"),
+          // const CategoryBox(color: 4293673082, name: "Bonus"),
+          // const CategoryBox(color: 2321232132, name: "Collect"),
           Container(
             height: 30,
           ),
@@ -73,12 +66,12 @@ class _CategorySettingState extends State<CategorySetting> {
             height: 10,
           ),
 
-          // ..._categoriesIncome.map((category) {
-          //   return CategoryBox(color: category.color, name: category.name);
-          // }).toList(),
-          const CategoryBox(color: 2394369343, name: "Personal"),
-          const CategoryBox(color: 4294361096, name: "Buy new phone"),
-          const CategoryBox(color: 4286141768, name: "Shopping"),
+          ..._categoriesIncome.map((category) {
+            return CategoryBox(color: category.color, name: category.name);
+          }).toList(),
+          // const CategoryBox(color: 2394369343, name: "Personal"),
+          // const CategoryBox(color: 4294361096, name: "Buy new phone"),
+          // const CategoryBox(color: 4286141768, name: "Shopping"),
         ],
       ),
       floatingActionButton: FloatingActionButton(
