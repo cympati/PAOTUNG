@@ -54,9 +54,6 @@ class _CategorySettingState extends State<CategorySetting> {
           ..._categoriesExpense.map(( category) {
           return CategoryBox(color: category.color, name: category.name);
           }).toList(),
-          // const CategoryBox(color: 4280731354, name: "Salary"),
-          // const CategoryBox(color: 4293673082, name: "Bonus"),
-          // const CategoryBox(color: 2321232132, name: "Collect"),
           Container(
             height: 30,
           ),
@@ -69,9 +66,9 @@ class _CategorySettingState extends State<CategorySetting> {
           ..._categoriesIncome.map((category) {
             return CategoryBox(color: category.color, name: category.name);
           }).toList(),
-          // const CategoryBox(color: 2394369343, name: "Personal"),
-          // const CategoryBox(color: 4294361096, name: "Buy new phone"),
-          // const CategoryBox(color: 4286141768, name: "Shopping"),
+          Container(
+            height: 60,
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
