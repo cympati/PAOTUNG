@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
 class NotificationTitle extends StatelessWidget {
-  final String title;
-  const NotificationTitle({Key? key, required this.title}) : super(key: key);
+  final String name;
+  const NotificationTitle({Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class NotificationTitle extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
+                          name,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
