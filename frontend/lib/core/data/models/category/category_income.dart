@@ -7,6 +7,7 @@ class PieData {
     Data(name: 'Salary', percent: 15, color: Colors.black),
     Data(name: 'Invest', percent: 15, color: const Color(0xff13d38e)),
     Data(name: 'Saving', percent: 50, color: Colors.pink),
+    Data(name: 'Others', percent: 50, color: Colors.purple),
   ];
 }
 
