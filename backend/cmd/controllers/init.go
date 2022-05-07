@@ -17,7 +17,7 @@ func Init(router fiber.Router) {
 	//
 	//// * Profile
 	profile := router.Group("profile/", middlewares.Jwt)
-	//profile.Get("info/:user_id", profile.GetHandler)
+	profile.Get("info", Profile.GetHandler)
 	profile.Patch("update", Profile.PatchHandler)
 	//
 	//// * Transaction
