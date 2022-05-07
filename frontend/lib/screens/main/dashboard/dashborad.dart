@@ -19,13 +19,13 @@ class _DashboardState extends State<Dashboard> {
             child: Column(children: <Widget>[
       const Padding(
         padding: EdgeInsets.only(left: 32, top: 32, right: 32),
-        child: TextTitle(title: "My finance", size: 24),
+        child: TextTitle(title: "My Finance", size: 24),
       ),
       // const SizedBox(
       //   height: 24,
       // ),
       Container(
-          padding: EdgeInsets.only(left: 32, right: 32),
+          padding: const EdgeInsets.only(left: 32, right: 32),
           child: Column(
             children: <Widget>[
               Container(

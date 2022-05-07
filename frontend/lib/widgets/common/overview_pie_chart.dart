@@ -42,58 +42,61 @@ class OverviewPieChartState extends State {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.3,
-      child: Card(
-        color: AppColors.lightgrey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          children: <Widget>[
-            const SizedBox(
-              height: 16,
-            ),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: SizedBox(
-                  child: PieChart(
-                    PieChartData(
-                        pieTouchData: PieTouchData(touchCallback:
-                            (FlTouchEvent event, pieTouchResponse) {
-                          setState(() {
-                            if (!event.isInterestedForInteractions ||
-                                pieTouchResponse == null ||
-                                pieTouchResponse.touchedSection == null) {
-                              touchedIndex = -1;
-                              return;
-                            }
-                            touchedIndex = pieTouchResponse
-                                .touchedSection!.touchedSectionIndex;
-                          });
-                        }),
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
-                        sectionsSpace: 0,
-                        centerSpaceRadius: 18,
-                        sections: getSections()),
+      child: SizedBox(
+        width: 800,
+        child: Card(
+          color: AppColors.lightgrey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: <Widget>[
+              const SizedBox(
+                height: 16,
+              ),
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: SizedBox(
+                    child: PieChart(
+                      PieChartData(
+                          pieTouchData: PieTouchData(touchCallback:
+                              (FlTouchEvent event, pieTouchResponse) {
+                            setState(() {
+                              if (!event.isInterestedForInteractions ||
+                                  pieTouchResponse == null ||
+                                  pieTouchResponse.touchedSection == null) {
+                                touchedIndex = -1;
+                                return;
+                              }
+                              touchedIndex = pieTouchResponse
+                                  .touchedSection!.touchedSectionIndex;
+                            });
+                          }),
+                          borderData: FlBorderData(
+                            show: false,
+                          ),
+                          sectionsSpace: 0,
+                          centerSpaceRadius: 18,
+                          sections: getSections()),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Indicators(),
-                const Padding(padding: EdgeInsets.symmetric(vertical: 16)),
-              ],
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-          ],
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Indicators(),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 16)),
+                ],
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+            ],
+          ),
         ),
       ),
     );

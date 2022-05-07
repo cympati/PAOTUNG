@@ -2,6 +2,8 @@ import 'package:paotung_frontend/core/data/models/category/category_expense.dart
 import 'package:flutter/material.dart';
 
 class Indicators extends StatelessWidget {
+  const Indicators({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
