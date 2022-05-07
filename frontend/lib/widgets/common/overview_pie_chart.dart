@@ -12,6 +12,7 @@ class OverviewPieChart extends StatefulWidget {
 }
 
 class OverviewPieChartState extends State {
+  
   List<PieChartSectionData> getSections() => PieData.data
       .asMap()
       .map<int, PieChartSectionData>((index, data) {
@@ -87,9 +88,9 @@ class OverviewPieChartState extends State {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: const <Widget>[
                   Indicators(),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 16)),
+                  Padding(padding: EdgeInsets.symmetric(vertical: 16)),
                 ],
               ),
               const SizedBox(
