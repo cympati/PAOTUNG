@@ -16,50 +16,51 @@ class MonthTab extends StatelessWidget {
             "Today",
             style: TextStyle(color: AppColors.grey, fontSize: 14),
           ),
-          const TransactionBox(
-            color: 4280731354,
-            text: "Salary",
-            title: "Part time",
-            amount: 300.00,
-          ),
-          const TransactionBox(
-            color: 4293673082,
-            text: "Coffee",
-            title: "Starbuck",
-            amount: -150.00,
-          ),
-          const TransactionBox(
-            color: 2321232132,
-            text: "Personal",
-            title: "Shopping",
-            amount: -250.00,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(height: 20,),
-          Text(
-            "Tue,12 Feb 2022",
-            style: TextStyle(color: AppColors.grey, fontSize: 14),
-          ),
-          const TransactionBox(
-            color: 2394369343,
-            text: "Salary",
-            title: "Part time",
-            amount: 300.00,
-          ),
-          const TransactionBox(
-            color: 4294361096,
-            text: "Coffee",
-            title: "Starbuck",
-            amount: -150.00,
-          ),
-          const TransactionBox(
-            color: 4286141768,
-            text: "Personal",
-            title: "Shopping",
-            amount: -250.00,
-          ),
+          // const TransactionBox(
+          //   color: 4280731354,
+          //   text: "Salary",
+          //   title: "Part time",
+          //   amount: 300.00,
+          // ),
+          // const TransactionBox(
+          //   color: 4293673082,
+          //   text: "Coffee",
+          //   title: "Starbuck",
+          //   amount: -150.00,
+          // ),
+          // const TransactionBox(
+          //   color: 2321232132,
+          //   text: "Personal",
+          //   title: "Shopping",
+          //   amount: -250.00,
+          // ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // Container(height: 20,),
+          // Text(
+          //   "Tue,12 Feb 2022",
+          //   style: TextStyle(color: AppColors.grey, fontSize: 14),
+          // ),
+          // const TransactionBox(
+          //   color: 2394369343,
+          //   text: "Salary",
+          //   title: "Part time",
+          //   amount: 300.00,
+          // ),
+          // const TransactionBox(
+          //   color: 4294361096,
+          //   text: "Coffee",
+          //   title: "Starbuck",
+          //   amount: -150.00,
+          // ),
+          // const TransactionBox(
+          //   color: 4286141768,
+          //   text: "Personal",
+          //   title: "Shopping",
+          //   amount: -250.00,
+          // ),
+          
         ],
       ),
     );
