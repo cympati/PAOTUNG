@@ -1,7 +1,6 @@
 package category
 
 import (
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/common"
@@ -16,17 +15,17 @@ func GetIncomeHandler(c *fiber.Ctx) error {
 
 	// * Select top 4 category of income
 	var categoryList []*category.CategoryList
-	totalEachCategoryResult := database.Gorm.Limit(4).Table("transactions").
+	categoryListResult := database.Gorm.Limit(4).Table("transactions").
 		Select("sum(transactions.amount) as amount, transactions.category_id as category_id, categories.name as category_name, categories.color as category_color").
 		Where("transactions.owner_id = ? AND transactions.transaction_type = ?", claims.UserId, "income").
 		Group("category_id").
 		Joins("left join categories on categories.id = transactions.category_id").
 		Order("amount desc").Scan(&categoryList)
-	fmt.Println(categoryList)
-	if totalEachCategoryResult.Error != nil {
+	//fmt.Println(categoryList)
+	if categoryListResult.Error != nil {
 		return &common.GenericError{
 			Message: "Error querying total amount of each category",
-			Err:     totalEachCategoryResult.Error,
+			Err:     categoryListResult.Error,
 		}
 	}
 
@@ -56,5 +55,5 @@ func GetIncomeHandler(c *fiber.Ctx) error {
 		Percent:       sumPercent,
 	})
 
-	return c.JSON(common.NewInfoResponse(categoryList))
+	return c.JSON(common.NewInfoResponse(categoryList, ""))
 }

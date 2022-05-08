@@ -28,5 +28,5 @@ func GetHandler(c *fiber.Ctx) error {
 		UserName:           *user.UserName,
 		PathProfilePicture: text.NilFallback(user.PathProfilePicture),
 		Balance:            *user.Balance,
-	}))
+	}, ""))
 }

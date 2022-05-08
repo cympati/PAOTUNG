@@ -3,13 +3,14 @@ package common
 type InfoResponse struct {
 	Success bool        `json:"success"`
 	Code    string      `json:"code"`
-	Info    string      `json:"info,omitempty"`
+	Message string      `json:"message,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func NewInfoResponse(data any) *InfoResponse {
+func NewInfoResponse(data any, msg string) *InfoResponse {
 	return &InfoResponse{
 		Success: true,
+		Message: msg,
 		Code:    "DATA",
 		Data:    data,
 	}

@@ -57,5 +57,5 @@ func GetExpenseHandler(c *fiber.Ctx) error {
 		Percent:       sumPercent,
 	})
 
-	return c.JSON(common.NewInfoResponse(categoryList))
+	return c.JSON(common.NewInfoResponse(categoryList, ""))
 }

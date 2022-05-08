@@ -31,7 +31,7 @@ func Init(router fiber.Router) {
 	category := router.Group("category/", middlewares.Jwt)
 	category.Get("expense", Category.GetExpenseHandler)
 	category.Get("income", Category.GetIncomeHandler)
-	//category.Post("add", category.PostHandler)
+	category.Post("add", Category.PostHandler)
 	//category.Delete("delete/:category_id", category.DeleteByIdHandler)
 	//category.Delete("delete/all", category.DeleteAllHandler)
 	//
