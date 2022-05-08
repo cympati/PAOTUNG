@@ -12,7 +12,7 @@ class Indicators extends StatelessWidget {
               (data) => Container(
                   padding: const EdgeInsets.symmetric(vertical: 2),
                   child: buildIndicator(
-                    color: data.color,
+                    color: Color(data.color),
                     text: data.name,
                     // isSquare: true,
                   ),),

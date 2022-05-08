@@ -21,7 +21,7 @@ class OverviewPieChartState extends State {
         final double radius = isTouched ? 65 : 60;
 
         final value = PieChartSectionData(
-          color: data.color,
+          color: Color(data.color),
           value: data.percent,
           title: '${data.percent}%',
           radius: radius,

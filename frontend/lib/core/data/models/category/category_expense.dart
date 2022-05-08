@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class PieData {
   static List<Data> data = [
-    Data(name: 'Coffee', percent: 40, color: const Color(0xff0293ee)),
-    Data(name: 'Project', percent: 20, color: const Color(0xfff8b250)),
-    Data(name: 'Shopping', percent: 15, color: Colors.black),
-    Data(name: 'Spotify', percent: 15, color: const Color(0xff13d38e)),
-    Data(name: 'Electric bill', percent: 20, color: Colors.pink),
-    Data(name: 'Others', percent: 20, color: Colors.purple),
+    Data(name: 'Coffee', percent:10, color: 4278359022),
+    Data(name: 'Project', percent: 20, color: 4294488656),
+    Data(name: 'Shopping', percent: 10, color: 4278190080),
+    // Data(name: 'Spotify', percent: 15, color: 4279489422),
+    Data(name: 'Electric bill', percent: 30, color: 3911083007),
+    Data(name: 'Others', percent: 30, color: 2619846911),
   ];
 }
 
@@ -16,7 +16,7 @@ class Data {
 
   final double percent;
 
-  final Color color;
+  final int color;
 
   Data({required this.name, required this.percent, required this.color});
 }
