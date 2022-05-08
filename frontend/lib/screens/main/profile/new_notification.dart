@@ -35,22 +35,22 @@ class _NewNotificationState extends State<NewNotification> {
               text: '',
               onChanged: (value) {},
             ),
-            DropdownButtons(
-              title: "transaction type",
-              hinttext: "",
-              value: _transactionval,
-              onChanged: (value) {
-                setState(() {
-                  _transactionval = value;
-                });
-              },
-              item: _types.map((value) {
-                return DropdownMenuItem(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
+            // DropdownButtons(
+            //   title: "transaction type",
+            //   hinttext: "",
+            //   value: _transactionval,
+            //   onChanged: (value) {
+            //     setState(() {
+            //       _transactionval = value;
+            //     });
+            //   },
+            //   item: _types.map((value) {
+            //     return DropdownMenuItem(
+            //       value: value,
+            //       child: Text(value),
+            //     );
+            //   }).toList(),
+            // ),
             const DatePicker(),
             const TimePicker(),
             Spacer(),
