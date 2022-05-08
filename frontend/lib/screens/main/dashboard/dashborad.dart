@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/widgets/common/overview_pie_chart.dart';
 import 'package:paotung_frontend/widgets/common/text_title.dart';
-import '../../../widgets/common/bar_chart.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -12,36 +11,23 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.only(left: 32, top: 32, right: 32),
-        child: TextTitle(title: "My finance", size: 24),
+      const Padding(
+        padding: EdgeInsets.only(left: 32, top: 32, right: 32),
+        child: TextTitle(title: "My Finance", size: 24),
       ),
       // const SizedBox(
       //   height: 24,
       // ),
       Container(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.only(left: 32, right: 32),
           child: Column(
             children: <Widget>[
-              // Container(
-              //   height: 48,
-              //   alignment: Alignment.centerLeft,
-              //   child: const Text(
-              //     "Weekly Financial Overview",
-              //     style: TextStyle(
-              //       fontWeight: FontWeight.w500,
-              //       fontSize: 16,
-              //     ),
-              //     textAlign: TextAlign.left,
-              //   ),
-              // ),
-              // BarChartTwo(),
-              //const SizedBox(height: 24,),
               Container(
                 height: 48,
                 alignment: Alignment.centerLeft,
