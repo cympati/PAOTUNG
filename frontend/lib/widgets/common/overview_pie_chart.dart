@@ -23,7 +23,7 @@ class OverviewPieChartState extends State {
         final value = PieChartSectionData(
           color: data.color,
           value: data.percent,
-          title: '${data.percent}%',
+          title: '${data.percent.toStringAsFixed(2)}%',
           radius: radius,
           titleStyle: TextStyle(
             fontSize: fontSize,
