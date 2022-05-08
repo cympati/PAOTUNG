@@ -6,6 +6,7 @@ import (
 
 	// 	"paotung-backend/pkg/utils/config"
 	Account "paotung-backend/cmd/models/endpoints/account"
+	Category "paotung-backend/cmd/models/endpoints/category"
 	Profile "paotung-backend/cmd/models/endpoints/profile"
 )
 
@@ -27,12 +28,12 @@ func Init(router fiber.Router) {
 	//transaction.Post(":user_id", transaction.PostHandler)
 	//
 	//// * Category
-	//category := router.Group("category/", middlewares.Jwt)
-	//category.Get("info/:user_id", category.GetHandler)
-	//category.Get(":user_id/expenses", category.GetExpenseCategoryHandler)
-	//category.Get(":user_id/income", category.GetIncomeCategoryHandler)
-	//category.Post(":user_id", category.PostHandler)
-	//category.Delete(":category_id/:user_id", category.DeleteHandler)
+	category := router.Group("category/", middlewares.Jwt)
+	category.Get("expense", Category.GetExpenseHandler)
+	category.Get("income", Category.GetIncomeHandler)
+	//category.Post("add", category.PostHandler)
+	//category.Delete("delete/:category_id", category.DeleteByIdHandler)
+	//category.Delete("delete/all", category.DeleteAllHandler)
 	//
 	//// * Notification
 	//notification := router.Group("notification/", middlewares.Jwt)

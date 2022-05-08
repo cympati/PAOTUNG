@@ -10,6 +10,6 @@ type User struct {
 	Password           *string `gorm:"type:VARCHAR(255); not null"`
 	UserName           *string `gorm:"type:VARCHAR(255); index:username,unique; not null"`
 	CreatedAt          *time.Time
-	PathProfilePicture *string `gorm:"type:VARCHAR(255)"`
-	Balance            *int64  `gorm:"default:0; not null"`
+	PathProfilePicture *string  `gorm:"type:VARCHAR(255)"`
+	Balance            *float64 `gorm:"default:0.0; not null"`
 }
