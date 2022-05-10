@@ -11,7 +11,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  double balance = 2000.75;
+  double balance = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,9 @@ class _AccountPageState extends State<AccountPage> {
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
+            toolbarHeight: 120,
             floating: true,
+            pinned: true,
             expandedHeight: 250,
             backgroundColor: AppColors.mainColor,
             flexibleSpace: FlexibleSpaceBar(

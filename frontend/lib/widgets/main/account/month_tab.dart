@@ -1,9 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/core/data/models/transaction/transaction.dart';
+import 'package:paotung_frontend/core/data/services/transaction_month_service.dart';
 import 'package:paotung_frontend/widgets/main/transaction/transaction_box.dart';
+import 'package:collection/collection.dart';
 
-class MonthTab extends StatelessWidget {
+class MonthTab extends StatefulWidget {
   const MonthTab({Key? key}) : super(key: key);
+
+  @override
+  State<MonthTab> createState() => _MonthTabState();
+}
+
+class _MonthTabState extends State<MonthTab> {
+
+  List<Transactions> _transaction = [];
+  
+  void initState() {
+    _readJson();
+    super.initState();
+  }
+
+  Future<void> _readJson() async {
+    var responseTransactions = await GetTransactionMonthService.getData();
+    
+    setState(() {
+       _transaction = GetTransactionMonthService.getTransactionsMonth(responseTransactions);
+       
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +85,14 @@ class MonthTab extends StatelessWidget {
           //   title: "Shopping",
           //   amount: -250.00,
           // ),
-          
+          ..._transaction.map((transaction) {
+            return TransactionBox(
+              color: transaction.category_info.color, 
+              text: transaction.category_info.name, 
+              title: transaction.name, 
+              amount: transaction.amount
+            );
+          })
         ],
       ),
     );

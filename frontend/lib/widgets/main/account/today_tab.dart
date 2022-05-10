@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/transaction/transaction.dart';
-import 'package:paotung_frontend/core/data/services/transaction_service.dart';
+import 'package:paotung_frontend/core/data/services/transaction_today_service.dart';
 import 'package:paotung_frontend/widgets/main/transaction/transaction_box.dart';
 
 class TodayTab extends StatefulWidget {
@@ -20,10 +20,10 @@ class _TodayTabState extends State<TodayTab> {
   }
 
   Future<void> _readJson() async {
-    var responseTransactions = await GetTransactionService.getData();
+    var responseTransactions = await GetTransactionTodayService.getData();
     
       setState(() {
-        _transaction = GetTransactionService.getTransactions(responseTransactions);
+        _transaction = GetTransactionTodayService.getTransactionsToday(responseTransactions);
       });
     }
 
