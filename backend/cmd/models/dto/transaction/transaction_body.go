@@ -7,5 +7,5 @@ type TransactionRequest struct {
 	Amount          float64   `json:"amount"`
 	Name            string    `json:"name"`
 	TransactionType string    `json:"transaction_type"`
-	Date            time.Time `json:"date"`
+	Date            time.Time `json:"date"` // ISOString
 }

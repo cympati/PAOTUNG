@@ -7,3 +7,8 @@ type CategoryList struct {
 	CategoryColor uint64  `json:"category_color"`
 	Percent       float64 `json:"percent"`
 }
+
+type CategoryNameList struct {
+	Id   uint64 `json:"category_id"`
+	Name string `json:"category_name"`
+}

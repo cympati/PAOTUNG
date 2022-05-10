@@ -8,6 +8,7 @@ import (
 	Account "paotung-backend/cmd/models/endpoints/account"
 	Category "paotung-backend/cmd/models/endpoints/category"
 	Profile "paotung-backend/cmd/models/endpoints/profile"
+	Transaction "paotung-backend/cmd/models/endpoints/transaction"
 )
 
 func Init(router fiber.Router) {
@@ -22,13 +23,14 @@ func Init(router fiber.Router) {
 	profile.Patch("update", Profile.PatchHandler)
 	//
 	//// * Transaction
-	//transaction := router.Group("transaction/", middlewares.Jwt)
+	transaction := router.Group("transaction/", middlewares.Jwt)
 	//transaction.Get("info/:user_id", transaction.GetHandler)
 	//transaction.Get(":transaction_id/:user_id/week", transaction.GetTransactionWeekHandler)
-	//transaction.Post(":user_id", transaction.PostHandler)
+	transaction.Post("add", Transaction.PostHandler)
 	//
 	//// * Category
 	category := router.Group("category/", middlewares.Jwt)
+	category.Get("all", Category.GetHandler)
 	category.Get("expense", Category.GetExpenseHandler)
 	category.Get("income", Category.GetIncomeHandler)
 	category.Post("add", Category.PostHandler)
