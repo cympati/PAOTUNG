@@ -29,7 +29,7 @@ func Init() {
 	app.All("/", func(c *fiber.Ctx) error {
 		return c.JSON(common.InfoResponse{
 			Success: true,
-			Info:    "KONLAYUTH_HOMEPAGE_API_ROOT",
+			Message: "PAOTUNG_API_ROOT",
 		})
 	})
 

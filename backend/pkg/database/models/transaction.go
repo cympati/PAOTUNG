@@ -9,7 +9,7 @@ type Transaction struct {
 	TransactionType *TransactionType `gorm:"type:ENUM('income', 'expense'); not null"`
 	Name            *string          `gorm:"type:VARCHAR(255); not null"`
 	Date            *time.Time       `gorm:"not null"`
-	Amount          *uint64          `gorm:"not null"`
+	Amount          *float64         `gorm:"not null"`
 	CategoryId      *uint64          `gorm:"not null"`
 	Category        *Category        `gorm:"foreignKey:CategoryId"`
 	OwnerId         *uint64          `gorm:"not null"`
