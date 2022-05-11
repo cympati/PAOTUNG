@@ -31,7 +31,12 @@ class _TodayTabState extends State<TodayTab> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Column(
+      child: _transaction.isEmpty ? 
+      const Center(
+        heightFactor: 5,
+        child: Text("You don't have any transactions"),) 
+      :
+      Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(

@@ -34,7 +34,11 @@ class _MonthTabState extends State<MonthTab> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Column(
+      child: _transaction.isEmpty ? 
+      Center(
+        heightFactor: 5,
+        child: Text("You don't have any transactions", style: TextStyle(color: AppColors.grey),),) 
+      : Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
@@ -94,7 +98,7 @@ class _MonthTabState extends State<MonthTab> {
             );
           })
         ],
-      ),
+      )
     );
   }
 }
