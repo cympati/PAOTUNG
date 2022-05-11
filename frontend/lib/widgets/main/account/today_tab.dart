@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/transaction/transaction.dart';
 import 'package:paotung_frontend/core/data/services/transaction_today_service.dart';
+import 'package:paotung_frontend/widgets/common/default_text.dart';
 import 'package:paotung_frontend/widgets/main/transaction/transaction_box.dart';
 
 class TodayTab extends StatefulWidget {
@@ -32,9 +33,7 @@ class _TodayTabState extends State<TodayTab> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: _transaction.isEmpty ? 
-      const Center(
-        heightFactor: 5,
-        child: Text("You don't have any transactions"),) 
+      DefaultText(text: 'transactions') 
       :
       Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

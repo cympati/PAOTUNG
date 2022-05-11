@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/transaction/transaction.dart';
 import 'package:paotung_frontend/core/data/services/transaction_month_service.dart';
+import 'package:paotung_frontend/widgets/common/default_text.dart';
 import 'package:paotung_frontend/widgets/main/transaction/transaction_box.dart';
 import 'package:collection/collection.dart';
 
@@ -35,9 +36,7 @@ class _MonthTabState extends State<MonthTab> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: _transaction.isEmpty ? 
-      Center(
-        heightFactor: 5,
-        child: Text("You don't have any transactions", style: TextStyle(color: AppColors.grey),),) 
+      DefaultText(text: 'transactions') 
       : Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
