@@ -1,38 +1,38 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/core/data/models/category/piedata.dart';
-import '../../core/data/models/category/category_income.dart';
+import '../../core/data/models/category/piedata.dart';
 import 'indicator.dart';
 
 class OverviewPieChart extends StatefulWidget {
-  final int color;
-  final String name;
-  final double percent;
-  const OverviewPieChart({Key? key, required this.name, required this.color,  required this.percent}) : super(key: key);
+
+  const OverviewPieChart({Key? key, required this.piedata,}) : super(key: key);
+
+  final PieData piedata;
 
   @override
   State<StatefulWidget> createState() => OverviewPieChartState();
 }
 
-class OverviewPieChartState extends State {
+class OverviewPieChartState extends State <OverviewPieChart> {
+
   
-  List<PieChartSectionData> getSection() => PieData
+  List<PieChartSectionData> getSection() => widget.piedata.data
       .asMap()
-      .map<int, PieChartSectionData>((index, data) {
+      .map<int, PieChartSectionData>((index, piedata) {
         final isTouched = index == touchedIndex;
         final double fontSize = isTouched ? 17 : 12;
         final double radius = isTouched ? 65 : 60;
 
         final value = PieChartSectionData(
-          color: Color(data.color),
-          value: data.percent,
-          title: '${data.percent}%',
+          color: Color(piedata.color),
+          value: piedata.percent,
+          title: '${piedata.percent.toStringAsFixed(1)}%',
           radius: radius,
           titleStyle: TextStyle(
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
-            color: const Color(0xffffffff),
+            color: const Color(0xffffffff)
           ),
         );
 
@@ -85,6 +85,7 @@ class OverviewPieChartState extends State {
                           centerSpaceRadius: 18,
                           sections: getSection()),
                     ),
+                    
                   ),
                 ),
               ),
@@ -92,9 +93,9 @@ class OverviewPieChartState extends State {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
-                  Indicators(),
-                  Padding(padding: EdgeInsets.symmetric(vertical: 16)),
+                children: <Widget>[
+                  Indicators(pieData:widget.piedata),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 16)),
                 ],
               ),
               const SizedBox(

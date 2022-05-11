@@ -1,18 +1,33 @@
-import 'package:flutter/src/widgets/container.dart';
 
 class PieData {
-  String name;
+  List<Data> data = [
+    Data(name: 'Part-time', percent: 10, color: 4278359022),
+    Data(name: 'From mom', percent: 20, color: 4294488656),
+    Data(name: 'Salary', percent: 10, color: 4278190080),
+    // Data(name: 'Invest', percent: 15, color: 4279489422),
+    Data(name: 'Saving', percent: 30, color: 3911083007),
+    Data(name: 'Others', percent: 30, color: 2619846911),
+  ];
+  PieData(this.data);
+  PieData.fromJson(List<Map<String, dynamic>> jsonpiechart) {
+    var temp = jsonpiechart.map((e) => Data.fromJson(e));
+    data=[...temp];
+  }
+}
 
-  double percent;
+class Data {
+  final String name;
 
-  int color;
+  final double percent;
 
+  final int color;
 
-  PieData({required this.name, required this.percent, required this.color});
+  
 
-  factory PieData.fromJson(Map<String, dynamic> json) {
+  Data({required this.name, required this.percent, required this.color});
 
-    return PieData(
+  factory Data.fromJson(Map<String, dynamic> json) {
+    return Data(
       name: json["name"],
       percent: json["percent"],
       color: json["color"],
@@ -22,12 +37,8 @@ class PieData {
   Map<String, dynamic> toJson() {
     return {
       "name": name,
-      "percent" : percent,
+      "percent": percent,
       "color": color,
     };
   }
-
-  static asMap() {}
-
-  static map(Container Function(dynamic data) param0) {}
 }
