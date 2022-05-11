@@ -67,7 +67,7 @@ class _TodayTabState extends State<TodayTab> {
               title: transaction.name, 
               amount: transaction.amount
             );
-          })
+          }).toList()
         ],
       ),
     );

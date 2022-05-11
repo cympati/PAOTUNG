@@ -95,7 +95,7 @@ class _MonthTabState extends State<MonthTab> {
               title: transaction.name, 
               amount: transaction.amount
             );
-          })
+          }).toList()
         ],
       )
     );
