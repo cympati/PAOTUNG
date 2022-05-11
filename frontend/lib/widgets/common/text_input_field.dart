@@ -8,7 +8,9 @@ class textInputField extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final String? Function(String?)? onSaved;
   final GlobalKey<FormState>? formKey;
+  final AutovalidateMode? autovalidateMode;
 
   textInputField(
       {Key? key,
@@ -18,6 +20,8 @@ class textInputField extends StatefulWidget {
       required this.onChanged,
       this.controller,
       this.validator,
+      this.onSaved,
+      this.autovalidateMode,
       this.formKey})
       : super(key: key);
 
@@ -54,6 +58,8 @@ class _textInputFieldState extends State<textInputField> {
           children: [
             Text(widget.title),
             TextFormField(
+              autovalidateMode: widget.autovalidateMode,
+              onSaved: widget.onSaved,
               validator: widget.validator,
               controller: widget.controller,
               obscureText: widget.obscure,
