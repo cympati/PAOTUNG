@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/core/data/models/category/piedata.dart';
 import 'package:paotung_frontend/widgets/common/overview_pie_chart.dart';
 import 'package:paotung_frontend/widgets/common/text_title.dart';
+
+import '../../../core/data/services/dashboard_expense_service.dart';
+import '../../../core/data/services/dashboard_income_service.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -11,6 +15,24 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  List<PieData> _dashboardExpense = [];
+  List<PieData> _dashboardIncome = [];
+
+  void initState() {
+    _readJson();
+    super.initState();
+  }
+
+  Future<void> _readJson() async {
+    var responseDashboardExpense = await GetDashboardExpenseService.getData();
+    var responseDashboardIncome = await GetDashboardIncomeService.getData();
+    if (mounted) {
+      setState(() {
+        _dashboardExpense = GetDashboardExpenseService.getPieData(responseDashboardExpense);
+        _dashboardIncome = GetDashboardIncomeService.getPieData(responseDashboardIncome);
+      });
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -40,7 +62,10 @@ class _DashboardState extends State<Dashboard> {
                   textAlign: TextAlign.left,
                 ),
               ),
-              const OverviewPieChart(),
+              ..._dashboardExpense.map((piedata) {
+          return OverviewPieChart(name: piedata.name , color : piedata.color , percent : piedata.percent);
+          }).toList(),
+              
               const SizedBox(
                 height: 24,
               ),
@@ -56,7 +81,9 @@ class _DashboardState extends State<Dashboard> {
                   textAlign: TextAlign.left,
                 ),
               ),
-              const OverviewPieChart(),
+              ..._dashboardIncome.map((piedata) {
+          return OverviewPieChart(name: piedata.name , color : piedata.color , percent : piedata.percent);
+          }).toList(),
               const SizedBox(
                 height: 40,
               ),

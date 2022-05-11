@@ -1,5 +1,7 @@
-import 'package:paotung_frontend/core/data/models/category/category_expense.dart';
+import 'package:paotung_frontend/core/data/models/category/piedata.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/data/models/category/category_income.dart';
 
 class Indicators extends StatelessWidget {
   const Indicators({Key? key}) : super(key: key);
@@ -7,7 +9,7 @@ class Indicators extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: PieData.data
+        children: PieData
             .map(
               (data) => Container(
                   padding: const EdgeInsets.symmetric(vertical: 2),

@@ -1,11 +1,15 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/core/data/models/category/category_expense.dart';
+import 'package:paotung_frontend/core/data/models/category/piedata.dart';
+import '../../core/data/models/category/category_income.dart';
 import 'indicator.dart';
 
 class OverviewPieChart extends StatefulWidget {
-  const OverviewPieChart({Key? key}) : super(key: key);
+  final int color;
+  final String name;
+  final double percent;
+  const OverviewPieChart({Key? key, required this.name, required this.color,  required this.percent}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => OverviewPieChartState();
@@ -13,7 +17,7 @@ class OverviewPieChart extends StatefulWidget {
 
 class OverviewPieChartState extends State {
   
-  List<PieChartSectionData> getSections() => PieData.data
+  List<PieChartSectionData> getSection() => PieData
       .asMap()
       .map<int, PieChartSectionData>((index, data) {
         final isTouched = index == touchedIndex;
@@ -79,7 +83,7 @@ class OverviewPieChartState extends State {
                           ),
                           sectionsSpace: 0,
                           centerSpaceRadius: 18,
-                          sections: getSections()),
+                          sections: getSection()),
                     ),
                   ),
                 ),
