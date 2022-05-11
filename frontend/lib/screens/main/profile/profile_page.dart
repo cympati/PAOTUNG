@@ -3,8 +3,6 @@ import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/screens/help_center/help_center.dart';
 import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
-import 'package:paotung_frontend/screens/start/login/login.dart';
-import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/widgets/common/list_item.dart';
 import 'package:paotung_frontend/widgets/common/text_title.dart';
 import 'package:paotung_frontend/widgets/main/profile/profile.dart';

@@ -11,7 +11,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  double balance = 0;
+  String balance = '0.00';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _AccountPageState extends State<AccountPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text("Balance", style: TextStyle(fontSize: 15),),
-                  Text(balance.toString(), style: TextStyle(fontSize: 30),),
+                  Text(balance, style: TextStyle(fontSize: 30),),
                 ],
               ),
               centerTitle: true,
