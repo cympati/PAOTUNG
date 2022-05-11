@@ -6,6 +6,7 @@ class textInputField extends StatefulWidget {
   final bool obscure;
   final String text;
   final ValueChanged<String> onChanged;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
   final GlobalKey<FormState>? formKey;
 
@@ -15,6 +16,7 @@ class textInputField extends StatefulWidget {
       required this.obscure,
       required this.text,
       required this.onChanged,
+      this.controller,
       this.validator,
       this.formKey})
       : super(key: key);
