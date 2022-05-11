@@ -28,17 +28,17 @@ class textInputField extends StatefulWidget {
 class _textInputFieldState extends State<textInputField> {
   late final TextEditingController controller;
 
-  @override
-  void initState() {
-    super.initState();
-    controller = TextEditingController(text: widget.text);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   controller = TextEditingController(text: widget.text);
+  // }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   controller.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _textInputFieldState extends State<textInputField> {
             Text(widget.title),
             TextFormField(
               validator: widget.validator,
-              controller: controller,
+              controller: widget.controller,
               obscureText: widget.obscure,
               decoration: InputDecoration(
                   filled: true,
