@@ -97,91 +97,99 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           //Login Title
-          SizedBox(
+          const SizedBox(
             height: 80,
           ),
-          AuthenTitle(
+          const AuthenTitle(
               title: "Login", description: "Welcome back to PAOTUNG!💰"),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           //Input text
-          textInputField(
-            controller: _emailController,
-            title: "Email",
-            obscure: false,
-            text: '',
-            onChanged: (_) => setState(() {
-              errorText = '';
-            }),
-            // formKey: _emailKey
-          ),
-          textInputField(
-            controller: _passwordController,
-            title: "Password",
-            obscure: true,
-            text: '',
-            onChanged: (_) => setState(() {
-              errorText = '';
-            }),
-            // formKey: _passwordKey,
-          ),
-          errorText.isNotEmpty
-              ? Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    errorText,
-                    style: TextStyle(color: Colors.red),
-                  ),
-                )
-              : Container(),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.only(bottom: 12, top: 10),
-            child: Text(
-              '',
-              textAlign: TextAlign.end,
-            ),
-          ),
-          //Go to signup page
-          Spacer(),
-          Container(
-            padding: EdgeInsets.only(bottom: 20),
-            child: RichText(
-              text: TextSpan(children: <TextSpan>[
-                TextSpan(
-                    text: "New Here? Create an account ",
-                    style: TextStyle(color: Colors.grey)),
-                TextSpan(
-                    text: "Sign Up",
-                    style: TextStyle(color: AppColors.mainColor),
-                    recognizer: _recognizer)
-              ]),
-            ),
-          ),
-          //Button
-          Container(
-            margin: EdgeInsets.only(bottom: 60),
-            child: RoundedLoadingButton(
-              height: 70,
-              width: 420,
-              child: Text(
-                'log in',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
-              ),
-              color: AppColors.mainColor,
-              borderRadius: 12,
-              controller: _loginBtnController,
-              onPressed: _passwordController.value.text.isNotEmpty &&
-                      _emailController.value.text.isNotEmpty
-                  ? _logincall
-                  : null,
-              disabledColor: AppColors.mainColor,
-            ),
-          )
+          ValueListenableBuilder(
+              valueListenable: _passwordController,
+              builder: (context, TextEditingValue value, __) {
+                return Column(
+                  children: [
+                    textInputField(
+                      controller: _emailController,
+                      title: "Email",
+                      obscure: false,
+                      text: '',
+                      onChanged: (_) => setState(() {
+                        errorText = '';
+                      }),
+                      // formKey: _emailKey
+                    ),
+                    textInputField(
+                      controller: _passwordController,
+                      title: "Password",
+                      obscure: true,
+                      text: '',
+                      onChanged: (_) => setState(() {
+                        errorText = '';
+                      }),
+                      // formKey: _passwordKey,
+                    ),
+                    errorText.isNotEmpty
+                        ? Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              errorText,
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          )
+                        : Container(),
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(bottom: 12, top: 10),
+                      child: Text(
+                        '',
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    //Go to signup page
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: RichText(
+                        text: TextSpan(children: <TextSpan>[
+                          const TextSpan(
+                              text: "New Here? Create an account ",
+                              style: TextStyle(color: Colors.grey)),
+                          TextSpan(
+                              text: "Sign Up",
+                              style: TextStyle(color: AppColors.mainColor),
+                              recognizer: _recognizer)
+                        ]),
+                      ),
+                    ),
+                    //Button
+                    Container(
+                      margin: EdgeInsets.only(bottom: 60),
+                      child: RoundedLoadingButton(
+                        height: 70,
+                        width: 420,
+                        child: Text(
+                          'log in',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                        color: AppColors.mainColor,
+                        borderRadius: 12,
+                        controller: _loginBtnController,
+                        onPressed: _passwordController.value.text.isNotEmpty &&
+                                _emailController.value.text.isNotEmpty
+                            ? _logincall
+                            : null,
+                        disabledColor: AppColors.mainColor,
+                      ),
+                    )
+                  ],
+                );
+              })
         ],
       ),
     );
