@@ -11,7 +11,7 @@ type CategoryList struct {
 type CategoryNameList struct {
 	Id    uint64 `json:"category_id"`
 	Name  string `json:"category_name"`
-	Color string `json:"color"`
+	Color uint64 `json:"color"`
 }
 
 type CategoryTypeList struct {
