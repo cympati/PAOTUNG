@@ -13,52 +13,61 @@ class profileSection extends StatefulWidget {
 
 class _profileSectionState extends State<profileSection> {
   User user = UserPreferences.myUser;
+
+  //reload page after Pop edit profile page
+  _navigate(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => EditProfilePage()));
+        if (result){
+          setState(() {
+            
+          });
+        }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:  const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 10),
         child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        CircleAvatar(
-          maxRadius: 40.0,
-          backgroundColor: AppColors.lightgrey,
-          backgroundImage: NetworkImage(user.imagePath),
-        ),
-        const Padding(
-            padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12)),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              user.username,
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.none),
+            CircleAvatar(
+              maxRadius: 40.0,
+              backgroundColor: AppColors.lightgrey,
+              backgroundImage: user.imagePath.isEmpty ?  NetworkImage(user.imagePath) : NetworkImage(user.imagePath),
             ),
-            SizedBox(
-              height: 16,
-            ),
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EditProfilePage()));
-                },
-                child: Text(
-                  "Edit Profile",
-                  style: TextStyle(
-                      color: AppColors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
+            const Padding(
+                padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.username,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                       decoration: TextDecoration.none),
-                )),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      _navigate(context);
+                    },
+                    child: Text(
+                      "Edit Profile",
+                      style: TextStyle(
+                          color: AppColors.grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          decoration: TextDecoration.none),
+                    )),
+              ],
+            ),
           ],
-        ),
-      ],
-    ));
+        ));
   }
 }

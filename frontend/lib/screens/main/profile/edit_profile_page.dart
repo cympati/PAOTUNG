@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
-import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/rounded_button.dart';
@@ -63,7 +62,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             RoundedButton(
               text: "Save",
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context, true);
               },
               color: AppColors.mainColor,
               textColor: Colors.white,
