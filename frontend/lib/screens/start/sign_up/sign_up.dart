@@ -87,7 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SizedBox(
             height: 80,
           ),
-          AuthenTitle(
+          const AuthenTitle(
               title: "Create Account",
               description: "register PAOTUNG to be rich 🤑 "),
           SizedBox(
@@ -103,7 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 return 'Please fill the email';
               }
               if (!EmailValidator.validate(value)) {
-                return 'Emain is invalid';
+                return 'Email is invalid';
               }
               return null;
             },
@@ -122,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             obscure: false,
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please fill the username';
+                return 'Please enter the username';
               }
               return null;
             },
@@ -138,7 +138,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             obscure: true,
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please fill the password';
+                return 'Please enter the password';
               }
               if (value.length < 8) {
                 return 'Password must have at leasr 8 character';
@@ -160,7 +160,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             obscure: true,
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please fill the Confirm Password';
+                return 'Please enter the Confirm Password';
               }
               return null;
             },
