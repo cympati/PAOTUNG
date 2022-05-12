@@ -40,12 +40,34 @@ class CategoryBox extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
-                icon: const Icon(
-                  Icons.close,
-                  color: Colors.grey,
-                ),
-                onPressed: () => print("delete this category"),
-              ),
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(
+                              "Are you sure you want to delete this",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: AppColors.mainColor,
+                                ),
+                                child: const Text("DELETE"),
+                                onPressed: () =>
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop(),
+                              ),
+                              // print("delete this category")
+                            ],
+                          );
+                        });
+                  }),
             ],
           ),
         ));
