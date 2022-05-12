@@ -9,6 +9,12 @@ type CategoryList struct {
 }
 
 type CategoryNameList struct {
-	Id   uint64 `json:"category_id"`
-	Name string `json:"category_name"`
+	Id    uint64 `json:"category_id"`
+	Name  string `json:"category_name"`
+	Color string `json:"color"`
+}
+
+type CategoryTypeList struct {
+	Expense []*CategoryNameList `json:"expense"`
+	Income  []*CategoryNameList `json:"income"`
 }

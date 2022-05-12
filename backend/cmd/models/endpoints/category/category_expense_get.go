@@ -1,7 +1,6 @@
 package category
 
 import (
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/common"
@@ -33,7 +32,6 @@ func GetExpenseHandler(c *fiber.Ctx) error {
 	var total = 0.0
 	totalResult := database.Gorm.Table("transactions").Select("sum(amount) as total").Where("owner_id = ? AND transaction_type = ?", claims.UserId, "expense").Scan(&total)
 
-	fmt.Println(total)
 	if totalResult.Error != nil {
 		return &common.GenericError{
 			Message: "Error querying total amount of expense",
@@ -50,7 +48,7 @@ func GetExpenseHandler(c *fiber.Ctx) error {
 
 	// * Add other info
 	categoryList = append(categoryList, &category.CategoryList{
-		CategoryId:    0,
+		CategoryId:    999999,
 		Amount:        0,
 		CategoryName:  "Other",
 		CategoryColor: 1461410152,
