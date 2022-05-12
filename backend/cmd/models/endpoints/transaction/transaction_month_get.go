@@ -7,6 +7,7 @@ import (
 	"paotung-backend/cmd/models/common"
 	"paotung-backend/cmd/models/dto/transaction"
 	"paotung-backend/pkg/database"
+	"strings"
 	"time"
 )
 
@@ -57,37 +58,42 @@ func GetMonthHandler(c *fiber.Ctx) error {
 
 	// * Test
 	var formatDate = ""
+
 	for _, val := range transactionMonth {
 		spew.Dump(val.Date)
-		dt, _ := time.Parse(time.RFC3339, val.Date.String())
-		spew.Dump(dt) // 1999-12-31 00:00:00 +0000 UTC
-		formatDate = dt.Format(layoutUS)
+		var tempString = strings.Split(val.Date.Format(time.RFC1123Z), " ")
+		formatDate = tempString[0] + " " + tempString[1] + " " + tempString[2] + " " + tempString[3]
 		spew.Dump(formatDate) // Tue, 12 Feb 2022
 		val.DateString = formatDate
 		spew.Dump(val.DateString)
 	}
 
 	// * Not finish
-	var transactionRes = [100]*transaction.TransactionMonthList{}
+	transactionRes := map[string][]*transaction.TransactionList{}
 
-	spew.Dump(transactionRes)
-	for i, tr1 := range transactionMonth {
-		transactionRes[i].Date = tr1.DateString
-		spew.Dump(tr1.DateString)
-		for _, tr2 := range transactionMonth {
-			if tr1 == tr2 {
-				spew.Dump(tr2)
-				transactionRes[i].TransactionList = append(transactionRes[i].TransactionList, &transaction.TransactionList{
-					Amount:          tr2.Amount,
-					TransactionName: tr2.TransactionName,
-					Date:            tr2.Date,
-					DateString:      tr2.DateString,
-					CategoryId:      tr2.CategoryId,
-					CategoryName:    tr2.CategoryName,
-					CategoryColor:   tr2.CategoryColor,
-				})
-			}
-		}
+	for _, tr := range transactionMonth {
+		//if transactionRes[tr.DateString] == nil {
+		//	transactionRes[tr.DateString] = []*transaction.TransactionList{{
+		//		Amount:          tr.Amount,
+		//		TransactionName: tr.TransactionName,
+		//		Date:            tr.Date,
+		//		DateString:      tr.DateString,
+		//		CategoryId:      tr.CategoryId,
+		//		CategoryName:    tr.CategoryName,
+		//		CategoryColor:   tr.CategoryColor,
+		//	},
+		//	}
+		//} else {
+		transactionRes[tr.DateString] = append(transactionRes[tr.DateString], &transaction.TransactionList{
+			Amount:          tr.Amount,
+			TransactionName: tr.TransactionName,
+			Date:            tr.Date,
+			DateString:      tr.DateString,
+			CategoryId:      tr.CategoryId,
+			CategoryName:    tr.CategoryName,
+			CategoryColor:   tr.CategoryColor,
+		})
+		//}
 	}
 
 	return c.JSON(common.NewInfoResponse(transactionRes, ""))
