@@ -20,6 +20,12 @@ class NewCategory extends StatefulWidget {
 }
 
 class _NewCategoryState extends State<NewCategory> {
+  final _formkey = GlobalKey<FormState>();
+  String? name;
+  String? color;
+  String? transaction_type;
+  bool isSubmit = false;
+  // final RoundedButton _categoryBtnController = RoundedButton();
   Color mycolor = Colors.lightBlue;
   var _transactionval;
   List _types = ['Expense', 'Income'];
@@ -30,14 +36,16 @@ class _NewCategoryState extends State<NewCategory> {
     });
   }
 
-  Color color = AppColors.mainColor;
+  // Color color = AppColors.mainColor;
   Color pickerColor = AppColors.secondaryColor;
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CloseAppBar(title: "New Category"),
       body: Padding(
+        key: _formkey,
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
         child: Column(
           children: [
@@ -45,12 +53,33 @@ class _NewCategoryState extends State<NewCategory> {
               height: 40,
             ),
             textInputField(
+              onSaved: (value) {
+                name = value;
+              },
               title: "Category",
               obscure: false,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter the category';
+                }
+                return null;
+              },
+              autovalidateMode: isSubmit
+                  ? AutovalidateMode.onUserInteraction
+                  : AutovalidateMode.disabled,
               text: '',
               onChanged: (value) {},
             ),
             DropdownButtons(
+              // onSaved: (value) {
+              //   _transactionval = value;
+              // },
+              // validator: (value) {
+              //   if (value!.isEmpty) {
+              //     return 'Please select one';
+              //   }
+              //   return null;
+              // },
               title: "Transaction type",
               hinttext: "",
               value: _transactionval,
@@ -76,6 +105,18 @@ class _NewCategoryState extends State<NewCategory> {
                   children: [
                     Text("Color"),
                     TextFormField(
+                      onSaved: (value) {
+                        color = value;
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please select the color';
+                        }
+                        return null;
+                      },
+                      autovalidateMode: isSubmit
+                          ? AutovalidateMode.onUserInteraction
+                          : AutovalidateMode.disabled,
                       decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide:
@@ -128,7 +169,14 @@ class _NewCategoryState extends State<NewCategory> {
                 text: "Add",
                 bottom: 80,
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/categorysetting');
+                  setState(() {
+                    isSubmit = true;
+                    Navigator.pushReplacementNamed(context, '/categorysetting');
+                  });
+                  if (_formkey.currentState!.validate()) {
+                    _formkey.currentState!.save();
+                    isSubmit = false;
+                  }
                 },
                 color: AppColors.mainColor,
                 textColor: Colors.white)

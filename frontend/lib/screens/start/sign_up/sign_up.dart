@@ -8,6 +8,7 @@ import 'package:paotung_frontend/screens/start/login/login.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
 import 'package:paotung_frontend/widgets/authentication/login.dart';
+import 'package:paotung_frontend/widgets/common/roundloadingbtn.dart';
 import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/constants/theme.dart';
@@ -61,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void _loginNavigate() {
+  void _loginNavigate() async {
     Timer(const Duration(milliseconds: 1500), () {
       Navigator.pushReplacementNamed(context, '/mainpage');
     });
@@ -107,6 +108,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               }
               return null;
             },
+            autovalidateMode: isSubmit
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
             // key: _formkey,
             title: "Email",
             obscure: false,
@@ -126,6 +130,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               }
               return null;
             },
+            autovalidateMode: isSubmit
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
             text: '',
             onChanged: (value) {},
             // formKey: _usernameKey,
@@ -189,18 +196,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           //Button
-          RoundedLoadingButton(
-            height: 70,
-            width: 420,
-            child: const Text(
-              'Create Account',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-              ),
-            ),
-            color: AppColors.mainColor,
-            borderRadius: 20,
+          RoundedLoadingBtn(
+            text: 'Create Account',
+            bottom: 40,
             controller: _registerBtnController,
             onPressed: () {
               setState(() {
@@ -214,6 +212,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
               _registerBtnController.reset();
             },
           )
+          // RoundedLoadingButton(
+          //   height: 70,
+          //   width: 420,
+          //   child: const Text(
+          //     'Create Account',
+          //     style: TextStyle(
+          //       fontSize: 16,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          //   color: AppColors.mainColor,
+          //   borderRadius: 20,
+          //   controller: _registerBtnController,
+          //   onPressed: () {
+          //     setState(() {
+          //       isSubmit = true;
+          //     });
+          //     if (_formkey.currentState!.validate()) {
+          //       _formkey.currentState!.save();
+          //       isSubmit = false;
+          //       _registerCall();
+          //     }
+          //     _registerBtnController.reset();
+          //   },
+          // )
         ],
       ),
     );
