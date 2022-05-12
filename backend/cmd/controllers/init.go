@@ -34,8 +34,8 @@ func Init(router fiber.Router) {
 	category.Get("expense", Category.GetExpenseHandler)
 	category.Get("income", Category.GetIncomeHandler)
 	category.Post("add", Category.PostHandler)
-	//category.Delete("delete/:category_id", category.DeleteByIdHandler)
-	//category.Delete("delete/all", category.DeleteAllHandler)
+	category.Delete("delete/:category_id", Category.DeleteByIdHandler)
+	//category.Delete("delete/all", Category.DeleteAllHandler)
 	//
 	//// * Notification
 	//notification := router.Group("notification/", middlewares.Jwt)
