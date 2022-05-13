@@ -13,8 +13,3 @@ type TransactionList struct {
 	CategoryName    string    `json:"category_name"`
 	CategoryColor   int       `json:"category_color"`
 }
-
-//type TransactionMonthList struct {
-//	Date            string             `json:"date"` // ISOString
-//	TransactionList []*TransactionList `json:"transaction_list"`
-//}

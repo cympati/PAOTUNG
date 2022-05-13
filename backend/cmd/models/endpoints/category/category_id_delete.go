@@ -33,7 +33,7 @@ func DeleteByIdHandler(c *fiber.Ctx) error {
 	}
 
 	// * Remove category by id
-	if result := database.Gorm.Delete(&models.Category{}, "id = ?", categoryId); result.Error != nil {
+	if result := database.Gorm.Delete(&models.Category{}, "id = ? AND owner_id = ?", categoryId, claims.UserId); result.Error != nil {
 		return &common.GenericError{
 			Message: "Error deleting category row",
 			Err:     result.Error,

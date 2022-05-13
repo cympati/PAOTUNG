@@ -31,8 +31,6 @@ func GetMonthHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	//spew.Dump(transactionToday)
-
 	// * Check if category is null --> change color and category_name to empty string
 	for _, trans := range transactionMonth {
 		if trans.CategoryId == 0 {
@@ -41,22 +39,6 @@ func GetMonthHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	// * When return don't forgot to change date to string as 'Tue, 12 Feb 2022'
-	// ****** Not finish ******
-	const (
-		//layoutISO = "2006-01-02"
-		layoutUS = "Tue, 12 Feb 2022"
-	)
-	//for _, val := range *transactionToday {
-	//	spew.Dump(val.Date)
-	//	dt, _ := time.Parse(layoutISO, val.Date)
-	//	spew.Dump(dt) // 1999-12-31 00:00:00 +0000 UTC
-	//	formatDate := dt.Format(layoutUS)
-	//	spew.Dump(formatDate) // Tue, 12 Feb 2022
-	//	val.Date = formatDate
-	//}
-
-	// * Test
 	var formatDate = ""
 
 	for _, val := range transactionMonth {
@@ -68,22 +50,9 @@ func GetMonthHandler(c *fiber.Ctx) error {
 		spew.Dump(val.DateString)
 	}
 
-	// * Not finish
 	transactionRes := map[string][]*transaction.TransactionList{}
 
 	for _, tr := range transactionMonth {
-		//if transactionRes[tr.DateString] == nil {
-		//	transactionRes[tr.DateString] = []*transaction.TransactionList{{
-		//		Amount:          tr.Amount,
-		//		TransactionName: tr.TransactionName,
-		//		Date:            tr.Date,
-		//		DateString:      tr.DateString,
-		//		CategoryId:      tr.CategoryId,
-		//		CategoryName:    tr.CategoryName,
-		//		CategoryColor:   tr.CategoryColor,
-		//	},
-		//	}
-		//} else {
 		transactionRes[tr.DateString] = append(transactionRes[tr.DateString], &transaction.TransactionList{
 			Amount:          tr.Amount,
 			TransactionName: tr.TransactionName,
@@ -93,7 +62,6 @@ func GetMonthHandler(c *fiber.Ctx) error {
 			CategoryName:    tr.CategoryName,
 			CategoryColor:   tr.CategoryColor,
 		})
-		//}
 	}
 
 	return c.JSON(common.NewInfoResponse(transactionRes, ""))
