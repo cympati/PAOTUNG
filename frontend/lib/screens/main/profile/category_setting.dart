@@ -1,5 +1,7 @@
 // import 'dart:ffi';
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/category/categories.dart';
@@ -32,11 +34,12 @@ class _CategorySettingState extends State<CategorySetting> {
 
   Future<void> _readJson() async {
     var responseCategoriesExpense = await GetCategoryExpenseService.getData();
-    var responseCategoriesIncome = await GetCategoryIncomeService.getData();
+    //var responseCategoriesIncome = await GetCategoryIncomeService.getData();
+    inspect(responseCategoriesExpense);
     if (mounted) {
       setState(() {
-        _categoriesExpense = GetCategoryExpenseService.getCategories(responseCategoriesExpense);
-        _categoriesIncome = GetCategoryIncomeService.getCategories(responseCategoriesIncome);
+        _categoriesExpense = responseCategoriesExpense;
+        //_categoriesIncome = GetCategoryIncomeService.getCategories(responseCategoriesIncome);
       });
     }
   }

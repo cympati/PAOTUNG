@@ -11,9 +11,9 @@ class Categories {
   factory Categories.fromJson(Map<String, dynamic> json) {
 
     return Categories(
-      id: json["id"],
-      name: json["name"],
-      color: json["color"],
+      id: json["category_id"],
+      name: json["category_name"],
+      color: json["category_color"],
     );
   }
 
@@ -24,4 +24,24 @@ class Categories {
       "color": color,
     };
   }
+}
+
+class CategoryResponse{
+  bool success;
+  String code;
+  List<Categories> data;
+
+  CategoryResponse(this.success, this.code, this.data);
+
+  factory CategoryResponse.fromJson(Map<String, dynamic> json) {
+    var category = json['data'] as List;
+    List<Categories> tempcate = category.map((e) => Categories.fromJson(e)).toList();
+    
+    return CategoryResponse(
+      json['success'], 
+      json['code'], 
+      tempcate, 
+      );
+  }
+
 }

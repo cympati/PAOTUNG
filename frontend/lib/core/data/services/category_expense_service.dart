@@ -1,16 +1,25 @@
+import 'dart:developer';
+
+import 'package:paotung_frontend/config/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/category/categories.dart';
 import 'package:dio/dio.dart';
 
 class GetCategoryExpenseService {
-  static Future<List<dynamic>> getData() async {
-    Response response =
-    await Dio().get('https://wwwii.bsthun.com/mock/paotung/expense.json');
-    return response.data;
+  static Future<List<Categories>> getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('user');
+    Dio dio = Dio();
+  dio.options.headers["Authorization"] = "Bearer " +  (token ?? " ");
+  Response response = await dio.get(apiEndPoint + '/category/expense');
+  // print(response.data);
+    return CategoryResponse.fromJson(response.data).data;
   }
 
-  static List<Categories> getCategories(data) {
-    List list = data;
-    List<Categories> tempCategoriesExpense = list.map((category) => Categories.fromJson(category)).toList();
-    return tempCategoriesExpense;
-  }
+  // static List<Categories> getCategories(data) {
+  //   List list = data;
+  //   List<Categories> tempCategoriesExpense = list.map((category) => Categories.fromJson(category)).toList();
+  //   return tempCategoriesExpense;
+  // }
 }

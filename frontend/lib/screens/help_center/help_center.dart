@@ -15,9 +15,6 @@ class HelpCenter extends StatelessWidget {
         children: [
           Column(
             children: <Widget>[
-              Container(
-                height: 20,
-              ),
               const BackwardAppBar(title: "Help Center"),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
