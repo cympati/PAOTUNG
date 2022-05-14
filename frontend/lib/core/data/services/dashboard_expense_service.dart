@@ -1,3 +1,4 @@
+import 'package:paotung_frontend/config/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/category/piedata.dart';
@@ -22,7 +23,7 @@ class GetDashboardExpenseService {
     final userToken = prefs.getString('user');
     try {
       Response response = await Dio().get(
-          'http://localhost:8080/api/category/expense' ,
+          apiEndPoint + '/category/expense' ,
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
        PieData pieData = PieData.fromJson(response.data);
       return pieData;

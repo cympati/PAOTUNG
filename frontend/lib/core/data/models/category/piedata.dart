@@ -53,8 +53,7 @@ class DashboardResponse {
   factory DashboardResponse.fromJson(Map<String, dynamic> json) {
     var piechart = json['data'] as List;
     List<PieData> temppie = piechart.map((e) => PieData.fromJson(e)).toList();
-    
-    
+  
     return DashboardResponse(
       json['success'], 
       json['code'], 
