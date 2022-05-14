@@ -23,6 +23,7 @@ func GetHandler(c *fiber.Ctx) error {
 		Select("transactions.name as transaction_name, transactions.date, transactions.amount, transactions.category_id as category_id, categories.name as category_name, categories.color as category_color").
 		Where("transactions.owner_id = ? AND DATE(transactions.date) = DATE(?)", claims.UserId, time.Now()).
 		Joins("left join categories on categories.id = transactions.category_id").
+		Order("transactions.date desc").
 		Scan(&transactionToday)
 	if result.Error != nil {
 		return &common.GenericError{

@@ -24,6 +24,7 @@ func GetMonthHandler(c *fiber.Ctx) error {
 		Select("transactions.name as transaction_name, transactions.date, transactions.amount, transactions.category_id as category_id, categories.name as category_name, categories.color as category_color").
 		Where("transactions.owner_id = ? AND transactions.date <= ? AND transactions.date > ?", claims.UserId, time.Now(), time.Now().AddDate(0, -1, 0)).
 		Joins("left join categories on categories.id = transactions.category_id").
+		Order("transactions.date desc").
 		Scan(&transactionMonth)
 	if result.Error != nil || result.RowsAffected == 0 {
 		return &common.GenericError{
