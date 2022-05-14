@@ -1,62 +1,47 @@
 
 class PieData {
-  List<Data> data = [
-    Data(name: 'Part-time', percent: 10, color: 4278359022),
-    Data(name: 'From mom', percent: 20, color: 4294488656),
-    Data(name: 'Salary', percent: 10, color: 4278190080),
-    // Data(name: 'Invest', percent: 15, color: 4279489422),
-    Data(name: 'Saving', percent: 30, color: 3911083007),
-    Data(name: 'Others', percent: 30, color: 2619846911),
-  ];
-  PieData(this.data);
-  PieData.fromJson(List<Map<String, dynamic>> jsonpiechart) {
-    var temp = jsonpiechart.map((e) => Data.fromJson(e));
-    data=[...temp];
-  }
-}
+  String name;
 
-class Data {
-  final String name;
+  double percent;
 
-  final double percent;
+  int color;
 
-  final int color;
+  PieData({required this.name, required this.percent, required this.color});
 
-  
-
-  Data({required this.name, required this.percent, required this.color});
-
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
-      name: json["name"],
+  factory PieData.fromJson(Map<String, dynamic> json) {
+    return PieData(
+      name: json["category_name"],
       percent: json["percent"],
-      color: json["color"],
+      color: json["category_color"],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "name": name,
+      "category_name": name,
       "percent": percent,
-      "color": color,
+      "category_color": color,
     };
   }
 }
 
-class DashboardResponse {
+class PieDataResponse {
   bool success;
   String code;
-  List<PieData> data;
+  List<PieData> piedata;
 
-  DashboardResponse(this.success, this.code, this.data);
+  PieDataResponse(this.success, this.code, this.piedata);
 
-  factory DashboardResponse.fromJson(Map<String, dynamic> json) {
-    var piechart = json['data'] as List;
-    List<PieData> temppie = piechart.map((e) => PieData.fromJson(e)).toList();
-  
-    return DashboardResponse(
-      json['success'], 
-      json['code'], 
-      temppie);
+  factory PieDataResponse.fromJson(Map<String, dynamic> json) {
+    // TODO: Refactor category
+    var category = json['data'] as List;
+    List<PieData> data =
+        category.map((e) => PieData.fromJson(e)).toList();
+
+    return PieDataResponse(
+      json['success'],
+      json['code'],
+      data,
+    );
   }
 }

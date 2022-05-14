@@ -15,8 +15,9 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  PieData _dashboardExpense = PieData([]);
-  PieData _dashboardIncome = PieData([]);
+  List<PieData> _dashboardExpense = List.empty();
+  List<PieData> _dashboardIncome = List.empty();
+  
 
   @override
   void initState() {
@@ -25,13 +26,12 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<void> _readJson() async {
-    var responseDashboardExpense = await GetDashboardExpenseService.getData();
-    var responseDashboardIncome = await GetDashboardIncomeService.getData();
+    var responseDashboardExpense = await GetPieDataExpenseService.getData();
+    var responseDashboardIncome = await GetPieChartIncomeService.getData();
     if (mounted) {
       setState(() {
         _dashboardExpense = responseDashboardExpense;
-        _dashboardIncome =
-            GetDashboardIncomeService.getPieData(responseDashboardIncome);
+        _dashboardIncome = responseDashboardIncome;
       });
     }
   }
@@ -66,7 +66,7 @@ class _DashboardState extends State<Dashboard> {
               ),
               Padding(
                   padding: const EdgeInsets.all(32),
-                  child: _dashboardExpense.data.isEmpty
+                  child: _dashboardExpense.isEmpty
                       ? const DefaultText(text: 'category')
                       : OverviewPieChart(piedata: _dashboardExpense)),
               const SizedBox(
@@ -86,7 +86,7 @@ class _DashboardState extends State<Dashboard> {
               ),
               Padding(
                   padding: const EdgeInsets.all(32),
-                  child: _dashboardIncome.data.isEmpty
+                  child: _dashboardIncome.isEmpty
                       ? const DefaultText(text: 'category')
                       : OverviewPieChart(piedata: _dashboardIncome)),
               const SizedBox(
