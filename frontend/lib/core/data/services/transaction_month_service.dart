@@ -1,16 +1,23 @@
+import 'package:paotung_frontend/config/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/transaction/transaction.dart';
 import 'package:dio/dio.dart';
 
 class GetTransactionMonthService {
-  static Future<List<dynamic>> getData() async {
-    Response response =
-    await Dio().get('https://wwwii.bsthun.com/mock/paotung/transaction.json');
-    return response.data;
+  static Future<List<Transactions>> getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('user');
+    Dio dio = Dio();
+    dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
+    Response response = await dio.get(apiEndPoint + '/transaction/month');
+    // print(response.data);
+    return TransactionResponse.fromJson(response.data).data;
   }
 
-  static List<Transactions> getTransactionsMonth(data) {
-    List list = data;
-    List<Transactions> tempTransactionMonth = list.map((transaction) => Transactions.fromJson(transaction)).toList();
-    return tempTransactionMonth;
-  }
+  // static List<Transactions> getTransactionsMonth(data) {
+  //   List list = data;
+  //   List<Transactions> tempTransactionMonth = list.map((transaction) => Transactions.fromJson(transaction)).toList();
+  //   return tempTransactionMonth;
+  // }
 }
