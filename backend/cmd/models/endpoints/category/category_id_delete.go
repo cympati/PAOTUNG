@@ -24,7 +24,7 @@ func DeleteByIdHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	// * Change category_id in transaction to zero
+	// * Change category_id in transaction to NULL
 	if result := database.Gorm.Model(&models.Transaction{}).Where("owner_id = ? AND category_id = ?", claims.UserId, categoryId).
 		Update("category_id", gorm.Expr("NULL")); result.Error != nil {
 		return &common.GenericError{
@@ -33,7 +33,7 @@ func DeleteByIdHandler(c *fiber.Ctx) error {
 	}
 
 	// * Remove category by id
-	if result := database.Gorm.Delete(&models.Category{}, "id = ?", categoryId); result.Error != nil {
+	if result := database.Gorm.Delete(&models.Category{}, "id = ? AND owner_id = ?", categoryId, claims.UserId); result.Error != nil {
 		return &common.GenericError{
 			Message: "Error deleting category row",
 			Err:     result.Error,

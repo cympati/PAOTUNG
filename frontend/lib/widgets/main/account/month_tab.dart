@@ -26,7 +26,7 @@ class _MonthTabState extends State<MonthTab> {
     var responseTransactions = await GetTransactionMonthService.getData();
     
     setState(() {
-       _transaction = GetTransactionMonthService.getTransactionsMonth(responseTransactions);
+       _transaction = responseTransactions;
        
     });
   }
@@ -90,9 +90,9 @@ class _MonthTabState extends State<MonthTab> {
           // ),
           ..._transaction.map((transaction) {
             return TransactionBox(
-              color: transaction.category_info.color, 
-              text: transaction.category_info.name, 
-              title: transaction.name, 
+              color: transaction.categoryColor, 
+              text: transaction.categoryName, 
+              title: transaction.tansactionName, 
               amount: transaction.amount
             );
           }).toList()

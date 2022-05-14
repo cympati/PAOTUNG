@@ -68,7 +68,6 @@ func PostHandler(c *fiber.Ctx) error {
 	}
 
 	// * Update balance
-
 	balance = balance + amount
 	if updateBalance := database.Gorm.Model(new(models.User)).Where("id = ?", claims.UserId).Update("balance", balance); updateBalance.Error != nil {
 		return &common.GenericError{

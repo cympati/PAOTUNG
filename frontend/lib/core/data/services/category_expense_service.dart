@@ -1,37 +1,15 @@
 import 'package:paotung_frontend/config/api.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
+import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/category/categories.dart';
 import 'package:dio/dio.dart';
 
 class GetCategoryExpenseService {
-  static Future<Map<String, dynamic>> getData() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('user');
-    Dio dio = Dio();
-    dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
-    Response response = await dio.get(apiEndPoint + '/category/all');
-    // print(response.data);
-    return CategoryResponse.fromJson(response.data).data;
-    // static Future<List<dynamic>> getData() async {
-    //   Response response =
-    //       await Dio().get(apiEndPoint + '/category/expense');
-    //   return response.data;
-    // }
-
-    // static List<Categories> getCategories(data) {
-    //   List list = data;
-    //   List<Categories> tempCategoriesExpense =
-    //       list.map((category) => Categories.fromJson(category)).toList();
-    //   return tempCategoriesExpense;
-    // }
-  }
-
   static Future<dynamic> addCategoryService(
-   
       String name, String transactionType, int color) async {
-         final prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
       Response response = await Dio().post(apiEndPoint + '/category/add',
@@ -50,5 +28,15 @@ class GetCategoryExpenseService {
       }
     }
     return null;
+  }
+
+  static Future<List<Categories>> getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('user');
+    Dio dio = Dio();
+    dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
+    Response response = await dio.get(apiEndPoint + '/category/all');
+    // print(CategoryResponse.fromJson(response.data).data.expenseList);
+    return CategoryResponse.fromJson(response.data).data.expenseList;
   }
 }

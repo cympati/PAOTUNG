@@ -1,5 +1,7 @@
 // import 'dart:ffi';
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/category/categories.dart';
@@ -32,11 +34,12 @@ class _CategorySettingState extends State<CategorySetting> {
 
   Future<void> _readJson() async {
     var responseCategoriesExpense = await GetCategoryExpenseService.getData();
-    //var responseCategoriesIncome = await GetCategoryIncomeService.getData();
+    var responseCategoriesIncome = await GetCategoryIncomeService.getData();
+    inspect(responseCategoriesExpense);
     if (mounted) {
       setState(() {
         _categoriesExpense = responseCategoriesExpense;
-        // _categoriesIncome = GetCategoryIncomeService.getCategories(responseCategoriesIncome);
+        _categoriesIncome = responseCategoriesIncome;
       });
     }
   }
@@ -53,20 +56,18 @@ class _CategorySettingState extends State<CategorySetting> {
             height: 5,
           ),
           Padding(
-            padding: EdgeInsets.all(0),
-            child: _categoriesIncome.isEmpty ? 
-            DefaultText(text: 'category') :
-            Column(
-              children: [
-                ..._categoriesIncome.map(( category) {
-                  return CategoryBox(color: category.color, name: category.name);
-                }).toList(),
-                Container(
-                  height: 30,
-                ),
-              ]
-            )
-          ),
+              padding: EdgeInsets.all(0),
+              child: _categoriesIncome.isEmpty
+                  ? DefaultText(text: 'category')
+                  : Column(children: [
+                      ..._categoriesIncome.map((category) {
+                        return CategoryBox(
+                            color: category.color, name: category.name);
+                      }).toList(),
+                      Container(
+                        height: 30,
+                      ),
+                    ])),
           // const Spacer(),
           const TextDefine(categotyText: "Expense", buttonText: "Clear All"),
           Container(
@@ -74,20 +75,18 @@ class _CategorySettingState extends State<CategorySetting> {
           ),
 
           Padding(
-            padding: EdgeInsets.all(0),
-            child: _categoriesExpense.isEmpty ? 
-            DefaultText(text: 'category') :
-            Column(
-              children: [
-                ..._categoriesExpense.map(( category) {
-                  return CategoryBox(color: category.color, name: category.name);
-                }).toList(),
-                Container(
-                  height: 60,
-                ),
-              ]
-            )
-          ),
+              padding: EdgeInsets.all(0),
+              child: _categoriesExpense.isEmpty
+                  ? DefaultText(text: 'category')
+                  : Column(children: [
+                      ..._categoriesExpense.map((category) {
+                        return CategoryBox(
+                            color: category.color, name: category.name);
+                      }).toList(),
+                      Container(
+                        height: 60,
+                      ),
+                    ])),
         ],
       ),
       floatingActionButton: FloatingActionButton(
