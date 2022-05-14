@@ -8,7 +8,7 @@ class OverviewPieChart extends StatefulWidget {
 
   const OverviewPieChart({Key? key, required this.piedata,}) : super(key: key);
 
-  final PieData piedata;
+  final List<PieData> piedata;
 
   @override
   State<StatefulWidget> createState() => OverviewPieChartState();
@@ -16,8 +16,7 @@ class OverviewPieChart extends StatefulWidget {
 
 class OverviewPieChartState extends State <OverviewPieChart> {
 
-  
-  List<PieChartSectionData> getSection() => widget.piedata.data
+  List<PieChartSectionData> getSection() => widget.piedata
       .asMap()
       .map<int, PieChartSectionData>((index, piedata) {
         final isTouched = index == touchedIndex;
@@ -94,7 +93,7 @@ class OverviewPieChartState extends State <OverviewPieChart> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Indicators(pieData:widget.piedata),
+                  Indicators(pieDatas: widget.piedata),
                   const Padding(padding: EdgeInsets.symmetric(vertical: 16)),
                 ],
               ),

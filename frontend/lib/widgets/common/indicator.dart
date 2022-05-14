@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../../core/data/models/category/piedata.dart';
 
 class Indicators extends StatelessWidget {
-  const Indicators({Key? key, required this.pieData}) : super(key: key);
-  final PieData pieData;
+  const Indicators({Key? key, required this.pieDatas}) : super(key: key);
+  final List<PieData> pieDatas;
 
   @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: pieData.data
+        children: pieDatas
             .map(
               (data) => Container(
                   padding: const EdgeInsets.symmetric(vertical: 2),
