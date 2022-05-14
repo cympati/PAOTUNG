@@ -23,7 +23,7 @@ class RouteConstant {
       '/categorysetting': (_) => const CategorySetting(),
       '/newcategory': (_) => const NewCategory(),
       '/addtransaction': (_) => const AddTransaction(),
-      '/helpcenter': (_) => const HelpCenter(),
+      '/helpcenter': (_) => HelpCenter(),
       '/notisetting': (_) => const NotificationSetting(),
       '/showtransaction': (_) => const ShowTransaction(),
       '/login': (_) => const LoginScreen(),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'custom_expansion_tile.dart';
 
 class MyCustomeExpandTile extends StatefulWidget {
-  final question;
-  final answer;
+  final String question;
+  final String answer;
   const MyCustomeExpandTile({Key? key, required this.question,required this.answer}) : super(key: key);
 
   @override

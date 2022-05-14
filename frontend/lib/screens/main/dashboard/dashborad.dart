@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/widgets/common/overview_pie_chart.dart';
 import 'package:paotung_frontend/widgets/common/text_title.dart';
+
+import '../../../core/data/models/category/piedata.dart';
+import '../../../core/data/services/dashboard_expense_service.dart';
+import '../../../core/data/services/dashboard_income_service.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -11,6 +14,25 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  PieData _dashboardExpense = PieData([]);
+  PieData _dashboardIncome = PieData([]);
+  
+  @override
+  void initState() {
+    _readJson();
+    super.initState();
+  }
+
+  Future<void> _readJson() async {
+    var responseDashboardExpense = await GetDashboardExpenseService.getData();
+    var responseDashboardIncome = await GetDashboardIncomeService.getData();
+    if (mounted) {
+      setState(() {
+        _dashboardExpense = responseDashboardExpense;
+        _dashboardIncome = GetDashboardIncomeService.getPieData(responseDashboardIncome);
+      });
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -40,7 +62,8 @@ class _DashboardState extends State<Dashboard> {
                   textAlign: TextAlign.left,
                 ),
               ),
-              const OverviewPieChart(),
+               OverviewPieChart(piedata: _dashboardExpense),
+              
               const SizedBox(
                 height: 24,
               ),
@@ -56,7 +79,7 @@ class _DashboardState extends State<Dashboard> {
                   textAlign: TextAlign.left,
                 ),
               ),
-              const OverviewPieChart(),
+              OverviewPieChart(piedata: _dashboardIncome),
               const SizedBox(
                 height: 40,
               ),

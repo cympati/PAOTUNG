@@ -1,13 +1,15 @@
-import 'package:paotung_frontend/core/data/models/category/category_expense.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/data/models/category/piedata.dart';
+
 class Indicators extends StatelessWidget {
-  const Indicators({Key? key}) : super(key: key);
+  const Indicators({Key? key, required this.pieData}) : super(key: key);
+  final PieData pieData;
 
   @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: PieData.data
+        children: pieData.data
             .map(
               (data) => Container(
                   padding: const EdgeInsets.symmetric(vertical: 2),
