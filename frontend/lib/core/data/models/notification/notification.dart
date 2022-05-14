@@ -1,20 +1,46 @@
 class Notifications {
   int id;
   String name;
+  String dateTime;
 
   Notifications({
     required this.id,
     required this.name,
+    required this.dateTime
   });
 
   factory Notifications.fromJson(Map<String, dynamic> json) {
-    return Notifications(id: json["id"], name: json["name"]);
+    return Notifications(
+      id: json["id"], 
+      name: json["name"],
+      dateTime: json["date_time"]
+      );
   }
 
   Map<String, dynamic> toJson() {
     return {
       "id": id, 
-      "name": name
+      "name": name,
+      "dateTime": dateTime
       };
+  }
+}
+
+class NotificationResponse{
+  bool success;
+  String code;
+  List<Notifications> data;
+
+  NotificationResponse(this.success, this.code, this.data);
+
+  factory NotificationResponse.fromJson(Map<String, dynamic> json) {
+    var Notification = json['data'] as List;
+    List<Notifications> tempNotification = Notification.map((e) => Notifications.fromJson(e)).toList();
+    
+    return NotificationResponse(
+      json['success'], 
+      json['code'], 
+      tempNotification, 
+      );
   }
 }

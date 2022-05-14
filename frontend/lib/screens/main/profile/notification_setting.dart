@@ -30,7 +30,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
     var responseNotification = await GetNotification.getData();
     if (mounted) {
       setState(() {
-        _notification = GetNotification.getNotification(responseNotification);
+        _notification = responseNotification;
       });
     }
   }

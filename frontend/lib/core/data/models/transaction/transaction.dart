@@ -1,48 +1,54 @@
-class CategoryInfo {
-  String name;
-  int color;
-
-  CategoryInfo(this.name, this.color);
-
-  factory CategoryInfo.fromJson(dynamic json) {
-    return CategoryInfo(
-      json["name"] as String, 
-      json["color"] as int
-    );
-  }
-}
 class Transactions {
-  int id;
-  String name;
+  String tansactionName;
   String date;
   String amount;
-  CategoryInfo category_info;
+  String categoryName;
+  int categoryColor;
 
-  Transactions({
-    required this.id, 
-    required this.name,
+  Transactions({ 
+    required this.tansactionName,
     required this.date,
     required this.amount,
-    required this.category_info,
+    required this.categoryName,
+    required this.categoryColor
   });
 
   factory Transactions.fromJson(Map<String, dynamic> json) {
 
-    return Transactions(
-      id: json["id"], 
-      name: json["name"],
-      date: json["date"],
+    return Transactions( 
+      tansactionName: json["transaction_name"],
+      date: json["date_string"],
       amount: json["amount"],
-      category_info: CategoryInfo.fromJson(json["category_info"]),
-    );
+      categoryName: json["category_name"],
+      categoryColor: json["category_color"]
+    ); 
   }
   Map<String, dynamic> toJson() {
-    return {
-      "id": id, 
-      "name": name,
+    return { 
+      "tansactionName": tansactionName,
       "date": date,
       "amount": amount,
-      "category_info": category_info
+      "categoryName": categoryName,
+      "categoryColor": categoryColor
     };
+  }
+}
+
+class TransactionResponse{
+  bool success;
+  String code;
+  List<Transactions> data;
+
+  TransactionResponse(this.success, this.code, this.data);
+
+  factory TransactionResponse.fromJson(Map<String, dynamic> json) {
+    var transaction = json['data'] as List;
+    List<Transactions> tempTransaction = transaction.map((e) => Transactions.fromJson(e)).toList();
+    
+    return TransactionResponse(
+      json['success'], 
+      json['code'], 
+      tempTransaction, 
+      );
   }
 }
