@@ -1,10 +1,12 @@
+import 'package:paotung_frontend/config/api.dart';
+
 import '../models/category/categories.dart';
 import 'package:dio/dio.dart';
 
 class GetCategoryIncomeService {
   static Future<List<dynamic>> getData() async {
     Response response =
-        await Dio().get('https://wwwii.bsthun.com/mock/paotung/income.json');
+        await Dio().get(apiEndPoint + '/category/income');
     return response.data;
   }
 

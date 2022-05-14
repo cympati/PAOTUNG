@@ -1,19 +1,54 @@
 import 'package:paotung_frontend/config/api.dart';
+import 'package:paotung_frontend/core/data/models/error/error_response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/category/categories.dart';
 import 'package:dio/dio.dart';
 
 class GetCategoryExpenseService {
-  static Future<List<dynamic>> getData() async {
-    Response response =
-        await Dio().get('https://wwwii.bsthun.com/mock/paotung/expense.json');
-    return response.data;
+  static Future<Map<String, dynamic>> getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('user');
+    Dio dio = Dio();
+    dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
+    Response response = await dio.get(apiEndPoint + '/category/all');
+    // print(response.data);
+    return CategoryResponse.fromJson(response.data).data;
+    // static Future<List<dynamic>> getData() async {
+    //   Response response =
+    //       await Dio().get(apiEndPoint + '/category/expense');
+    //   return response.data;
+    // }
+
+    // static List<Categories> getCategories(data) {
+    //   List list = data;
+    //   List<Categories> tempCategoriesExpense =
+    //       list.map((category) => Categories.fromJson(category)).toList();
+    //   return tempCategoriesExpense;
+    // }
   }
 
-  static List<Categories> getCategories(data) {
-    List list = data;
-    List<Categories> tempCategoriesExpense =
-        list.map((category) => Categories.fromJson(category)).toList();
-    return tempCategoriesExpense;
+  static Future<dynamic> addCategoryService(
+   
+      String name, String transactionType, int color) async {
+         final prefs = await SharedPreferences.getInstance();
+    final String? userToken = prefs.getString('user');
+    try {
+      Response response = await Dio().post(apiEndPoint + '/category/add',
+          data: {
+            'name': name,
+            'transaction_type': transactionType,
+            'color': color
+          },
+          options: Options(headers: {"Authorization": "Bearer " + userToken!}));
+      CategoryResponse res = CategoryResponse.fromJson(response.data);
+      return res;
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 400 || e.response?.statusCode == 410) {
+        ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
+        return error;
+      }
+    }
+    return null;
   }
 }

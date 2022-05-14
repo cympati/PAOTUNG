@@ -32,11 +32,11 @@ class _CategorySettingState extends State<CategorySetting> {
 
   Future<void> _readJson() async {
     var responseCategoriesExpense = await GetCategoryExpenseService.getData();
-    var responseCategoriesIncome = await GetCategoryIncomeService.getData();
+    //var responseCategoriesIncome = await GetCategoryIncomeService.getData();
     if (mounted) {
       setState(() {
-        _categoriesExpense = GetCategoryExpenseService.getCategories(responseCategoriesExpense);
-        _categoriesIncome = GetCategoryIncomeService.getCategories(responseCategoriesIncome);
+        _categoriesExpense = responseCategoriesExpense;
+        // _categoriesIncome = GetCategoryIncomeService.getCategories(responseCategoriesIncome);
       });
     }
   }

@@ -44,3 +44,6 @@ func Init(router fiber.Router) {
 	//notification.Delete(":notification_id/:user_id", notification.DeleteHandler)
 
 }
+
+
+

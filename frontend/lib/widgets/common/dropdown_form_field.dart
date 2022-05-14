@@ -10,6 +10,7 @@ class DropdownButtons extends StatelessWidget {
   var item;
   final onChanged;
   final String hinttext;
+  final onSaved;
   var value;
   DropdownButtons({
     Key? key,
@@ -17,6 +18,7 @@ class DropdownButtons extends StatelessWidget {
     required this.item,
     required this.onChanged,
     required this.hinttext,
+    this.onSaved,
     required this.value,
   }) : super(key: key);
 
@@ -33,6 +35,7 @@ class DropdownButtons extends StatelessWidget {
             DropdownButtonFormField(
               items: item,
               onChanged: onChanged,
+              onSaved: onSaved,
               hint: Text(
                 hinttext,
                 style: TextStyle(fontSize: 10),
@@ -45,5 +48,3 @@ class DropdownButtons extends StatelessWidget {
     );
   }
 }
-
-
