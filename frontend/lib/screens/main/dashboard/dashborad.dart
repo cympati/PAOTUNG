@@ -28,8 +28,7 @@ class _DashboardState extends State<Dashboard> {
     var responseDashboardIncome = await GetDashboardIncomeService.getData();
     if (mounted) {
       setState(() {
-        
-        _dashboardExpense = GetDashboardExpenseService.getPieData(responseDashboardExpense);
+        _dashboardExpense = responseDashboardExpense;
         _dashboardIncome = GetDashboardIncomeService.getPieData(responseDashboardIncome);
       });
     }

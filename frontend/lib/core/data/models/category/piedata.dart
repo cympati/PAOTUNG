@@ -42,3 +42,22 @@ class Data {
     };
   }
 }
+
+class DashboardResponse {
+  bool success;
+  String code;
+  List<PieData> data;
+
+  DashboardResponse(this.success, this.code, this.data);
+
+  factory DashboardResponse.fromJson(Map<String, dynamic> json) {
+    var piechart = json['data'] as List;
+    List<PieData> temppie = piechart.map((e) => PieData.fromJson(e)).toList();
+    
+    
+    return DashboardResponse(
+      json['success'], 
+      json['code'], 
+      temppie);
+  }
+}
