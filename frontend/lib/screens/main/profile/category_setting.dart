@@ -35,7 +35,7 @@ class _CategorySettingState extends State<CategorySetting> {
     //var responseCategoriesIncome = await GetCategoryIncomeService.getData();
     if (mounted) {
       setState(() {
-        _categoriesExpense = responseCategoriesExpense;
+        // _categoriesExpense = responseCategoriesExpense;
         // _categoriesIncome = GetCategoryIncomeService.getCategories(responseCategoriesIncome);
       });
     }
