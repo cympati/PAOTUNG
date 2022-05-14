@@ -14,16 +14,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   _SplashScreenState() {
-    async.Timer(const Duration(milliseconds: 2000),  () async {
+    async.Timer(const Duration(milliseconds: 2000), () async {
       final prefs = await SharedPreferences.getInstance();
       String? user = prefs.getString('user');
-      if(user == null){
+      if (user == null) {
         Navigator.pushReplacementNamed(context, '/welcome');
-      }
-      else{
+      } else {
         Navigator.pushReplacementNamed(context, '/mainpage');
       }
-      
     });
   }
   @override

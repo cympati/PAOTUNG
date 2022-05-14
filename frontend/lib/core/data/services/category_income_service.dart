@@ -9,10 +9,8 @@ class GetCategoryIncomeService {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('user');
     Dio dio = Dio();
-  dio.options.headers["Authorization"] = "Bearer " +  (token ?? " ");
-  Response response = await dio.get(apiEndPoint + '/category/all');
-  // print(CategoryResponse.fromJson(response.data).data.incomeList);
+    dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
+    Response response = await dio.get(apiEndPoint + '/category/all');
     return CategoryResponse.fromJson(response.data).data.incomeList;
   }
-
 }

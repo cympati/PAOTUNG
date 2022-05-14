@@ -31,9 +31,9 @@ class AccountService {
       Response response =
           await Dio().post(apiEndPoint + '/account/register', data: {
         'email': email,
-        'username': username,
+        'user_name': username,
         'password': password,
-        'confirmpassword': confirmpassword,
+        // 'confirmpassword': confirmpassword,
       });
       LoginResponse res = LoginResponse.fromJson(response.data);
       final prefs = await SharedPreferences.getInstance();
