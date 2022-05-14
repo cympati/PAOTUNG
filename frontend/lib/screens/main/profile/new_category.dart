@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/category/categories.dart';
+import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/models/response/response.dart';
 import 'package:paotung_frontend/core/data/services/category_expense_service.dart';
 import 'package:paotung_frontend/core/data/services/category_income_service.dart';
 
 import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
+import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
 import 'package:paotung_frontend/widgets/category/category_box.dart';
 import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
@@ -31,7 +33,8 @@ class _NewCategoryState extends State<NewCategory> {
       RoundedLoadingButtonController();
   String? name;
   // String? color;
-  String? transaction_type;
+  String? transactionType;
+  int? selectedColor;
   bool isSubmit = false;
   // final RoundedButton _categoryBtnController = RoundedButton();
   Color mycolor = Colors.lightBlue;
@@ -47,21 +50,44 @@ class _NewCategoryState extends State<NewCategory> {
   // Color color = AppColors.mainColor;
   Color pickerColor = AppColors.secondaryColor;
 
-  void _handleSubmit() {
-    if (_formkey.currentState!.validate()) {
-      Timer(const Duration(milliseconds: 1500), () {
-        Navigator.pushReplacementNamed(context, '/categorysetting');
-      });
+  // void _handleSubmit() {
+  //   if (_formkey.currentState!.validate()) {
+  //     Timer(const Duration(milliseconds: 1500), () {
+  //       Navigator.pushReplacementNamed(context, '/categorysetting');
+  //     });
+  //   }
+  // }
+
+  // Future<dynamic> addCategory(
+  //     String name, String transactionType, int color) async {
+  //   var response = await GetCategoryExpenseService.addCategoryService(
+  //       name, transactionType, color);
+  //       if (response is AddCategoryResponse) {
+  //         read
+  //       }
+  // }
+
+  void _categoryCall() async {
+    var hex = '${mycolor.value.toRadixString(16).substring(2)}';
+    //print(hex);
+    final int selectedColor = int.parse("0x$hex");
+    print(selectedColor);
+    var addCategory = await GetCategoryExpenseService.addCategoryService(
+        name!, transactionType!, selectedColor);
+    // print(selectedColor);
+    if (addCategory is ErrorResponse) {
+      showAlertDialog(context, addCategory.message);
+      _newcategoryBtnController.reset();
+    } else {
+      _newcategoryBtnController.success();
+      _categoryNavigate();
     }
   }
 
-  Future<dynamic> addCategory(
-      String name, String transactionType, int color) async {
-    var response = await GetCategoryExpenseService.addCategoryService(
-        name, transactionType, color);
-        if (response is AddCategoryResponse) {
-          read
-        }
+  void _categoryNavigate() async {
+    Timer(const Duration(milliseconds: 1500), () {
+      Navigator.pop(context);
+    });
   }
 
   @override
@@ -118,7 +144,7 @@ class _NewCategoryState extends State<NewCategory> {
                   // isEmpty: _transactionval == '',
                   child: DropdownButtons(
                     onSaved: (value) {
-                      transaction_type = value;
+                      transactionType = value;
                     },
                     title: "Transaction type",
                     value: _transactionval,
@@ -236,7 +262,17 @@ class _NewCategoryState extends State<NewCategory> {
                 text: 'Add',
                 bottom: 40,
                 controller: _newcategoryBtnController,
-                onPressed: () => _handleSubmit(),
+                onPressed: () {
+                  setState(() {
+                    isSubmit = true;
+                  });
+                  if (_formkey.currentState!.validate()) {
+                    _formkey.currentState!.save();
+                    isSubmit = false;
+                    _categoryCall();
+                  }
+                  _newcategoryBtnController.reset();
+                },
               )
               // RoundedButton(
               //     text: "Add",
