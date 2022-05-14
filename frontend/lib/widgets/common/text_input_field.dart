@@ -6,8 +6,11 @@ class textInputField extends StatefulWidget {
   final bool obscure;
   final String text;
   final ValueChanged<String> onChanged;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final String? Function(String?)? onSaved;
   final GlobalKey<FormState>? formKey;
+  final AutovalidateMode? autovalidateMode;
 
   textInputField(
       {Key? key,
@@ -15,7 +18,10 @@ class textInputField extends StatefulWidget {
       required this.obscure,
       required this.text,
       required this.onChanged,
+      this.controller,
       this.validator,
+      this.onSaved,
+      this.autovalidateMode,
       this.formKey})
       : super(key: key);
 
@@ -26,17 +32,17 @@ class textInputField extends StatefulWidget {
 class _textInputFieldState extends State<textInputField> {
   late final TextEditingController controller;
 
-  @override
-  void initState() {
-    super.initState();
-    controller = TextEditingController(text: widget.text);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   controller = TextEditingController(text: widget.text);
+  // }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   controller.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +58,10 @@ class _textInputFieldState extends State<textInputField> {
           children: [
             Text(widget.title),
             TextFormField(
+              autovalidateMode: widget.autovalidateMode,
+              onSaved: widget.onSaved,
               validator: widget.validator,
-              controller: controller,
+              controller: widget.controller,
               obscureText: widget.obscure,
               decoration: InputDecoration(
                   filled: true,

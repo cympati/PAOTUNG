@@ -1,6 +1,7 @@
 package transaction
 
 import (
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/common"
@@ -23,10 +24,27 @@ func PostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	spew.Dump(body)
+
+	var transactionType = body.TransactionType
+	var amount = 0.0
+	if transactionType == "expense" {
+		amount = amount - body.Amount
+	} else {
+		amount = body.Amount
+	}
+
+	var categoryId *uint64
+	if body.CategoryId != 0 {
+		categoryId = &body.CategoryId
+	} else {
+		categoryId = nil
+	}
+
 	// * Create category record
 	transaction := &models.Transaction{
-		CategoryId:      &body.CategoryId,
-		Amount:          &body.Amount,
+		CategoryId:      categoryId, //  &body.CategoryId ? &body.CategoryId : nill
+		Amount:          &amount,
 		Date:            &body.Date, // ISOString
 		Name:            &body.Name,
 		TransactionType: (*models.TransactionType)(&body.TransactionType),
@@ -50,14 +68,6 @@ func PostHandler(c *fiber.Ctx) error {
 	}
 
 	// * Update balance
-	var transactionType = body.TransactionType
-	var amount = 0.0
-	if transactionType == "expense" {
-		amount = amount - body.Amount
-	} else {
-		amount = body.Amount
-	}
-
 	balance = balance + amount
 	if updateBalance := database.Gorm.Model(new(models.User)).Where("id = ?", claims.UserId).Update("balance", balance); updateBalance.Error != nil {
 		return &common.GenericError{

@@ -7,7 +7,7 @@ class TransactionBox extends StatelessWidget {
   final String title;
   final String text;
   final int color;
-  final double amount;
+  final String amount;
   const TransactionBox({
     Key? key,
     required this.color,
@@ -49,7 +49,7 @@ class TransactionBox extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            amount.toString(),
+            amount,
             style: TextStyle(fontSize: 16, color: AppColors.thirdaryColor),
           )
         ],
