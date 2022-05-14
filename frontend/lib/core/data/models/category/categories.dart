@@ -9,11 +9,10 @@ class Categories {
         required this.color,});
 
   factory Categories.fromJson(Map<String, dynamic> json) {
-
     return Categories(
       id: json["category_id"],
       name: json["category_name"],
-      color: json["category_color"],
+      color: json["color"],
     );
   }
 
@@ -26,21 +25,46 @@ class Categories {
   }
 }
 
+class TransactionType {
+  List<Categories> expenseList;
+  List<Categories> incomeList;
+
+  TransactionType({
+    required this.expenseList,
+    required this.incomeList
+});
+  factory TransactionType.fromJson(Map<String, dynamic> json) {
+    var expenseTypeList = json['expense'] != null ? json['expense'] as List : List.empty();
+    List<Categories> expenseTypeListTemp = expenseTypeList
+        .map((e) => Categories.fromJson(e))
+        .toList();
+
+    var incomeTypeList = json['income'] != null ? json['income'] as List : List.empty();
+    List<Categories> incomeTypeListTemp = incomeTypeList
+        .map((e) => Categories.fromJson(e))
+        .toList();
+
+    return TransactionType(
+      expenseList: expenseTypeListTemp,
+      incomeList: incomeTypeListTemp,
+    );
+  }
+
+}
+
 class CategoryResponse{
   bool success;
   String code;
-  List<Categories> data;
+  TransactionType data;
 
-  CategoryResponse(this.success, this.code, this.data);
+  CategoryResponse({required this.success, required this.code, required this.data});
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) {
-    var category = json['data'] as List;
-    List<Categories> tempcate = category.map((e) => Categories.fromJson(e)).toList();
-    
+
     return CategoryResponse(
-      json['success'], 
-      json['code'], 
-      tempcate, 
+      success: json['success'],
+      code: json['code'],
+      data: TransactionType.fromJson(json['data']),
       );
   }
 

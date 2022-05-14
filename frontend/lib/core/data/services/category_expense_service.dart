@@ -12,14 +12,9 @@ class GetCategoryExpenseService {
     final token = prefs.getString('user');
     Dio dio = Dio();
   dio.options.headers["Authorization"] = "Bearer " +  (token ?? " ");
-  Response response = await dio.get(apiEndPoint + '/category/expense');
-  // print(response.data);
-    return CategoryResponse.fromJson(response.data).data;
+  Response response = await dio.get(apiEndPoint + '/category/all');
+  // print(CategoryResponse.fromJson(response.data).data.expenseList);
+    return CategoryResponse.fromJson(response.data).data.expenseList;
   }
 
-  // static List<Categories> getCategories(data) {
-  //   List list = data;
-  //   List<Categories> tempCategoriesExpense = list.map((category) => Categories.fromJson(category)).toList();
-  //   return tempCategoriesExpense;
-  // }
 }
