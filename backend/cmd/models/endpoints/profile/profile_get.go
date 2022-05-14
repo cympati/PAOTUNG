@@ -20,6 +20,8 @@ func GetHandler(c *fiber.Ctx) error {
 	if result := database.Gorm.First(&user, claims.UserId); result.RowsAffected == 0 {
 		return &common.GenericError{
 			Message: "User does not exist",
+			Code:    "INVALID_INFORMATION",
+			Err:     result.Error,
 		}
 	}
 

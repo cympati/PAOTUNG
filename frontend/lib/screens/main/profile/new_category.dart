@@ -86,8 +86,10 @@ class _NewCategoryState extends State<NewCategory> {
 
   void _categoryNavigate() async {
     Timer(const Duration(milliseconds: 1500), () {
-      Navigator.pop(context);
+      // Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, '/categorysetting');
     });
+
   }
 
   @override

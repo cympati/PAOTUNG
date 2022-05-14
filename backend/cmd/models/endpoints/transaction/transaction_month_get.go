@@ -2,7 +2,6 @@ package transaction
 
 import (
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/common"
@@ -17,7 +16,6 @@ func GetMonthHandler(c *fiber.Ctx) error {
 	cookie := c.Locals("user").(*jwt.Token)
 	claims := cookie.Claims.(*common.UserClaim)
 
-	//spew.Dump("dasdsdsads")
 	var transactionMonth []*transaction.TransactionList
 	// * Query transaction_info --> use date to check TodayList is exist or not, and query category_info
 	result := database.Gorm.Table("transactions").
@@ -30,6 +28,7 @@ func GetMonthHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error querying transaction and category information",
 			Err:     result.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -43,12 +42,9 @@ func GetMonthHandler(c *fiber.Ctx) error {
 
 	var formatDate = ""
 	for _, val := range transactionMonth {
-		spew.Dump(val.Date)
 		var tempString = strings.Split(val.Date.Format(time.RFC1123Z), " ")
 		formatDate = tempString[0] + " " + tempString[1] + " " + tempString[2] + " " + tempString[3]
-		spew.Dump(formatDate) // Tue, 12 Feb 2022
 		val.DateString = formatDate
-		spew.Dump(val.DateString)
 	}
 
 	transactionRes := map[string][]*transaction.TransactionListRes{}

@@ -17,6 +17,7 @@ func PatchHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Unable to parse body",
 			Err:     err,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -29,6 +30,8 @@ func PatchHandler(c *fiber.Ctx) error {
 	if !emailRegex.Match([]byte(body.Email)) {
 		return &common.GenericError{
 			Message: "Malformed email address, please type a correct email.",
+			Code:    "INVALID_INFORMATION",
+			Err:     fiber.ErrBadRequest,
 		}
 	}
 
@@ -40,11 +43,13 @@ func PatchHandler(c *fiber.Ctx) error {
 			return &common.GenericError{
 				Code:    "INVALID_INFORMATION",
 				Message: "This email and username have already used",
+				Err:     result.Error,
 			}
 		}
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
 			Message: "This email has already used",
+			Err:     result.Error,
 		}
 	} else if result.RowsAffected == 0 {
 		// * Check username already exist
@@ -52,6 +57,7 @@ func PatchHandler(c *fiber.Ctx) error {
 			return &common.GenericError{
 				Code:    "INVALID_INFORMATION",
 				Message: "This username has already used",
+				Err:     result.Error,
 			}
 		} else if result.RowsAffected == 0 {
 			// * Update user info
@@ -64,6 +70,8 @@ func PatchHandler(c *fiber.Ctx) error {
 					}); result.Error != nil {
 				return &common.GenericError{
 					Message: "Unable to update user information",
+					Code:    "INVALID_INFORMATION",
+					Err:     result.Error,
 				}
 			}
 		}

@@ -27,6 +27,7 @@ func GetIncomeHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error querying total amount of each category",
 			Err:     categoryListResult.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -46,6 +47,7 @@ func GetIncomeHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error querying total amount of income",
 			Err:     totalResult.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 

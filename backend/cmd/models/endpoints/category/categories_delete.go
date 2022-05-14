@@ -18,6 +18,8 @@ func DeleteAllHandler(c *fiber.Ctx) error {
 	if result := database.Gorm.Model(&models.Transaction{}).Where("owner_id = ?", claims.UserId).
 		Update("category_id", gorm.Expr("NULL")); result.Error != nil {
 		return &common.GenericError{
+			Code:    "BAD_REQUEST",
+			Err:     result.Error,
 			Message: "Unable to update transaction information",
 		}
 	}
@@ -25,6 +27,7 @@ func DeleteAllHandler(c *fiber.Ctx) error {
 	// * Remove all categories
 	if result := database.Gorm.Delete(&models.Category{}, "owner_id = ?", claims.UserId); result.Error != nil {
 		return &common.GenericError{
+			Code:    "INVALID_INFORMATION",
 			Message: "Error deleting all category row",
 			Err:     result.Error,
 		}

@@ -22,6 +22,7 @@ func GetHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "There is no any notification in your account",
 			Err:     result.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 	return c.JSON(common.NewInfoResponse(&notificationList, ""))

@@ -26,6 +26,7 @@ func GetExpenseHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error querying total amount of each category",
 			Err:     totalEachCategoryResult.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -46,6 +47,7 @@ func GetExpenseHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error querying total amount of expense",
 			Err:     totalResult.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 

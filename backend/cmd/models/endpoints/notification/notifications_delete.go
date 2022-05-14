@@ -18,6 +18,7 @@ func DeleteAllHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error deleting all notification row",
 			Err:     result.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
