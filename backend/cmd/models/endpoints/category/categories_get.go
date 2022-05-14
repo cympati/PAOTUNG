@@ -21,6 +21,7 @@ func GetHandler(c *fiber.Ctx) error {
 		Where("owner_id = ? AND transaction_type = 'expense'", claims.UserId).
 		Scan(&expenseList); resultExpense.RowsAffected == 0 {
 		return &common.GenericError{
+			Code:    "INVALID_INFORMATION",
 			Message: "There is no any category of this account",
 			Err:     resultExpense.Error,
 		}
@@ -35,6 +36,7 @@ func GetHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "There is no any category in your account",
 			Err:     resultIncome.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 

@@ -15,6 +15,7 @@ func Register(c *fiber.Ctx) error {
 	body := new(account.RegisterRequest)
 	if err := c.BodyParser(&body); err != nil {
 		return &common.GenericError{
+			Code:    "INVALID_INFORMATION",
 			Message: "Unable to parse body",
 			Err:     err,
 		}
@@ -27,6 +28,7 @@ func Register(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
 			Message: "Password length must be between 8 to 255 characters",
+			Err:     fiber.ErrBadRequest,
 		}
 	}
 
@@ -41,7 +43,9 @@ func Register(c *fiber.Ctx) error {
 	var emailRegex = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 	if !emailRegex.Match([]byte(body.Email)) {
 		return &common.GenericError{
+			Code:    "INVALID_INFORMATION",
 			Message: "Malformed email address, please type a correct email.",
+			Err:     fiber.ErrBadRequest,
 		}
 	}
 
@@ -49,6 +53,7 @@ func Register(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
 			Message: "This account has already registered",
+			Err:     result.Error,
 		}
 	}
 
@@ -57,12 +62,14 @@ func Register(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
 			Message: "This username has already registered",
+			Err:     result.Error,
 		}
 	}
 
 	// Create account record in database
 	if result := database.Gorm.Create(&user); result.Error != nil {
 		return &common.GenericError{
+			Code:    "INVALID_INFORMATION",
 			Message: "Unable to create database record",
 			Err:     result.Error,
 		}

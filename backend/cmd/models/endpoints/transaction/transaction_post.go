@@ -20,7 +20,7 @@ func PostHandler(c *fiber.Ctx) error {
 	if err := c.BodyParser(&body); err != nil {
 		return &common.GenericError{
 			Message: "Unable to parse body",
-			Err:     err,
+			Err:     err, Code: "INVALID_INFORMATION",
 		}
 	}
 
@@ -55,6 +55,7 @@ func PostHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error create a transaction record",
 			Err:     result.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -64,6 +65,7 @@ func PostHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "User does not exist",
 			Err:     balanceResult.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -73,6 +75,7 @@ func PostHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Unable to update balance",
 			Err:     updateBalance.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 

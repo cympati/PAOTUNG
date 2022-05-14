@@ -20,6 +20,7 @@ func PostHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Unable to parse body",
 			Err:     err,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -36,6 +37,7 @@ func PostHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error create a notification record",
 			Err:     result.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 

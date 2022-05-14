@@ -51,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       showAlertDialog(context, "Password not match");
     } else {
       var register = await AccountService.register(
-          email!, username!, password!, confirmpassword!);
+          email!, username!, password!);
       if (register is ErrorResponse) {
         showAlertDialog(context, register.message);
         _registerBtnController.reset();

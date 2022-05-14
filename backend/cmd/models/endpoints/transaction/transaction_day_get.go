@@ -2,7 +2,6 @@ package transaction
 
 import (
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/common"
@@ -29,6 +28,7 @@ func GetHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error querying transaction and category information",
 			Err:     result.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -43,12 +43,9 @@ func GetHandler(c *fiber.Ctx) error {
 	var formatDate = ""
 
 	for _, val := range transactionToday {
-		spew.Dump(val.Date)
 		var tempString = strings.Split(val.Date.Format(time.RFC1123Z), " ")
 		formatDate = tempString[0] + " " + tempString[1] + " " + tempString[2] + " " + tempString[3]
-		spew.Dump(formatDate) // Tue, 12 Feb 2022
 		val.DateString = formatDate
-		spew.Dump(val.DateString)
 	}
 
 	var transactionRes []*transaction.TransactionListRes

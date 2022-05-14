@@ -20,6 +20,7 @@ func DeleteByIdHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Unable to parse query parameter",
 			Err:     err,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -28,6 +29,7 @@ func DeleteByIdHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Unable to delete notification row",
 			Err:     result.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 

@@ -21,6 +21,7 @@ func DeleteByIdHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Unable to parse query parameter",
 			Err:     err,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
@@ -29,6 +30,8 @@ func DeleteByIdHandler(c *fiber.Ctx) error {
 		Update("category_id", gorm.Expr("NULL")); result.Error != nil {
 		return &common.GenericError{
 			Message: "Unable to update transaction information",
+			Code:    "INVALID_INFORMATION",
+			Err:     result.Error,
 		}
 	}
 
@@ -37,6 +40,7 @@ func DeleteByIdHandler(c *fiber.Ctx) error {
 		return &common.GenericError{
 			Message: "Error deleting category row",
 			Err:     result.Error,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 
