@@ -57,13 +57,15 @@ func GetExpenseHandler(c *fiber.Ctx) error {
 	}
 
 	// * Add other info
-	categoryList = append(categoryList, &category.CategoryList{
-		CategoryId:    999999,
-		Amount:        0,
-		CategoryName:  "Other",
-		CategoryColor: 1461410152,
-		Percent:       sumPercent,
-	})
+	if len(categoryList) >= 4 {
+		categoryList = append(categoryList, &category.CategoryList{
+			CategoryId:    999999,
+			Amount:        0,
+			CategoryName:  "Other",
+			CategoryColor: 1461410152,
+			Percent:       sumPercent,
+		})
+	}
 
 	return c.JSON(common.NewInfoResponse(categoryList, ""))
 }

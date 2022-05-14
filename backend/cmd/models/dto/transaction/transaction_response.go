@@ -13,3 +13,11 @@ type TransactionList struct {
 	CategoryName    string    `json:"category_name"`
 	CategoryColor   int       `json:"category_color"`
 }
+
+type TransactionListRes struct {
+	Amount          string `json:"amount"`
+	TransactionName string `json:"transaction_name"`
+	Date            string `json:"date_string"`
+	CategoryName    string `json:"category_name"`
+	CategoryColor   int    `json:"category_color"`
+}

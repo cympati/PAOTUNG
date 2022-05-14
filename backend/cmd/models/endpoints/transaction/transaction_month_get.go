@@ -1,6 +1,7 @@
 package transaction
 
 import (
+	"fmt"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
@@ -23,7 +24,7 @@ func GetMonthHandler(c *fiber.Ctx) error {
 		Select("transactions.name as transaction_name, transactions.date, transactions.amount, transactions.category_id as category_id, categories.name as category_name, categories.color as category_color").
 		Where("transactions.owner_id = ? AND transactions.date <= ? AND transactions.date > ?", claims.UserId, time.Now(), time.Now().AddDate(0, -1, 0)).
 		Joins("left join categories on categories.id = transactions.category_id").
-		Order("date desc").Scan(&transactionMonth)
+		Scan(&transactionMonth)
 	if result.Error != nil || result.RowsAffected == 0 {
 		return &common.GenericError{
 			Message: "Error querying transaction and category information",
@@ -40,7 +41,6 @@ func GetMonthHandler(c *fiber.Ctx) error {
 	}
 
 	var formatDate = ""
-
 	for _, val := range transactionMonth {
 		spew.Dump(val.Date)
 		var tempString = strings.Split(val.Date.Format(time.RFC1123Z), " ")
@@ -50,15 +50,16 @@ func GetMonthHandler(c *fiber.Ctx) error {
 		spew.Dump(val.DateString)
 	}
 
-	transactionRes := map[string][]*transaction.TransactionList{}
+	transactionRes := map[string][]*transaction.TransactionListRes{}
 
+	var amountString = ""
 	for _, tr := range transactionMonth {
-		transactionRes[tr.DateString] = append(transactionRes[tr.DateString], &transaction.TransactionList{
-			Amount:          tr.Amount,
+		amountString = fmt.Sprintf("%+.2f", tr.Amount)
+
+		transactionRes[tr.Date.Format("20060102")] = append(transactionRes[tr.Date.Format("20060102")], &transaction.TransactionListRes{
+			Amount:          amountString,
 			TransactionName: tr.TransactionName,
-			Date:            tr.Date,
-			DateString:      tr.DateString,
-			CategoryId:      tr.CategoryId,
+			Date:            tr.DateString,
 			CategoryName:    tr.CategoryName,
 			CategoryColor:   tr.CategoryColor,
 		})

@@ -1,6 +1,7 @@
 package transaction
 
 import (
+	"fmt"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
@@ -20,10 +21,10 @@ func GetHandler(c *fiber.Ctx) error {
 	// * Query transaction_info --> use date to check TodayList is exist or not, and query category_info
 	result := database.Gorm.Table("transactions").
 		Select("transactions.name as transaction_name, transactions.date, transactions.amount, transactions.category_id as category_id, categories.name as category_name, categories.color as category_color").
-		Where("transactions.owner_id = ? AND transactions.date <= ? AND transactions.date > ?", claims.UserId, time.Now(), time.Now().AddDate(0, 0, -1)).
+		Where("transactions.owner_id = ? AND DATE(transactions.date) = DATE(?)", claims.UserId, time.Now()).
 		Joins("left join categories on categories.id = transactions.category_id").
-		Order("date desc").Scan(&transactionToday)
-	if result.Error != nil || result.RowsAffected == 0 {
+		Scan(&transactionToday)
+	if result.Error != nil {
 		return &common.GenericError{
 			Message: "Error querying transaction and category information",
 			Err:     result.Error,
@@ -49,5 +50,19 @@ func GetHandler(c *fiber.Ctx) error {
 		spew.Dump(val.DateString)
 	}
 
-	return c.JSON(common.NewInfoResponse(transactionToday, ""))
+	var transactionRes []*transaction.TransactionListRes
+	var amountString = ""
+	for _, tr := range transactionToday {
+		amountString = fmt.Sprintf("%+.2f", tr.Amount)
+
+		transactionRes = append(transactionRes, &transaction.TransactionListRes{
+			Amount:          amountString,
+			TransactionName: tr.TransactionName,
+			Date:            tr.DateString,
+			CategoryName:    tr.CategoryName,
+			CategoryColor:   tr.CategoryColor,
+		})
+	}
+
+	return c.JSON(common.NewInfoResponse(transactionRes, ""))
 }
