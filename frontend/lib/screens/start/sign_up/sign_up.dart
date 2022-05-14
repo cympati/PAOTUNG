@@ -61,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void _loginNavigate() {
+  void _loginNavigate() async {
     Timer(const Duration(milliseconds: 1500), () {
       Navigator.pushReplacementNamed(context, '/mainpage');
     });

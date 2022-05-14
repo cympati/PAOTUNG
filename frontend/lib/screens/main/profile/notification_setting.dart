@@ -6,6 +6,7 @@ import 'package:paotung_frontend/widgets/category/text_define.dart';
 import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
 
 import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
+import 'package:paotung_frontend/widgets/common/default_text.dart';
 import 'package:paotung_frontend/widgets/common/notification.dart';
 
 import '../../../constants/theme.dart';
@@ -44,18 +45,24 @@ class _NotificationSettingState extends State<NotificationSetting> {
           //   horizontal: 40,
           // ),
           children: [
-            Column(
-              children: [
-                TextDefine(
-                    categotyText: "All Notifications", buttonText: "Clear All"),
-                ..._notification.map((notification) {
-                  return NotificationTitle(name: notification.name);
-                }).toList(),
-                // NotificationTitle(name: "Electric Bill"),
-                // NotificationTitle(name: "Saving 5 THB"),
-                // NotificationTitle(name: "Don't forget to record!"),
-              ],
-            ),
+            Padding(
+              padding: EdgeInsets.all(0),
+              child: _notification.isEmpty
+                  ? DefaultText(text: 'notifiction')
+                  : Column(
+                      children: [
+                        TextDefine(
+                            categotyText: "All Notifications",
+                            buttonText: "Clear All"),
+                        ..._notification.map((notification) {
+                          return NotificationTitle(name: notification.name);
+                        }).toList(),
+                        // NotificationTitle(name: "Electric Bill"),
+                        // NotificationTitle(name: "Saving 5 THB"),
+                        // NotificationTitle(name: "Don't forget to record!"),
+                      ],
+                    ),
+            )
           ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
