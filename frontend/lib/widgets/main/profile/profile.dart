@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
+import 'package:paotung_frontend/core/data/services/user_service.dart';
 import 'package:paotung_frontend/screens/main/profile/edit_profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 class profileSection extends StatefulWidget {
   const profileSection({Key? key}) : super(key: key);
@@ -12,7 +16,34 @@ class profileSection extends StatefulWidget {
 }
 
 class _profileSectionState extends State<profileSection> {
-  User user = UserPreferences.myUser;
+  late SharedPreferences prefs;
+
+  deleteUserData() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.remove('user');
+  }
+
+  User _user = User(
+      email: "",
+      username: "",
+      imagePath: "",
+      balance: 0
+    );
+
+  User nulluser = UserPreferences.myUser;
+
+  void initState() {
+    _readJson();
+    super.initState();
+  }
+  Future<void> _readJson() async {
+    var responseUser = await GetUser.getData();
+    if (mounted) {
+      setState(() {
+        _user = responseUser;
+      });
+    }
+  }
 
   //reload page after Pop edit profile page
   _navigate(BuildContext context) async {
@@ -27,6 +58,7 @@ class _profileSectionState extends State<profileSection> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
         padding: const EdgeInsets.only(top: 10),
         child: Row(
@@ -35,7 +67,7 @@ class _profileSectionState extends State<profileSection> {
             CircleAvatar(
               maxRadius: 40.0,
               backgroundColor: AppColors.lightgrey,
-              backgroundImage: user.imagePath.isEmpty ?  NetworkImage(user.imagePath) : NetworkImage(user.imagePath),
+              backgroundImage: _user.imagePath.isEmpty ?  NetworkImage(nulluser.imagePath) : NetworkImage(_user.imagePath),
             ),
             const Padding(
                 padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12)),
@@ -43,7 +75,7 @@ class _profileSectionState extends State<profileSection> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  user.username,
+                  _user.username,
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
