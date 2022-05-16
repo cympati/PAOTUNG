@@ -10,6 +10,7 @@ class DatePicker extends StatefulWidget {
 
 class _DatePickerState extends State<DatePicker> {
   TextEditingController dateinput = TextEditingController();
+  DateTime? Date;
 
   @override
   void initState() {
@@ -27,12 +28,15 @@ class _DatePickerState extends State<DatePicker> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Date"),
-            TextField(
+            TextFormField(
               controller: dateinput,
               decoration: InputDecoration(
                   suffixIcon: Icon(Icons.calendar_today),
                   labelText: "Select Date"),
               readOnly: true,
+              onSaved: (value) {
+                Date = value as DateTime?;
+              },
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
                     context: context,
@@ -42,7 +46,7 @@ class _DatePickerState extends State<DatePicker> {
                 if (pickedDate != null) {
                   print(pickedDate);
                   String formattedDate =
-                      DateFormat('dd-MM-yyyy').format(pickedDate);
+                      DateFormat('dd-MM-yyyy HH:mm:ss').format(pickedDate);
                   print(formattedDate);
 
                   setState(() {

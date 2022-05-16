@@ -38,7 +38,7 @@ class _NewCategoryState extends State<NewCategory> {
   bool isSubmit = false;
   // final RoundedButton _categoryBtnController = RoundedButton();
   Color mycolor = Colors.lightBlue;
-  var _transactionval;
+  //var _transactionval;
   List _types = ['Expense', 'Income'];
 
   void changeColor(Color color) {
@@ -110,15 +110,20 @@ class _NewCategoryState extends State<NewCategory> {
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 child: TextFormField(
                   decoration: InputDecoration(labelText: 'Category'),
+                  onChanged: (value) {},
                   controller: _categoryController,
                   onSaved: (value) {
                     name = value;
+                    //print(name);
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter category';
                     }
                   },
+                  autovalidateMode: isSubmit
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
                 ),
               ),
               // textInputField(
@@ -147,13 +152,15 @@ class _NewCategoryState extends State<NewCategory> {
                   child: DropdownButtons(
                     onSaved: (value) {
                       transactionType = value;
+                      print(transactionType);
                     },
                     title: "Transaction type",
-                    value: _transactionval,
+                    value: transactionType,
                     hinttext: '',
                     onChanged: (value) {
                       setState(() {
-                        _transactionval = value;
+                        transactionType = value;
+                        // print(_transactionval);
                       });
                     },
                     item: _types.map((value) {
@@ -207,8 +214,9 @@ class _NewCategoryState extends State<NewCategory> {
                           return null;
                         },
                         onSaved: (value) {
-                          mycolor = value as Color;
+                          selectedColor = value as int?;
                         },
+                        onChanged: (value) {},
                         // autovalidateMode: isSubmit
                         //     ? AutovalidateMode.onUserInteraction
                         //     : AutovalidateMode.disabled,
