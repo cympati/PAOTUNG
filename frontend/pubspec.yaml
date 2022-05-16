@@ -48,6 +48,8 @@ dependencies:
   rounded_loading_button: ^2.1.0
   shared_preferences: ^2.0.15
   email_validator: ^2.0.1
+  flutter_local_notifications: ^6.1.0
+  rxdart: ^0.27.1
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +75,7 @@ flutter:
     - lib/asset/images/Invest.svg
     - lib/asset/images/Money-back-guarantee.svg
     - lib/asset/images/Notifications.svg
+    - lib/asset/images/PAOTUNG_Logo.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

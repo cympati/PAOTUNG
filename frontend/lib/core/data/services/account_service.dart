@@ -28,6 +28,7 @@ class AccountService {
             onPressed: () {},
           ),
         );
+        // ScaffoldMessenger.of(context).showSnackBar(error);
       }
 
     } on DioError catch (e) {
@@ -63,6 +64,7 @@ class AccountService {
             onPressed: () {},
           ),
         );
+        // ScaffoldMessenger.of(context).showSnackBar(error);
       }
 
     } on DioError catch (e) {
