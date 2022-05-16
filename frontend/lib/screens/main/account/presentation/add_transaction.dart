@@ -31,10 +31,10 @@ class _AddTransactionState extends State<AddTransaction> {
   final _formkey = GlobalKey<FormState>();
   String? transactionType;
   String? transactionName;
-  double? Amount;
+  double? amount;
   bool isSubmit = false;
   TextEditingController dateinput = TextEditingController();
-  DateTime? Date;
+  DateTime? selectedDate;
   final RoundedLoadingButtonController _newtransactionBtnController =
       RoundedLoadingButtonController();
   //var _transactionval;
@@ -69,7 +69,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   void _transactionCall() async {
     var newTransaction = await GetTransactionTodayService.addTransactionService(
-        transactionType!, transactionName!, Amount!, Date!);
+        transactionType!, transactionName!, amount!, selectedDate!);
     if (newTransaction is ErrorResponse) {
       showAlertDialog(context, newTransaction.message);
       _newtransactionBtnController.reset();
@@ -117,6 +117,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         onChanged: (value) {
                           setState(() {
                             transactionType = value;
+                            _checkTransaction();
                             //print(transactionType);
                           });
                         },
@@ -150,10 +151,10 @@ class _AddTransactionState extends State<AddTransaction> {
                             // print(_transactionval);
                           });
                         },
-                        item: _category_types.map((value) {
+                        item: _categoryTypes.map((value) {
                           return DropdownMenuItem(
-                            value: value,
-                            child: Text(value),
+                            value: value.name,
+                            child: Text(value.name)
                           );
                         }).toList(),
                       ),
@@ -166,7 +167,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       decoration: InputDecoration(labelText: 'Amount'),
                       onChanged: (value) {},
                       onSaved: (value) {
-                        Amount = value as double?;
+                        amount = value as double?;
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -220,12 +221,12 @@ class _AddTransactionState extends State<AddTransaction> {
                           Text("Date"),
                           TextFormField(
                             controller: dateinput,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 suffixIcon: Icon(Icons.calendar_today),
                                 labelText: "Select Date"),
                             readOnly: true,
                             onSaved: (value) {
-                              Date = value as DateTime?;
+                              selectedDate = value as DateTime?;
                             },
                             onTap: () async {
                               DateTime? pickedDate = await showDatePicker(
@@ -254,7 +255,7 @@ class _AddTransactionState extends State<AddTransaction> {
                     ),
                   ),
                   //DatePicker(),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   RoundedLoadingBtn(

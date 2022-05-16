@@ -11,18 +11,18 @@ class GetTransactionTodayService {
   static Future<dynamic> addTransactionService(
     String transactionType,
     String transactionName,
-    double Amount,
-    DateTime Date,
+    double amount,
+    DateTime selectedDate,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
       Response response = await Dio().post(apiEndPoint + '/transaction/add',
           data: {
-            'amount': Amount,
+            'amount': amount,
             'name': transactionName,
             'transaction_type': transactionType,
-            'date': Date,
+            'date': selectedDate,
           },
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
       TransactionResponse res = TransactionResponse.fromJson(response.data);
