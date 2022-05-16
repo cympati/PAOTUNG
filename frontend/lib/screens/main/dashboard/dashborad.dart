@@ -49,7 +49,7 @@ class _DashboardState extends State<Dashboard> {
       //   height: 24,
       // ),
       Container(
-          padding: const EdgeInsets.only(left: 32, right: 32),
+          padding: const EdgeInsets.only(left: 16, right: 16),
           child: Column(
             children: <Widget>[
               Container(
@@ -65,7 +65,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(1),
                   child: _dashboardExpense.isEmpty
                       ? const DefaultText(text: 'category')
                       : OverviewPieChart(piedata: _dashboardExpense)),
@@ -85,12 +85,12 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(1),
                   child: _dashboardIncome.isEmpty
                       ? const DefaultText(text: 'category')
                       : OverviewPieChart(piedata: _dashboardIncome)),
               const SizedBox(
-                height: 40,
+                height: 24,
               ),
             ],
           )),
