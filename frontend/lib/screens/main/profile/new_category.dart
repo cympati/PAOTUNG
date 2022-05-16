@@ -150,7 +150,7 @@ class _NewCategoryState extends State<NewCategory> {
                   child: DropdownButtons(
                     onSaved: (value) {
                       transactionType = value;
-                      //print(transactionType);
+                      print(transactionType);
                     },
                     title: "Transaction type",
                     value: transactionType,

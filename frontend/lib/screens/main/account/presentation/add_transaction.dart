@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
+import 'package:paotung_frontend/core/data/services/category_expense_service.dart';
+import 'package:paotung_frontend/core/data/services/category_income_service.dart';
 import 'package:paotung_frontend/core/data/services/transaction_today_service.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
@@ -14,6 +17,8 @@ import 'package:paotung_frontend/widgets/common/dropdown_form_field.dart';
 import 'package:paotung_frontend/widgets/common/roundloadingbtn.dart';
 import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+import '../../../../core/data/models/category/categories.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key}) : super(key: key);
@@ -34,13 +39,32 @@ class _AddTransactionState extends State<AddTransaction> {
       RoundedLoadingButtonController();
   //var _transactionval;
   List _types = ['Expense', 'Income'];
-  var _categoryval;
-  List _category_types = ['Salary', 'Part-time', 'Bonus', 'from mom'];
+  // var _categoryval;
+  List _category_types = [];
+  List<Categories> _categoryTypes = [];
 
   @override
   void initState() {
     dateinput.text = "";
     super.initState();
+  }
+
+  Future<void> _checkTransaction() async {
+    var categoryIsExpense = await GetCategoryExpenseService.getData();
+    var categoryIsIncome = await GetCategoryIncomeService.getData();
+    setState(() {
+      transactionType == "Expense"
+          ? _categoryTypes = categoryIsExpense
+          : _categoryTypes = categoryIsIncome;
+    });
+    // if (transactionType == 'Expense') {
+    //   setState(() {
+
+    //     _categoryTypes = categoryIsExpense;
+    //   });
+    // }else {
+    //   _categoryTypes = categoryIsIncome;
+    // }
   }
 
   void _transactionCall() async {
@@ -85,7 +109,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       child: DropdownButtons(
                         onSaved: (value) {
                           transactionType = value;
-                          //print(transactionType);
+                          print(transactionType);
                         },
                         title: "Transaction type",
                         value: transactionType,
@@ -93,7 +117,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         onChanged: (value) {
                           setState(() {
                             transactionType = value;
-                            // print(_transactionval);
+                            //print(transactionType);
                           });
                         },
                         item: _types.map((value) {
@@ -114,15 +138,15 @@ class _AddTransactionState extends State<AddTransaction> {
                       // isEmpty: _transactionval == '',
                       child: DropdownButtons(
                         onSaved: (value) {
-                          _categoryval = value;
+                          _categoryTypes = value;
                           //print(transactionType);
                         },
                         title: "Category",
-                        value: _categoryval,
+                        value: _categoryTypes,
                         hinttext: '',
                         onChanged: (value) {
                           setState(() {
-                            _categoryval = value;
+                            _categoryTypes = value;
                             // print(_transactionval);
                           });
                         },
