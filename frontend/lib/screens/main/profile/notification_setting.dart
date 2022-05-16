@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:paotung_frontend/core/data/models/notification/notification.dart';
 import 'package:paotung_frontend/core/data/services/notification_service.dart';
 import 'package:paotung_frontend/screens/main/profile/new_notification.dart';
@@ -10,6 +11,7 @@ import 'package:paotung_frontend/widgets/common/default_text.dart';
 import 'package:paotung_frontend/widgets/common/notification.dart';
 
 import '../../../constants/theme.dart';
+import '../../../core/data/services/providers/providers.dart';
 
 class NotificationSetting extends StatefulWidget {
   const NotificationSetting({Key? key}) : super(key: key);
@@ -24,15 +26,31 @@ class _NotificationSettingState extends State<NotificationSetting> {
   void initState() {
     _readJson();
     super.initState();
+
+    NotificationApi.init();
+    // listenNotifications();
   }
 
+  // void listenNotifications() => NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  // void onClickedNotification(String? payload) =>
   Future<void> _readJson() async {
     var responseNotification = await GetNotification.getData();
     if (mounted) {
       setState(() {
         _notification = responseNotification;
+        print(_notification[0].name);
       });
+
+    } if (_notification.isNotEmpty) {
+      print(_notification[0].name + "kkkkkkk");
+      NotificationApi.showNotification(
+        id: 0,
+        title: 'Electric bills',
+        body: 'Today at ${DateTime.now()}'
+      );
     }
+
   }
 
   @override

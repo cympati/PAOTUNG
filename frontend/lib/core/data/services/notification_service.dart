@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/models/notification/noti_response.dart';
 import 'package:paotung_frontend/config/api.dart';
@@ -33,7 +34,21 @@ class GetNotification {
         "date_time": dateTime,
       });
       AddNotiResponse res = AddNotiResponse.fromJson(response.data);
-      return res;
+      if (res.success) {
+        return res;
+      } else if (response is ErrorResponse) {
+        var error = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(left: 15, right: 15),
+          content: Text(res.message),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {},
+          ),
+        );
+        // ScaffoldMessenger.of(context).showSnackBar(error);
+      }
+
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
