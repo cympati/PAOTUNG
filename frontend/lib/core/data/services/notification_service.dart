@@ -7,7 +7,7 @@ import '../models/notification/notification.dart';
 import 'package:dio/dio.dart';
 
 class GetNotification {
-  static Future<List<dynamic>> getData() async {
+  static Future<List<Notifications>> getData() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('user');
     Dio dio = Dio();

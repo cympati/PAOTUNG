@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 
 class GetCategoryExpenseService {
   static Future<dynamic> addCategoryService(
-      String name, String transactionType, int color) async {
+      String name, String transactionType, int selectedColor) async {
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
@@ -16,13 +16,13 @@ class GetCategoryExpenseService {
           data: {
             'name': name,
             'transaction_type': transactionType,
-            'color': color
+            'color': selectedColor,
           },
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
       CategoryResponse res = CategoryResponse.fromJson(response.data);
       return res;
     } on DioError catch (e) {
-      if (e.response?.statusCode == 400 || e.response?.statusCode == 410) {
+      if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
         return error;
       }
