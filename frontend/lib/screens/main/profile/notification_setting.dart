@@ -39,16 +39,8 @@ class _NotificationSettingState extends State<NotificationSetting> {
     if (mounted) {
       setState(() {
         _notification = responseNotification;
-        print(_notification[0].name);
       });
 
-    } if (_notification.isNotEmpty) {
-      print(_notification[0].name + "kkkkkkk");
-      NotificationApi.showNotification(
-        id: 0,
-        title: 'Electric bills',
-        body: 'Today at ${DateTime.now()}'
-      );
     }
 
   }
