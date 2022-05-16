@@ -5,8 +5,10 @@ import '../../core/data/models/category/piedata.dart';
 import 'indicator.dart';
 
 class OverviewPieChart extends StatefulWidget {
-
-  const OverviewPieChart({Key? key, required this.piedata,}) : super(key: key);
+  const OverviewPieChart({
+    Key? key,
+    required this.piedata,
+  }) : super(key: key);
 
   final List<PieData> piedata;
 
@@ -14,8 +16,7 @@ class OverviewPieChart extends StatefulWidget {
   State<StatefulWidget> createState() => OverviewPieChartState();
 }
 
-class OverviewPieChartState extends State <OverviewPieChart> {
-
+class OverviewPieChartState extends State<OverviewPieChart> {
   List<PieChartSectionData> getSection() => widget.piedata
       .asMap()
       .map<int, PieChartSectionData>((index, piedata) {
@@ -29,10 +30,9 @@ class OverviewPieChartState extends State <OverviewPieChart> {
           title: '${piedata.percent.toStringAsFixed(1)}%',
           radius: radius,
           titleStyle: TextStyle(
-            fontSize: fontSize,
-            fontWeight: FontWeight.bold,
-            color: const Color(0xffffffff)
-          ),
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xffffffff)),
         );
 
         return MapEntry(index, value);
@@ -44,64 +44,55 @@ class OverviewPieChartState extends State <OverviewPieChart> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.3,
-      child: SizedBox(
-        width: 800,
-        child: Card(
-          color: AppColors.lightgrey,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Row(
-            children: <Widget>[
-              const SizedBox(
-                height: 16,
-              ),
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: SizedBox(
-                    child: PieChart(
-                      PieChartData(
-                          pieTouchData: PieTouchData(touchCallback:
-                              (FlTouchEvent event, pieTouchResponse) {
-                            setState(() {
-                              if (!event.isInterestedForInteractions ||
-                                  pieTouchResponse == null ||
-                                  pieTouchResponse.touchedSection == null) {
-                                touchedIndex = -1;
-                                return;
-                              }
-                              touchedIndex = pieTouchResponse
-                                  .touchedSection!.touchedSectionIndex;
-                            });
-                          }),
-                          borderData: FlBorderData(
-                            show: false,
-                          ),
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 18,
-                          sections: getSection()),
+    return Container(
+      padding: const EdgeInsets.all(8),
+      height: 240,
+      child: Card(
+        color: AppColors.lightgrey,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 180,
+              child: PieChart(
+                PieChartData(
+                  startDegreeOffset: 10,
+                    pieTouchData: PieTouchData(
+                        touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                      setState(() {
+                        if (!event.isInterestedForInteractions ||
+                            pieTouchResponse == null ||
+                            pieTouchResponse.touchedSection == null) {
+                          touchedIndex = -1;
+                          return;
+                        }
+                        touchedIndex = pieTouchResponse
+                            .touchedSection!.touchedSectionIndex;
+                      });
+                    }),
+                    borderData: FlBorderData(
+                      show: false,
                     ),
-                    
-                  ),
-                ),
+                    sectionsSpace: 0,
+                    centerSpaceRadius: 18,
+                    sections: getSection()),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Indicators(pieDatas: widget.piedata),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 16)),
-                ],
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Indicators(pieDatas: widget.piedata),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 16)),
+              ],
+            ),
+          ],
         ),
       ),
     );
