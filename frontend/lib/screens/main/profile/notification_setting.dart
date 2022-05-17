@@ -61,7 +61,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
                   ? DefaultText(text: 'notifiction')
                   : Column(
                       children: [
-                        TextDefine(
+                        const TextDefine(
                             categotyText: "All Notifications",
                             buttonText: "Clear All"),
                         ..._notification.map((notification) {

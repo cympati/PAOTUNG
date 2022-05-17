@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           width: double.infinity,
                           margin: const EdgeInsets.only( bottom: 195,top: 10),
-                          child: Text(
+                          child: const Text(
                             '',
                             textAlign: TextAlign.center,
                           ),

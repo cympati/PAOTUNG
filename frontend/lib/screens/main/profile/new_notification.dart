@@ -51,7 +51,7 @@ class _NewNotificationState extends State<NewNotification> {
 
   void _notificationCall() async {
     var format = formattedDate + "T" + formattedTime + "Z";
-    print(format);
+    //print(format);
     var addNotification = await GetNotification.newNotification(name!, format);
     if (addNotification is ErrorResponse) {
       showAlertDialog(context, addNotification.message);
@@ -90,7 +90,7 @@ class _NewNotificationState extends State<NewNotification> {
                   onSaved: (value) {
                     name = value;
                   },
-                  controller: _newnotiController,
+                  //controller: _newnotiController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter name';
@@ -98,7 +98,7 @@ class _NewNotificationState extends State<NewNotification> {
                   },
                   autovalidateMode: isSubmit
                         ? AutovalidateMode.onUserInteraction
-                        : AutovalidateMode.disabled,
+                        : AutovalidateMode.disabled
                 ),
               ),
               // DropdownButtons(
@@ -204,7 +204,7 @@ class _NewNotificationState extends State<NewNotification> {
               RoundedLoadingBtn(
                 text: "Add",
                 controller: _newnotiBtnController,
-                bottom: 120,
+                bottom: 80,
                 onPressed: () {
                   setState(() {
                     isSubmit = true;

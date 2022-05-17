@@ -144,7 +144,7 @@ class _NewCategoryState extends State<NewCategory> {
               // ),
               FormField(builder: (FormFieldState state) {
                 return InputDecorator(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     // labelText: 'Transaction type',
                   ),
@@ -229,7 +229,7 @@ class _NewCategoryState extends State<NewCategory> {
                               color: mycolor,
                             ),
                             suffixIcon: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_drop_down_outlined,
                                 size: 30,
                               ),

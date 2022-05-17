@@ -86,8 +86,8 @@ class GetNotification {
             'date_time': dateTime,
           },
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
-      NotificationResponse res = NotificationResponse.fromJson(response.data);
-       if (res.success) {
+      AddNotiResponse res = AddNotiResponse.fromJson(response.data);
+      if (res.success) {
         return res;
       } else if (response is ErrorResponse) {
         var error = SnackBar(
@@ -101,7 +101,20 @@ class GetNotification {
         );
         // ScaffoldMessenger.of(context).showSnackBar(error);
       }
-      return res;
+      //  if (res.success) {
+      //   return res;
+      // } else if (response is ErrorResponse) {
+      //   var error = SnackBar(
+      //     behavior: SnackBarBehavior.floating,
+      //     margin: const EdgeInsets.only(left: 15, right: 15),
+      //     content: Text(res.message),
+      //     action: SnackBarAction(
+      //       label: 'OK',
+      //       onPressed: () {},
+      //     ),
+      //   );
+      //   // ScaffoldMessenger.of(context).showSnackBar(error);
+      // }
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);

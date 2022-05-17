@@ -32,12 +32,12 @@ class Transactions {
 }
 
 class TransactionResponse {
-  String message;
+ // String message;
   bool success;
   String code;
   List<Transactions> data;
 
-  TransactionResponse(this.success, this.code, this.data, this.message);
+  TransactionResponse(this.success, this.code, this.data, );
 
   factory TransactionResponse.fromJson(Map<String, dynamic> json) {
     var transaction = json['data'] as List;
@@ -48,7 +48,7 @@ class TransactionResponse {
       json['success'],
       json['code'],
       tempTransaction,
-      json['message'],
+      //json['message'],
     );
   }
 }
