@@ -34,8 +34,8 @@ class NotificationResponse{
   NotificationResponse(this.success, this.code, this.data);
 
   factory NotificationResponse.fromJson(Map<String, dynamic> json) {
-    var Notification = json['data'] != null ? json['data'] as List  : List.empty();
-    List<Notifications> tempNotification = Notification.map((e) => Notifications.fromJson(e)).toList();
+    var notification = json['data'] != null ? json['data'] as List  : List.empty();
+    List<Notifications> tempNotification = notification.map((e) => Notifications.fromJson(e)).toList();
     
     return NotificationResponse(
       json['success'], 

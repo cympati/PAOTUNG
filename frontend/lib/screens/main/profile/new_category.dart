@@ -102,7 +102,7 @@ class _NewCategoryState extends State<NewCategory> {
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Padding(

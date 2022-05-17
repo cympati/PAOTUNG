@@ -32,6 +32,7 @@ class _AddTransactionState extends State<AddTransaction> {
   String? transactionType;
   String? transactionName;
   double? amount;
+  DateTime? pickedDate;
   bool isSubmit = false;
   TextEditingController dateinput = TextEditingController();
   DateTime? selectedDate;
@@ -40,8 +41,9 @@ class _AddTransactionState extends State<AddTransaction> {
   //var _transactionval;
   List _types = ['Expense', 'Income'];
   // var _categoryval;
-  List _category_types = [];
+  //List _category_types = [];
   List<Categories> _categoryTypes = [];
+  var _selectedCategory = "";
 
   @override
   void initState() {
@@ -68,8 +70,9 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   void _transactionCall() async {
+    final DateTime selectedDate = pickedDate?.toIso8601String() as DateTime;
     var newTransaction = await GetTransactionTodayService.addTransactionService(
-        transactionType!, transactionName!, amount!, selectedDate!);
+        transactionType!, transactionName!, amount!, selectedDate);
     if (newTransaction is ErrorResponse) {
       showAlertDialog(context, newTransaction.message);
       _newtransactionBtnController.reset();
@@ -96,12 +99,12 @@ class _AddTransactionState extends State<AddTransaction> {
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 55,
                   ),
                   FormField(builder: (FormFieldState state) {
                     return InputDecorator(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         // labelText: 'Transaction type',
                       ),
@@ -132,30 +135,29 @@ class _AddTransactionState extends State<AddTransaction> {
                   }),
                   FormField(builder: (FormFieldState state) {
                     return InputDecorator(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         // labelText: 'Transaction type',
                       ),
                       // isEmpty: _transactionval == '',
                       child: DropdownButtons(
                         onSaved: (value) {
-                          _categoryTypes = value;
+                          _selectedCategory = value;
                           //print(transactionType);
                         },
                         title: "Category",
-                        value: _categoryTypes,
+                        value: _selectedCategory,
                         hinttext: '',
                         onChanged: (value) {
                           setState(() {
-                            _categoryTypes = value;
+                            _selectedCategory = value;
                             // print(_transactionval);
                           });
                         },
-                        item: _categoryTypes.map((value) {
-                          return DropdownMenuItem(
-                            value: value.name,
-                            child: Text(value.name)
-                          );
+                        item: _categoryTypes.map((e) {
+                          return DropdownMenuItem<String>(
+                              value: e.name as String,
+                              child: Text(e.name));
                         }).toList(),
                       ),
                     );

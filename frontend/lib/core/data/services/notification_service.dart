@@ -20,15 +20,17 @@ class GetNotification {
 
     List<Notifications> res = NotificationResponse.fromJson(response.data).data;
     for (var i = 0; i < res.length; i++) {
-      if(DateTime.parse(res[i].dateTime).isBefore(DateTime.now().add(const Duration(minutes: 15)))) {
-          continue;
+      if (DateTime.parse(res[i].dateTime)
+          .isBefore(DateTime.now().add(const Duration(minutes: 15)))) {
+        continue;
       }
       NotificationApi.showScheduledNotification(
-          id: res[i].id,
-          title: res[i].name,
-          body: CalendarTime(parseDate(res[i].dateTime)).toHuman,
-          scheduledDate: parseDate(res[i].dateTime).subtract(const Duration( minutes: 15)),
-      // scheduledDate: DateTime.now().add(const Duration(seconds: 5))
+        id: res[i].id,
+        title: res[i].name,
+        body: CalendarTime(parseDate(res[i].dateTime)).toHuman,
+        scheduledDate:
+            parseDate(res[i].dateTime).subtract(const Duration(minutes: 15)),
+        // scheduledDate: DateTime.now().add(const Duration(seconds: 5))
       );
     }
     return res;
@@ -65,7 +67,6 @@ class GetNotification {
         );
         // ScaffoldMessenger.of(context).showSnackBar(error);
       }
-
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
@@ -73,5 +74,26 @@ class GetNotification {
       }
     }
     return "";
+  }
+
+  static Future<dynamic> newNotification(String name, String dateTime) async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? userToken = prefs.getString('user');
+    try {
+      Response response = await Dio().post(apiEndPoint + '/notification/add',
+          data: {
+            'name': name,
+            'date_time': dateTime,
+          },
+          options: Options(headers: {"Authorization": "Bearer " + userToken!}));
+      NotificationResponse res = NotificationResponse.fromJson(response.data);
+      return res;
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
+        ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
+        return error;
+      }
+    }
+    return null;
   }
 }
