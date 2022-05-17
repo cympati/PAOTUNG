@@ -62,7 +62,7 @@ class _NewNotificationState extends State<NewNotification> {
     }
   }
 
-  void _notificationNavigate() async{
+  void _notificationNavigate() async {
     Timer(const Duration(milliseconds: 1500), () {
       Navigator.pop(context);
     });
@@ -81,27 +81,26 @@ class _NewNotificationState extends State<NewNotification> {
               const SizedBox(
                 height: 40,
               ),
-             
+
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 child: TextFormField(
-                  decoration: const InputDecoration(labelText: 'Name'),
-                  onChanged: (value) {},
-                  controller: _newnotiController,
-                  onSaved: (value) {
-                    name = value;
-                  },
-                  //controller: _newnotiController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter name';
-                    }
-                  },
-                  autovalidateMode: isSubmit
+                    decoration: const InputDecoration(labelText: 'Name'),
+                    onChanged: (value) {},
+                    controller: _newnotiController,
+                    onSaved: (value) {
+                      name = value;
+                    },
+                    //controller: _newnotiController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter name';
+                      }
+                    },
+                    autovalidateMode: isSubmit
                         ? AutovalidateMode.onUserInteraction
-                        : AutovalidateMode.disabled
-                ),
+                        : AutovalidateMode.disabled),
               ),
               // DropdownButtons(
               //   title: "transaction type",
@@ -135,6 +134,12 @@ class _NewNotificationState extends State<NewNotification> {
                         readOnly: true,
                         onSaved: (value) {
                           selectedDate = value as DateTime?;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            'Please select date';
+                          }
+                          return null;
                         },
                         onTap: () async {
                           pickedDate = await showDatePicker(
@@ -170,7 +175,13 @@ class _NewNotificationState extends State<NewNotification> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Time"),
-                      TextField(
+                      TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            'Please select time';
+                          }
+                          return null;
+                        },
                         controller: timeinput,
                         decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.timer),

@@ -5,7 +5,7 @@ class textInputField extends StatefulWidget {
   final String title;
   final bool obscure;
   final String text;
-  final String? label;
+
   final ValueChanged<String> onChanged;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
@@ -19,7 +19,6 @@ class textInputField extends StatefulWidget {
       required this.obscure,
       required this.text,
       required this.onChanged,
-       this.label,
       this.controller,
       this.validator,
       this.onSaved,
@@ -66,7 +65,6 @@ class _textInputFieldState extends State<textInputField> {
               controller: widget.controller,
               obscureText: widget.obscure,
               decoration: InputDecoration(
-                  labelText: widget.label,
                   filled: true,
                   fillColor: Colors.white,
                   focusedBorder: UnderlineInputBorder(

@@ -209,7 +209,7 @@ class _NewCategoryState extends State<NewCategory> {
                       Text("Color"),
                       TextFormField(
                         validator: (value) {
-                          if (value!.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please select the color';
                           }
                           return null;
