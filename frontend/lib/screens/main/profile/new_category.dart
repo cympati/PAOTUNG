@@ -32,12 +32,15 @@ class _NewCategoryState extends State<NewCategory> {
   final RoundedLoadingButtonController _newcategoryBtnController =
       RoundedLoadingButtonController();
   String? name;
+
   // String? color;
   String? transactionType;
   int? selectedColor;
   bool isSubmit = false;
+
   // final RoundedButton _categoryBtnController = RoundedButton();
   Color mycolor = Colors.lightBlue;
+
   //var _transactionval;
   List _types = ['Expense', 'Income'];
 
@@ -89,7 +92,6 @@ class _NewCategoryState extends State<NewCategory> {
       // Navigator.pop(context);
       Navigator.pushReplacementNamed(context, '/categorysetting');
     });
-
   }
 
   @override
@@ -105,27 +107,33 @@ class _NewCategoryState extends State<NewCategory> {
               SizedBox(
                 height: 40,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                child: TextFormField(
-                  decoration: InputDecoration(labelText: 'Category'),
-                  onChanged: (value) {},
-                  controller: _categoryController,
-                  onSaved: (value) {
-                    name = value;
-                    //print(name);
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter category';
-                    }
-                  },
-                  autovalidateMode: isSubmit
-                      ? AutovalidateMode.onUserInteraction
-                      : AutovalidateMode.disabled,
-                ),
-              ),
+              Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(
+                      left: 40, right: 40, top: 6, bottom: 0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Name'),
+                        TextFormField(
+                          // decoration: InputDecoration(labelText: 'Name'),
+                          onChanged: (value) {},
+                          controller: _categoryController,
+                          onSaved: (value) {
+                            name = value;
+                            //print(name);
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter category';
+                            }
+                          },
+                          autovalidateMode: isSubmit
+                              ? AutovalidateMode.onUserInteraction
+                              : AutovalidateMode.disabled,
+                        ),
+                      ])),
               // textInputField(
               //   title: "Category",
               //   obscure: false,
@@ -142,36 +150,51 @@ class _NewCategoryState extends State<NewCategory> {
               //   text: '',
               //   onChanged: (value) {},
               // ),
-              FormField(builder: (FormFieldState state) {
-                return InputDecorator(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    // labelText: 'Transaction type',
-                  ),
-                  // isEmpty: _transactionval == '',
-                  child: DropdownButtons(
-                    onSaved: (value) {
-                      transactionType = value;
-                      print(transactionType);
-                    },
-                    title: "Transaction type",
-                    value: transactionType,
-                    hinttext: '',
-                    onChanged: (value) {
-                      setState(() {
-                        transactionType = value;
-                        // print(_transactionval);
-                      });
-                    },
-                    item: _types.map((value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                );
-              }),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(
+                    left: 40, right: 40, top: 10, bottom: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Transaction Type'),
+                    Container(
+                      child: DropdownButtonFormField<String>(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a transaction type';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        isDense: false,
+                        value: transactionType,
+                        hint: const Text('Select transaction type'),
+                        isExpanded: true,
+                        items: _types.map((value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            transactionType = value;
+                          });
+                        },
+                        onSaved: (value) {
+                          transactionType = value;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               // DropdownButtons(
               //   // onSaved: (value) {
               //   //   _transactionval = value;
@@ -199,14 +222,16 @@ class _NewCategoryState extends State<NewCategory> {
               // ),
               Expanded(
                   child: Container(
+                    margin: const EdgeInsets.only(top: 20),
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 8),
                 child: Form(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Color"),
                       TextFormField(
+                        readOnly: true,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please select the color';

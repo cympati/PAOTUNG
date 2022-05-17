@@ -65,7 +65,7 @@ class _CategorySettingState extends State<CategorySetting> {
           Padding(
               padding: EdgeInsets.all(0),
               child: _categoriesIncome.isEmpty
-                  ? DefaultText(text: 'category')
+                  ? DefaultText(text: 'category',color:true)
                   : Column(children: [
                       ..._categoriesIncome.map((category) {
                         return CategoryBox(
@@ -84,7 +84,7 @@ class _CategorySettingState extends State<CategorySetting> {
           Padding(
               padding: EdgeInsets.all(0),
               child: _categoriesExpense.isEmpty
-                  ? const DefaultText(text: 'category')
+                  ? const DefaultText(text: 'category',color:true)
                   : Column(children: [
                       ..._categoriesExpense.map((category) {
                         return CategoryBox(

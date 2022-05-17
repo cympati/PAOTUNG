@@ -54,7 +54,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BackwardAppBar(title: "Notification Setting", ),
+      appBar: const BackwardAppBar(title: "Notification Setting"),
       body: ListView(
           // padding: const EdgeInsets.symmetric(
           //   vertical: 15,
@@ -64,7 +64,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
             Padding(
               padding: EdgeInsets.all(0),
               child: _notification.isEmpty
-                  ? DefaultText(text: 'notification')
+                  ? DefaultText(text: 'notification',color:true)
                   : Column(
                       children: [
                         TextDefine(

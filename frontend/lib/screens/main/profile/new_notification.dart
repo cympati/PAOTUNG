@@ -48,11 +48,18 @@ class _NewNotificationState extends State<NewNotification> {
               SizedBox(
                 height: 40,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                child: TextFormField(
-                  decoration: InputDecoration(labelText: 'Name'),
+          Container(
+            alignment: Alignment.centerLeft,
+            margin: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(
+                left: 40, right: 40, top: 6, bottom: 0),
+            child: Form(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Name"),
+                      TextFormField(
+                  // decoration: InputDecoration(labelText: 'Name'),
                   controller: _newnotiController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -60,7 +67,7 @@ class _NewNotificationState extends State<NewNotification> {
                     }
                   },
                 ),
-              ),
+              ])),
               // DropdownButtons(
               //   title: "transaction type",
               //   hinttext: "",
@@ -77,6 +84,8 @@ class _NewNotificationState extends State<NewNotification> {
               //     );
               //   }).toList(),
               // ),
+
+          ),
               const DatePicker(),
               const TimePicker(),
               Spacer(),
@@ -85,8 +94,7 @@ class _NewNotificationState extends State<NewNotification> {
                 onPressed: () => _handleSubmit(),
                 controller: _newnotiBtnController,
                 bottom: 80,
-              )
-            ],
+              )],
           ),
         ),
       ),

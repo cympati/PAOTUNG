@@ -19,19 +19,22 @@ class BackwardAppBar extends StatelessWidget implements PreferredSizeWidget {
         titleTextStyle: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
         elevation: 0,
-        leading: new IconButton(
+        leading: IconButton(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 31),
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
-          icon: Icon(
+          icon: const Icon(
             Icons.navigate_before_rounded,
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            print("453543543534");
+            Navigator.of(
+                context)
+                .pop();
           },
-        ),
-      ),
+        ),) ,
     );
   }
 }

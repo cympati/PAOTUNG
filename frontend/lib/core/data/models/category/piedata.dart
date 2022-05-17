@@ -1,9 +1,7 @@
 
 class PieData {
   String name;
-
   double percent;
-
   int color;
 
   PieData({required this.name, required this.percent, required this.color});
@@ -29,7 +27,6 @@ class PieDataResponse {
   bool success;
   String code;
   List<PieData> piedata;
-
   PieDataResponse(this.success, this.code, this.piedata);
 
   factory PieDataResponse.fromJson(Map<String, dynamic> json) {
