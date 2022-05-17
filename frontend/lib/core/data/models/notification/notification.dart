@@ -27,11 +27,12 @@ class Notifications {
 }
 
 class NotificationResponse{
+  String message;
   bool success;
   String code;
   List<Notifications> data;
 
-  NotificationResponse(this.success, this.code, this.data);
+  NotificationResponse(this.success, this.code, this.data, this.message);
 
   factory NotificationResponse.fromJson(Map<String, dynamic> json) {
     var notification = json['data'] != null ? json['data'] as List  : List.empty();
@@ -41,6 +42,7 @@ class NotificationResponse{
       json['success'], 
       json['code'], 
       tempNotification, 
+      json['message'],
       );
   }
 }
