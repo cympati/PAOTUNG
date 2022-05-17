@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
+import 'package:paotung_frontend/screens/main/profile/profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/rounded_button.dart';
@@ -23,7 +24,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: ListView(
           children: [
             //App bar
-            BackwardAppBar(title: "Edit Profile"),
+            BackwardAppBar(title: "Edit Profile",),
             Container(
               height: 40,
             ),

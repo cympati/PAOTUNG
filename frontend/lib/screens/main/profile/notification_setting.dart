@@ -1,17 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:paotung_frontend/core/data/models/notification/notification.dart';
 import 'package:paotung_frontend/core/data/services/notification_service.dart';
 import 'package:paotung_frontend/screens/main/profile/new_notification.dart';
+import 'package:paotung_frontend/screens/main/profile/profile_page.dart';
 import 'package:paotung_frontend/widgets/category/text_define.dart';
 import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
 
 import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/default_text.dart';
 import 'package:paotung_frontend/widgets/common/notification.dart';
-
+import 'package:flutter/foundation.dart';
 import '../../../constants/theme.dart';
 import '../../../core/data/services/providers/providers.dart';
+import '../../../core/utils/life_cycle.dart';
 
 class NotificationSetting extends StatefulWidget {
   const NotificationSetting({Key? key}) : super(key: key);
@@ -23,24 +27,26 @@ class NotificationSetting extends StatefulWidget {
 class _NotificationSettingState extends State<NotificationSetting> {
   List<Notifications> _notification = [];
 
+
+
   void initState() {
     _readJson();
     super.initState();
-
     NotificationApi.init();
-    // listenNotifications();
+
+    WidgetsBinding.instance?.addObserver(
+        LifecycleEventHandler(resumeCallBack: () async =>  _readJson(), suspendingCallBack: () async => {})
+    );
+
   }
 
-  // void listenNotifications() => NotificationApi.onNotifications.stream.listen(onClickedNotification);
 
-  // void onClickedNotification(String? payload) =>
   Future<void> _readJson() async {
     var responseNotification = await GetNotification.getData();
     if (mounted) {
       setState(() {
         _notification = responseNotification;
       });
-
     }
 
   }
@@ -48,7 +54,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BackwardAppBar(title: "Notification Setting"),
+      appBar: const BackwardAppBar(title: "Notification Setting", ),
       body: ListView(
           // padding: const EdgeInsets.symmetric(
           //   vertical: 15,
@@ -58,18 +64,15 @@ class _NotificationSettingState extends State<NotificationSetting> {
             Padding(
               padding: EdgeInsets.all(0),
               child: _notification.isEmpty
-                  ? DefaultText(text: 'notifiction')
+                  ? DefaultText(text: 'notification')
                   : Column(
                       children: [
                         TextDefine(
-                            categotyText: "All Notifications",
-                            buttonText: "Clear All"),
+                            text: "All Notifications",
+                            buttonText: "Clear All", isNotification:true,readJson:_readJson, transactionType: "",),
                         ..._notification.map((notification) {
-                          return NotificationTitle(name: notification.name);
+                          return NotificationTitle(name: notification.name,notificationId:notification.id,readJson:_readJson);
                         }).toList(),
-                        // NotificationTitle(name: "Electric Bill"),
-                        // NotificationTitle(name: "Saving 5 THB"),
-                        // NotificationTitle(name: "Don't forget to record!"),
                       ],
                     ),
             )

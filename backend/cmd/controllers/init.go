@@ -35,8 +35,9 @@ func Init(router fiber.Router) {
 	category.Get("expense", Category.GetExpenseHandler)
 	category.Get("income", Category.GetIncomeHandler)
 	category.Post("add", Category.PostHandler)
-	category.Delete("delete/all", Category.DeleteAllHandler)
-	category.Delete("delete/:category_id", Category.DeleteByIdHandler)
+	category.Delete("expense/delete/all", Category.DeleteExpenseAllHandler)
+	category.Delete("income/delete/all", Category.DeleteIncomeAllHandler)
+	category.Delete("delete", Category.DeleteByIdHandler)
 
 	//
 	//// * Notification
@@ -44,9 +45,6 @@ func Init(router fiber.Router) {
 	notification.Get("info", Notification.GetHandler)
 	notification.Post("add", Notification.PostHandler)
 	notification.Delete("delete/all", Notification.DeleteAllHandler)
-	notification.Delete("delete/:notification_id", Notification.DeleteByIdHandler)
+	notification.Delete("delete", Notification.DeleteByIdHandler)
 
 }
-
-
-

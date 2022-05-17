@@ -4,11 +4,16 @@ import 'package:gap/gap.dart';
 import '../../constants/theme.dart';
 import 'package:paotung_frontend/widgets/category/color_dot.dart';
 
+import '../../core/data/services/category_service.dart';
+
 class CategoryBox extends StatelessWidget {
   final int color;
+  final int categoryId;
   final String name;
+  final Function readJson;
 
-  const CategoryBox({Key? key, required this.color, required this.name})
+
+  const CategoryBox({Key? key, required this.color, required this.name, required this.categoryId,required this.readJson})
       : super(key: key);
 
   @override
@@ -59,9 +64,11 @@ class CategoryBox extends StatelessWidget {
                                   primary: AppColors.mainColor,
                                 ),
                                 child: const Text("DELETE"),
-                                onPressed: () =>
-                                    Navigator.of(context, rootNavigator: true)
-                                        .pop(),
+                                onPressed: () async {
+                                  await CategoryService.deleteById(categoryId);
+                                  readJson();
+                                  Navigator.of(context, rootNavigator: true).pop();
+                                },
                               ),
                               // print("delete this category")
                             ],
