@@ -64,7 +64,7 @@ class _NewNotificationState extends State<NewNotification> {
 
   void _notificationNavigate() async{
     Timer(const Duration(milliseconds: 1500), () {
-      Navigator.pushReplacementNamed(context, '/notisetting');
+      Navigator.pop(context);
     });
   }
 
@@ -81,12 +81,14 @@ class _NewNotificationState extends State<NewNotification> {
               const SizedBox(
                 height: 40,
               ),
+             
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 child: TextFormField(
                   decoration: const InputDecoration(labelText: 'Name'),
                   onChanged: (value) {},
+                  controller: _newnotiController,
                   onSaved: (value) {
                     name = value;
                   },

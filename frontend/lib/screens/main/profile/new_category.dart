@@ -148,6 +148,7 @@ class _NewCategoryState extends State<NewCategory> {
                     border: InputBorder.none,
                     // labelText: 'Transaction type',
                   ),
+                  
                   // isEmpty: _transactionval == '',
                   child: DropdownButtons(
                     onSaved: (value) {
@@ -217,6 +218,7 @@ class _NewCategoryState extends State<NewCategory> {
                           selectedColor = value as int?;
                         },
                         onChanged: (value) {},
+                        
                         // autovalidateMode: isSubmit
                         //     ? AutovalidateMode.onUserInteraction
                         //     : AutovalidateMode.disabled,

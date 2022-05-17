@@ -110,97 +110,100 @@ class _LoginScreenState extends State<LoginScreen> {
               valueListenable: _passwordController,
               builder: (context, TextEditingValue value, __) {
                 return Expanded(
-                  child: ListView(
-                    children: [
-                        textInputField(
-                          controller: _emailController,
-                          title: "Email",
-                          obscure: false,
-                          text: '',
-                          onChanged: (_) => setState(() {
-                            errorText = '';
-                          }),
-                          // formKey: _emailKey
-                        ),
-                        textInputField(
-                          controller: _passwordController,
-                          title: "Password",
-                          obscure: true,
-                          text: '',
-                          onChanged: (_) => setState(() {
-                            errorText = '';
-                          }),
-                          // formKey: _passwordKey,
-                        ),
-                        errorText.isNotEmpty
-                            ? Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only( top: 10),
-                          child: Text(
-                            errorText,
-                            style: TextStyle(color: Colors.red),
-                            textAlign: TextAlign.center,
-                          ),
-                        )
-                            : Container(),
-                        Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only( bottom: 195,top: 10),
-                          child: const Text(
-                            '',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        //Go to signup page
-                        const Spacer(),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [Container(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: RichText(
-                              text: TextSpan(children: <TextSpan>[
-                                const TextSpan(
-                                    text: "New Here? Create an account ",
-                                    style: TextStyle(color: Colors.grey)),
-                                TextSpan(
-                                    text: "Sign Up",
-                                    style: TextStyle(color: AppColors.mainColor),
-                                    recognizer: _recognizer)
-                              ]),
+                    child: ListView(
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      child: TextFormField(
+                        decoration: InputDecoration(labelText: 'Email'),
+                        controller: _emailController,
+                        obscureText: false,
+                        onChanged: (_) => setState(() {
+                          errorText = '';
+                        }),
+                      ),
+                    ),
+
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      child: TextFormField(
+                        decoration: InputDecoration(labelText: 'Password'),
+                        controller: _passwordController,
+                        obscureText: true,
+                        onChanged: (_) => setState(() {
+                          errorText = '';
+                        }),
+                      ),
+                    ),
+
+                    errorText.isNotEmpty
+                        ? Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              errorText,
+                              style: TextStyle(color: Colors.red),
+                              textAlign: TextAlign.center,
                             ),
+                          )
+                        : Container(),
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(bottom: 195, top: 10),
+                      child: const Text(
+                        '',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    //Go to signup page
+                    const Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: RichText(
+                            text: TextSpan(children: <TextSpan>[
+                              const TextSpan(
+                                  text: "New Here? Create an account ",
+                                  style: TextStyle(color: Colors.grey)),
+                              TextSpan(
+                                  text: "Sign Up",
+                                  style: TextStyle(color: AppColors.mainColor),
+                                  recognizer: _recognizer)
+                            ]),
                           ),
-                            //Button
-                            Container(
-                              margin: EdgeInsets.only(bottom: 60),
-                              child: RoundedLoadingButton(
-                                height: 70,
-                                width: 420,
-                                child: const Text(
-                                  'log in',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                color: AppColors.mainColor,
-                                borderRadius: 20,
-                                controller: _loginBtnController,
-                                onPressed:
+                        ),
+                        //Button
+                        Container(
+                          margin: EdgeInsets.only(bottom: 60),
+                          child: RoundedLoadingButton(
+                            height: 70,
+                            width: 420,
+                            child: const Text(
+                              'log in',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                            color: AppColors.mainColor,
+                            borderRadius: 20,
+                            controller: _loginBtnController,
+                            onPressed:
                                 _passwordController.value.text.isNotEmpty &&
-                                    _emailController.value.text.isNotEmpty
+                                        _emailController.value.text.isNotEmpty
                                     ? _logincall
                                     : null,
-                                disabledColor: AppColors.mainColor,
-                              ),
-                            )],
+                            disabledColor: AppColors.mainColor,
+                          ),
                         )
-
-
-
-                    ],
-                  )
-
-                );
+                      ],
+                    )
+                  ],
+                ));
               })
         ],
       ),
