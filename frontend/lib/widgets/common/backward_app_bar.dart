@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:paotung_frontend/constants/theme.dart';
+
 
 class BackwardAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const BackwardAppBar({Key? key, required this.title}) : super(key: key);
+  const BackwardAppBar({Key? key, required this.title, }) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(70.0);
@@ -28,7 +28,7 @@ class BackwardAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
           },
         ),
       ),

@@ -9,13 +9,13 @@ import (
 	"paotung-backend/pkg/database/models"
 )
 
-func DeleteAllHandler(c *fiber.Ctx) error {
+func DeleteExpenseAllHandler(c *fiber.Ctx) error {
 	// Parse JWT cookie
 	cookie := c.Locals("user").(*jwt.Token)
 	claims := cookie.Claims.(*common.UserClaim)
 
 	// * Change category_id in all transaction to NULL
-	if result := database.Gorm.Model(&models.Transaction{}).Where("owner_id = ?", claims.UserId).
+	if result := database.Gorm.Model(&models.Transaction{}).Where("owner_id = ? AND transaction_type = 'expense' ", claims.UserId).
 		Update("category_id", gorm.Expr("NULL")); result.Error != nil {
 		return &common.GenericError{
 			Code:    "BAD_REQUEST",
@@ -25,7 +25,7 @@ func DeleteAllHandler(c *fiber.Ctx) error {
 	}
 
 	// * Remove all categories
-	if result := database.Gorm.Delete(&models.Category{}, "owner_id = ?", claims.UserId); result.Error != nil {
+	if result := database.Gorm.Delete(&models.Category{}, "owner_id = ? AND transaction_type = 'expense' ", claims.UserId); result.Error != nil {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
 			Message: "Error deleting all category row",

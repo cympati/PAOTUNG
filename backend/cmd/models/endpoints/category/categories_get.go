@@ -19,7 +19,7 @@ func GetHandler(c *fiber.Ctx) error {
 	if resultExpense := database.Gorm.Table("categories").
 		Select("id", "name", "color").
 		Where("owner_id = ? AND transaction_type = 'expense'", claims.UserId).
-		Scan(&expenseList); resultExpense.RowsAffected == 0 {
+		Scan(&expenseList); resultExpense.Error != nil {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
 			Message: "There is no any category of this account",
@@ -32,7 +32,7 @@ func GetHandler(c *fiber.Ctx) error {
 	if resultIncome := database.Gorm.Table("categories").
 		Select("id", "name", "color").
 		Where("owner_id = ? AND transaction_type = 'income'", claims.UserId).
-		Scan(&incomeList); resultIncome.RowsAffected == 0 {
+		Scan(&incomeList); resultIncome.Error != nil {
 		return &common.GenericError{
 			Message: "There is no any category in your account",
 			Err:     resultIncome.Error,

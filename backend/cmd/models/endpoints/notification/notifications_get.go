@@ -18,7 +18,7 @@ func GetHandler(c *fiber.Ctx) error {
 	if result := database.Gorm.Table("notifications").
 		Select("id", "name", "date_time").
 		Where("owner_id = ?", claims.UserId).
-		Scan(&notificationList); result.RowsAffected == 0 {
+		Scan(&notificationList); result.Error != nil {
 		return &common.GenericError{
 			Message: "There is no any notification in your account",
 			Err:     result.Error,
