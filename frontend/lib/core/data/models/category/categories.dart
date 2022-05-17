@@ -50,18 +50,20 @@ class TransactionType {
 }
 
 class CategoryResponse {
+  String message;
   bool success;
   String code;
   TransactionType data;
 
   CategoryResponse(
-      {required this.success, required this.code, required this.data});
+      {required this.success, required this.code, required this.data, required this.message});
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) {
     return CategoryResponse(
       success: json['success'],
       code: json['code'],
       data: TransactionType.fromJson(json['data']),
+      message: json['message'],
     );
   }
 }
