@@ -6,6 +6,7 @@ import 'package:paotung_frontend/screens/main/profile/notification_setting.dart'
 import 'package:paotung_frontend/widgets/common/list_item.dart';
 import 'package:paotung_frontend/widgets/common/text_title.dart';
 import 'package:paotung_frontend/widgets/main/profile/profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -15,6 +16,12 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
+  late SharedPreferences prefs;
+
+  deleteUserData() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.remove('user');
+  }
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -37,6 +44,7 @@ class _MyPageState extends State<MyPage> {
             //Log out
             InkWell(
               onTap: () {
+                deleteUserData();
                 Navigator.popAndPushNamed(context, '/login');
               },
               child: Container(

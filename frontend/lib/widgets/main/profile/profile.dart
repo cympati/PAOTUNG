@@ -4,9 +4,6 @@ import 'package:paotung_frontend/core/data/models/user/user.dart';
 import 'package:paotung_frontend/core/data/services/user_service.dart';
 import 'package:paotung_frontend/screens/main/profile/edit_profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 class profileSection extends StatefulWidget {
   const profileSection({Key? key}) : super(key: key);
@@ -16,19 +13,7 @@ class profileSection extends StatefulWidget {
 }
 
 class _profileSectionState extends State<profileSection> {
-  late SharedPreferences prefs;
-
-  deleteUserData() async {
-    prefs = await SharedPreferences.getInstance();
-    prefs.remove('user');
-  }
-
-  User _user = User(
-      email: "",
-      username: "",
-      imagePath: "",
-      balance: 0
-    );
+  User _user = User(email: "", username: "", imagePath: "", balance: 0);
 
   User nulluser = UserPreferences.myUser;
 
@@ -36,6 +21,7 @@ class _profileSectionState extends State<profileSection> {
     _readJson();
     super.initState();
   }
+
   Future<void> _readJson() async {
     var responseUser = await GetUser.getData();
     if (mounted) {
@@ -45,19 +31,14 @@ class _profileSectionState extends State<profileSection> {
     }
   }
 
-  //reload page after Pop edit profile page
-  _navigate(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => EditProfilePage()));
-        if (result){
-          setState(() {
-            
-          });
-        }
-  }
-
   @override
   Widget build(BuildContext context) {
+    //reload page after Pop edit profile page
+    _navigate(BuildContext context) async {
+      final result = await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EditProfilePage()))
+          .then((_) => setState(() { print("ok"); }));
+    }
 
     return Container(
         padding: const EdgeInsets.only(top: 10),
@@ -67,7 +48,9 @@ class _profileSectionState extends State<profileSection> {
             CircleAvatar(
               maxRadius: 40.0,
               backgroundColor: AppColors.lightgrey,
-              backgroundImage: _user.imagePath.isEmpty ?  NetworkImage(nulluser.imagePath) : NetworkImage(_user.imagePath),
+              backgroundImage: _user.imagePath.isEmpty
+                  ? NetworkImage(nulluser.imagePath)
+                  : NetworkImage(_user.imagePath),
             ),
             const Padding(
                 padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12)),
