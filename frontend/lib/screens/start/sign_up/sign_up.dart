@@ -86,13 +86,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             //Signup Title
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
             const AuthenTitle(
                 title: "Create Account",
                 description: "register PAOTUNG to be rich 🤑 "),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             //Input text

@@ -34,9 +34,8 @@ class _MonthTabState extends State<MonthTab> {
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: _transaction.isEmpty
-            ? DefaultText(text: 'transactions')
+            ? const DefaultText(text: 'transactions', color: true)
             : Column(
-                
                 children: [
                   ..._transaction.map((transaction) {
                     return Column(

@@ -21,7 +21,9 @@ class _TimePickerState extends State<TimePicker> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+      margin: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(
+          left: 40, right: 40, top: 8, bottom: 0),
       child: Form(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

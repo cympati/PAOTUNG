@@ -32,13 +32,16 @@ class _NewCategoryState extends State<NewCategory> {
   final RoundedLoadingButtonController _newcategoryBtnController =
       RoundedLoadingButtonController();
   String? name;
+
   // String? color;
   String? transactionType;
   int? selectedColor;
   bool isSubmit = false;
+
   // final RoundedButton _categoryBtnController = RoundedButton();
   Color mycolor = Colors.lightBlue;
-  var _transactionval;
+
+  //var _transactionval;
   List _types = ['Expense', 'Income'];
 
   void changeColor(Color color) {
@@ -89,7 +92,6 @@ class _NewCategoryState extends State<NewCategory> {
       // Navigator.pop(context);
       Navigator.pushReplacementNamed(context, '/categorysetting');
     });
-
   }
 
   @override
@@ -102,69 +104,81 @@ class _NewCategoryState extends State<NewCategory> {
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                child: TextFormField(
-                  decoration: InputDecoration(labelText: 'Category'),
-                  controller: _categoryController,
-                  onSaved: (value) {
-                    name = value;
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter category';
-                    }
-                  },
+              Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(
+                      left: 40, right: 40, top: 6, bottom: 0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Name'),
+                        TextFormField(
+                          // decoration: InputDecoration(labelText: 'Name'),
+                          onChanged: (value) {},
+                          controller: _categoryController,
+                          onSaved: (value) {
+                            name = value;
+                            //print(name);
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter category';
+                            }
+                          },
+                          autovalidateMode: isSubmit
+                              ? AutovalidateMode.onUserInteraction
+                              : AutovalidateMode.disabled,
+                        ),
+                      ])),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(
+                    left: 40, right: 40, top: 10, bottom: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Transaction Type'),
+                    Container(
+                      child: DropdownButtonFormField<String>(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a transaction type';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        isDense: false,
+                        value: transactionType,
+                        hint: const Text('Select transaction type'),
+                        isExpanded: true,
+                        items: _types.map((value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            transactionType = value;
+                          });
+                        },
+                        onSaved: (value) {
+                          transactionType = value;
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              // textInputField(
-              //   title: "Category",
-              //   obscure: false,
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'Please enter the category';
-              //     }
-              //     return null;
-              //   },
-              //   controller: _categoryController,
-              //   // autovalidateMode: isSubmit
-              //   //     ? AutovalidateMode.onUserInteraction
-              //   //     : AutovalidateMode.disabled,
-              //   text: '',
-              //   onChanged: (value) {},
-              // ),
-              FormField(builder: (FormFieldState state) {
-                return InputDecorator(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    // labelText: 'Transaction type',
-                  ),
-                  // isEmpty: _transactionval == '',
-                  child: DropdownButtons(
-                    onSaved: (value) {
-                      transactionType = value;
-                    },
-                    title: "Transaction type",
-                    value: _transactionval,
-                    hinttext: '',
-                    onChanged: (value) {
-                      setState(() {
-                        _transactionval = value;
-                      });
-                    },
-                    item: _types.map((value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                );
-              }),
               // DropdownButtons(
               //   // onSaved: (value) {
               //   //   _transactionval = value;
@@ -192,23 +206,27 @@ class _NewCategoryState extends State<NewCategory> {
               // ),
               Expanded(
                   child: Container(
+                margin: const EdgeInsets.only(top: 20),
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 8),
                 child: Form(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Color"),
                       TextFormField(
+                        readOnly: true,
                         validator: (value) {
-                          if (value!.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please select the color';
                           }
                           return null;
                         },
                         onSaved: (value) {
-                          mycolor = value as Color;
+                          selectedColor = value as int?;
                         },
+                        onChanged: (value) {},
+
                         // autovalidateMode: isSubmit
                         //     ? AutovalidateMode.onUserInteraction
                         //     : AutovalidateMode.disabled,
@@ -221,7 +239,7 @@ class _NewCategoryState extends State<NewCategory> {
                               color: mycolor,
                             ),
                             suffixIcon: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_drop_down_outlined,
                                 size: 30,
                               ),

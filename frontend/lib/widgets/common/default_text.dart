@@ -3,7 +3,8 @@ import 'package:paotung_frontend/constants/theme.dart';
 
 class DefaultText extends StatelessWidget {
   final String text;
-  const DefaultText({ Key? key, required this.text }) : super(key: key);
+  final bool color;
+  const DefaultText({ Key? key, required this.text , required this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class DefaultText extends StatelessWidget {
       child: Text(
         "You don't have any "  + text, 
         style: TextStyle(
-          color: AppColors.grey
+          color: color ? AppColors.grey :Colors.black38
         ),
       ),
     );

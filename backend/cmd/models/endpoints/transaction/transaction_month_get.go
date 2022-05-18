@@ -24,7 +24,7 @@ func GetMonthHandler(c *fiber.Ctx) error {
 		Joins("left join categories on categories.id = transactions.category_id").
 		Order("transactions.date desc").
 		Scan(&transactionMonth)
-	if result.Error != nil || result.RowsAffected == 0 {
+	if result.Error != nil {
 		return &common.GenericError{
 			Message: "Error querying transaction and category information",
 			Err:     result.Error,

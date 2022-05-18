@@ -1,12 +1,15 @@
 // import 'dart:ffi';
 
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/category/categories.dart';
 import 'package:paotung_frontend/core/data/services/category_income_service.dart';
+import 'package:paotung_frontend/core/utils/life_cycle.dart';
 import 'package:paotung_frontend/screens/main/profile/new_category.dart';
+import 'package:paotung_frontend/screens/main/profile/profile_page.dart';
 import 'package:paotung_frontend/widgets/category/category_box.dart';
 import 'package:paotung_frontend/widgets/category/text_define.dart';
 import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
@@ -30,6 +33,10 @@ class _CategorySettingState extends State<CategorySetting> {
   void initState() {
     _readJson();
     super.initState();
+
+    WidgetsBinding.instance?.addObserver(
+        LifecycleEventHandler(resumeCallBack: () async =>  _readJson(), suspendingCallBack: () async => {})
+    );
   }
 
   Future<void> _readJson() async {
@@ -50,26 +57,26 @@ class _CategorySettingState extends State<CategorySetting> {
       // appBar: const CloseAppBar(title: 'Category Setting'),
       body: ListView(
         children: [
-          const BackwardAppBar(title: "Category Setting"),
-          const TextDefine(categotyText: "Income", buttonText: "Clear All"),
+          const BackwardAppBar(title: "Category Setting",),
+          TextDefine(text: "Income", buttonText: "Clear All", isNotification:false,readJson:_readJson, transactionType: "income"),
           Container(
             height: 5,
           ),
           Padding(
               padding: EdgeInsets.all(0),
               child: _categoriesIncome.isEmpty
-                  ? DefaultText(text: 'category')
+                  ? DefaultText(text: 'category',color:true)
                   : Column(children: [
                       ..._categoriesIncome.map((category) {
                         return CategoryBox(
-                            color: category.color, name: category.name);
+                            color: category.color, name: category.name, categoryId: category.id,readJson: _readJson,);
                       }).toList(),
                       Container(
                         height: 30,
                       ),
                     ])),
           // const Spacer(),
-          const TextDefine(categotyText: "Expense", buttonText: "Clear All"),
+           TextDefine(text: "Expense", buttonText: "Clear All", isNotification:false,readJson:_readJson,transactionType:"expense"),
           Container(
             height: 10,
           ),
@@ -77,11 +84,11 @@ class _CategorySettingState extends State<CategorySetting> {
           Padding(
               padding: EdgeInsets.all(0),
               child: _categoriesExpense.isEmpty
-                  ? DefaultText(text: 'category')
+                  ? const DefaultText(text: 'category',color:true)
                   : Column(children: [
                       ..._categoriesExpense.map((category) {
                         return CategoryBox(
-                            color: category.color, name: category.name);
+                            color: category.color, name: category.name, categoryId: category.id, readJson: _readJson,);
                       }).toList(),
                       Container(
                         height: 60,
@@ -92,7 +99,7 @@ class _CategorySettingState extends State<CategorySetting> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => NewCategory()));
+              context, MaterialPageRoute(builder: (context) => const NewCategory()));
         },
         backgroundColor: AppColors.mainColor,
         child: const Icon(Icons.add),

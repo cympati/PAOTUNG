@@ -8,6 +8,7 @@ import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
 import 'package:paotung_frontend/core/data/services/user_service.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
+import 'package:paotung_frontend/screens/main/profile/profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/rounded_button.dart';
@@ -83,8 +84,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
           _passwordController.text == _confirmPasswordController.text) {
         var updateProfile = await GetUser.updateProfile(
             tempEmail, tempUsername, _passwordController.text);
-            print("email: " + tempEmail );
-            print("username: " + tempUsername );
+        print("email: " + tempEmail);
+        print("username: " + tempUsername);
         if (updateProfile is ErrorResponse) {
           showAlertDialog(context, updateProfile.message);
           _editBtnController.reset();
@@ -98,7 +99,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
 
     return Scaffold(
-      appBar: BackwardAppBar(title: "Edit Profile"),
+      appBar: const BackwardAppBar(title: "Edit Profile"),
       body: Form(
         key: _formkey,
         child: Container(
@@ -116,16 +117,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   getImage(source: ImageSource.gallery);
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 48,
               ),
               //Input
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Email"),
+                    const Text("Email"),
                     TextFormField(
                       controller: TextEditingController(text: _user.email),
                       onSaved: (text) => setState(() {
@@ -138,10 +140,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               borderSide:
                                   BorderSide(color: AppColors.mainColor))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Text("Username"),
+                    const Text("Username"),
                     TextFormField(
                       controller: TextEditingController(text: _user.username),
                       onSaved: (text) => setState(() {
@@ -154,10 +156,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               borderSide:
                                   BorderSide(color: AppColors.mainColor))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Text("Password"),
+                    const Text("Password"),
                     TextFormField(
                       controller: _passwordController,
                       obscureText: true,
@@ -168,10 +170,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               borderSide:
                                   BorderSide(color: AppColors.mainColor))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Text("Confirm Password"),
+                    const Text("Confirm Password"),
                     TextFormField(
                       controller: _confirmPasswordController,
                       obscureText: true,
@@ -220,7 +222,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               //     tempEmail = value;
               //   }),
               // ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               //Save

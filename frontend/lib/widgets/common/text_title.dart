@@ -9,7 +9,7 @@ class TextTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-              height: 100,
+      padding: const EdgeInsets.only( top: 10, bottom: 20),
               alignment: Alignment.centerLeft,
               child: Text(
                 title,

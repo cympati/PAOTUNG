@@ -26,7 +26,7 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     return ListView(
       children: [Padding(
-        padding: EdgeInsets.symmetric(vertical: 32.0, horizontal: 40.0),
+        padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 40.0),
         child: Column(
           children: [
             //Title
@@ -34,7 +34,7 @@ class _MyPageState extends State<MyPage> {
             //User pic & username
             profileSection(),
             SizedBox(
-              height: 55,
+              height: 35,
             ),
             //list
             ListItem(title: "Category Setting", routes: CategorySetting()),
