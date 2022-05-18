@@ -34,3 +34,17 @@ class UserResponse {
         data: User.fromJson(json['data']));
   }
 }
+
+class InfoResponse {
+  bool success;
+  String code;
+  String message;
+
+  InfoResponse({required this.success, required this.code, required this.message});
+
+  factory InfoResponse.fromJson(Map<String, dynamic> json) {
+    return InfoResponse(
+        success: json["success"], code: json["code"] ?? "", message: json["message"]);
+  }
+}
+

@@ -5,10 +5,11 @@ import 'dart:io';
 
 class EditProfilePic extends StatefulWidget {
   final String imagePath;
+  final void Function()? onTaped;
 
   const EditProfilePic({
     Key? key,
-    required this.imagePath,
+    required this.imagePath, this.onTaped,
   }) : super(key: key);
 
   @override
@@ -16,9 +17,7 @@ class EditProfilePic extends StatefulWidget {
 }
 
 class _EditProfilePicState extends State<EditProfilePic> {
-  PickedFile? _imageFile;
-  final ImagePicker _picker = ImagePicker();
-
+  
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -42,13 +41,11 @@ class _EditProfilePicState extends State<EditProfilePic> {
       child: Material(
         color: AppColors.lightgrey,
         child: Ink.image(
-          image: _imageFile == null ? image : FileImage(File(_imageFile!.path)) as ImageProvider,
+          image: image,
           fit: BoxFit.cover,
           width: 128,
           height: 128,
-          child: InkWell(onTap: () {
-            getImage(source: ImageSource.gallery);
-          }),
+          child: InkWell(onTap: widget.onTaped),
         ),
       ),
     );
@@ -80,10 +77,5 @@ class _EditProfilePicState extends State<EditProfilePic> {
         ),
       );
 
-  void getImage({required ImageSource source}) async {
-    final pickedFile = await _picker.getImage(source: source,imageQuality: 70);
-    setState(() {
-      _imageFile = pickedFile;
-    });
-  }
+  
 }
