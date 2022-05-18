@@ -104,7 +104,7 @@ class _NewCategoryState extends State<NewCategory> {
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Container(
@@ -134,22 +134,6 @@ class _NewCategoryState extends State<NewCategory> {
                               : AutovalidateMode.disabled,
                         ),
                       ])),
-              // textInputField(
-              //   title: "Category",
-              //   obscure: false,
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'Please enter the category';
-              //     }
-              //     return null;
-              //   },
-              //   controller: _categoryController,
-              //   // autovalidateMode: isSubmit
-              //   //     ? AutovalidateMode.onUserInteraction
-              //   //     : AutovalidateMode.disabled,
-              //   text: '',
-              //   onChanged: (value) {},
-              // ),
               Container(
                 margin: const EdgeInsets.only(top: 20),
                 padding: const EdgeInsets.only(
@@ -222,7 +206,7 @@ class _NewCategoryState extends State<NewCategory> {
               // ),
               Expanded(
                   child: Container(
-                    margin: const EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 8),
                 child: Form(
@@ -233,7 +217,7 @@ class _NewCategoryState extends State<NewCategory> {
                       TextFormField(
                         readOnly: true,
                         validator: (value) {
-                          if (value!.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please select the color';
                           }
                           return null;
@@ -242,6 +226,7 @@ class _NewCategoryState extends State<NewCategory> {
                           selectedColor = value as int?;
                         },
                         onChanged: (value) {},
+
                         // autovalidateMode: isSubmit
                         //     ? AutovalidateMode.onUserInteraction
                         //     : AutovalidateMode.disabled,
@@ -254,7 +239,7 @@ class _NewCategoryState extends State<NewCategory> {
                               color: mycolor,
                             ),
                             suffixIcon: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_drop_down_outlined,
                                 size: 30,
                               ),

@@ -27,20 +27,45 @@ class Notifications {
 }
 
 class NotificationResponse{
+  //String message;
   bool success;
   String code;
   List<Notifications> data;
 
-  NotificationResponse(this.success, this.code, this.data);
+  NotificationResponse(this.success, this.code, this.data, );
 
   factory NotificationResponse.fromJson(Map<String, dynamic> json) {
-    var Notification = json['data'] != null ? json['data'] as List  : List.empty();
-    List<Notifications> tempNotification = Notification.map((e) => Notifications.fromJson(e)).toList();
+    var notification = json['data'] != null ? json['data'] as List  : List.empty();
+    List<Notifications> tempNotification = notification.map((e) => Notifications.fromJson(e)).toList();
     
     return NotificationResponse(
       json['success'], 
       json['code'], 
       tempNotification, 
+      //json['message'],
       );
+  }
+}
+
+class AddNotiResponse {
+  bool success;
+  String message;
+  Notifications data;
+  //String userId;
+
+  AddNotiResponse({
+    required this.success,
+    required this.message,
+    required this.data,
+    
+  });
+
+  factory AddNotiResponse.fromJson(Map<String, dynamic> json) {
+    return AddNotiResponse(
+      success: json['success'],
+      message: json['message'],
+      //userId: json['userId'],
+      data: Notifications.fromJson(json['data']),
+    );
   }
 }

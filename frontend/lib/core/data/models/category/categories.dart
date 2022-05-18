@@ -50,20 +50,42 @@ class TransactionType {
 }
 
 class CategoryResponse {
+  //String message;
   bool success;
   String code;
   TransactionType data;
 
-  CategoryResponse(
-      {required this.success, required this.code, required this.data});
+  CategoryResponse({
+    required this.success,
+    required this.code,
+    required this.data,
+  });
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) {
     return CategoryResponse(
       success: json['success'],
       code: json['code'],
       data: TransactionType.fromJson(json['data']),
+      // message: json['message'],
     );
   }
 }
 
+class AddCategoryResponse {
+  bool success;
+  String message;
+  Categories data;
 
+  AddCategoryResponse({
+    required this.success,
+    required this.message,
+    required this.data,
+  });
+
+  factory AddCategoryResponse.fromJson(Map<String, dynamic> json) {
+    return AddCategoryResponse(
+        success: json['success'],
+        message: json['message'],
+        data: Categories.fromJson(json['data']));
+  }
+}

@@ -5,6 +5,7 @@ class textInputField extends StatefulWidget {
   final String title;
   final bool obscure;
   final String text;
+
   final ValueChanged<String> onChanged;
   final TextEditingController? controller;
   final String? Function(String?)? validator;

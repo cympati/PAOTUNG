@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/core/data/models/error/error_response.dart';
+import 'package:paotung_frontend/core/data/services/notification_service.dart';
 import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
+import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
 import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/date_picker.dart';
@@ -21,80 +25,120 @@ class NewNotification extends StatefulWidget {
 
 class _NewNotificationState extends State<NewNotification> {
   var _transactionval;
+  var formattedDate = "";
+  var formattedTime = "";
   List _types = ['Expense', 'Income'];
   final _formkey = GlobalKey<FormState>();
   final _newnotiController = TextEditingController();
   final RoundedLoadingButtonController _newnotiBtnController =
       RoundedLoadingButtonController();
+  DateTime? pickedDate;
+  bool isSubmit = false;
+  TextEditingController dateinput = TextEditingController();
+  DateTime? selectedDate;
+  TextEditingController timeinput = TextEditingController();
+  TimeOfDay? pickedTime;
+  String? name;
+  String? dateTime;
 
-  void _handleSubmit() {
-    if (_formkey.currentState!.validate()) {
-      Timer(const Duration(milliseconds: 1500), () {
-        Navigator.pushReplacementNamed(context, '/notisetting');
-      });
+  // void _handleSubmit() {
+  //   if (_formkey.currentState!.validate()) {
+  //     Timer(const Duration(milliseconds: 1500), () {
+  //       Navigator.pushReplacementNamed(context, '/notisetting');
+  //     });
+  //   }
+  // }
+
+  void _notificationCall() async {
+    var format = formattedDate + "T" + formattedTime + "Z";
+    //print(format);
+    var addNotification = await GetNotification.newNotification(name!, format);
+    if (addNotification is ErrorResponse) {
+      showAlertDialog(context, addNotification.message);
+      _newnotiBtnController.reset();
+    } else {
+      _newnotiBtnController.success();
+      _notificationNavigate();
     }
+  }
+
+  void _notificationNavigate() async {
+    Timer(const Duration(milliseconds: 1500), () {
+      Navigator.pop(context);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CloseAppBar(title: "New Notification"),
+      appBar: const CloseAppBar(title: "New Notification"),
       body: Form(
         key: _formkey,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: const EdgeInsets.only(top: 20),
-            padding: const EdgeInsets.only(
-                left: 40, right: 40, top: 6, bottom: 0),
-            child: Form(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Name"),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(
+                    left: 40, right: 40, top: 6, bottom: 0),
+                child: Form(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                      const Text("Name"),
                       TextFormField(
-                  // decoration: InputDecoration(labelText: 'Name'),
-                  controller: _newnotiController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter name';
-                    }
-                  },
-                ),
-              ])),
-              // DropdownButtons(
-              //   title: "transaction type",
-              //   hinttext: "",
-              //   value: _transactionval,
-              //   onChanged: (value) {
-              //     setState(() {
-              //       _transactionval = value;
-              //     });
-              //   },
-              //   item: _types.map((value) {
-              //     return DropdownMenuItem(
-              //       value: value,
-              //       child: Text(value),
-              //     );
-              //   }).toList(),
-              // ),
-
-          ),
+                        // decoration: InputDecoration(labelText: 'Name'),
+                        controller: _newnotiController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter name';
+                          }
+                        },
+                      ),
+                    ])),
+                // DropdownButtons(
+                //   title: "transaction type",
+                //   hinttext: "",
+                //   value: _transactionval,
+                //   onChanged: (value) {
+                //     setState(() {
+                //       _transactionval = value;
+                //     });
+                //   },
+                //   item: _types.map((value) {
+                //     return DropdownMenuItem(
+                //       value: value,
+                //       child: Text(value),
+                //     );
+                //   }).toList(),
+                // ),
+              ),
               const DatePicker(),
               const TimePicker(),
-              Spacer(),
+              const Spacer(),
               RoundedLoadingBtn(
                 text: "Add",
-                onPressed: () => _handleSubmit(),
                 controller: _newnotiBtnController,
                 bottom: 80,
-              )],
+                onPressed: () {
+                  setState(() {
+                    isSubmit = true;
+                  });
+                  if (_formkey.currentState!.validate()) {
+                    _formkey.currentState!.save();
+                    isSubmit = false;
+                    _notificationCall();
+                  }
+                  //print("mmujyuutjutjtt ");
+                  _newnotiBtnController.reset();
+                },
+              )
+            ],
           ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:paotung_frontend/config/api.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'dart:developer';
@@ -19,7 +20,35 @@ class GetCategoryExpenseService {
             'color': selectedColor,
           },
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
-      CategoryResponse res = CategoryResponse.fromJson(response.data);
+      AddCategoryResponse res = AddCategoryResponse.fromJson(response.data);
+      if (res.success) {
+        return res;
+      } else if (response is ErrorResponse) {
+        var error = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(left: 15, right: 15),
+          content: Text(res.message),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {},
+          ),
+        );
+        // ScaffoldMessenger.of(context).showSnackBar(error);
+      }
+      //  if (res.success) {
+      //   return res;
+      // } else if (response is ErrorResponse) {
+      //   var error = SnackBar(
+      //     behavior: SnackBarBehavior.floating,
+      //     margin: const EdgeInsets.only(left: 15, right: 15),
+      //     content: Text(res.message),
+      //     action: SnackBarAction(
+      //       label: 'OK',
+      //       onPressed: () {},
+      //     ),
+      //   );
+      //   // ScaffoldMessenger.of(context).showSnackBar(error);
+      // }
       return res;
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {

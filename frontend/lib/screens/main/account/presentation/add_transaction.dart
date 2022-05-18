@@ -37,11 +37,13 @@ class _AddTransactionState extends State<AddTransaction> {
   String? transactionType;
   String? transactionName;
   double? amount;
+  DateTime? pickedDate;
   bool isSubmit = false;
   TextEditingController dateinput = TextEditingController();
   DateTime? selectedDate;
   String? _categoryval;
   List<Categories> _categoryTypes = [];
+  var _selectedCategory = "";
 
   @override
   void initState() {
@@ -63,8 +65,9 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   void _transactionCall() async {
+    final DateTime selectedDate = pickedDate?.toIso8601String() as DateTime;
     var newTransaction = await GetTransactionTodayService.addTransactionService(
-        transactionType!, transactionName!, amount!, selectedDate!);
+        transactionType!, transactionName!, amount!, selectedDate);
     if (newTransaction is ErrorResponse) {
       showAlertDialog(context, newTransaction.message);
       _newtransactionBtnController.reset();
@@ -102,40 +105,38 @@ class _AddTransactionState extends State<AddTransaction> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Transaction Type'),
-                        Container(
-                          child: DropdownButtonFormField<String>(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select a transaction type';
-                              }
-                              return null;
-                            },
-                            decoration: const InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
+                        DropdownButtonFormField<String>(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a transaction type';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
                             ),
-                            isDense: false,
-                            value: transactionType,
-                            hint: const Text('Select transaction type'),
-                            isExpanded: true,
-                            items: _types.map((value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                _categoryval = 'Uncategorized';
-                                transactionType = value;
-                              });
-                              _checkTransaction();
-                            },
-                            onSaved: (value) {
-                              transactionType = value;
-                            },
                           ),
+                          isDense: false,
+                          value: transactionType,
+                          hint: const Text('Select transaction type'),
+                          isExpanded: true,
+                          items: _types.map((value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _categoryval = 'Uncategorized';
+                              transactionType = value;
+                            });
+                            _checkTransaction();
+                          },
+                          onSaved: (value) {
+                            transactionType = value;
+                          },
                         ),
                       ],
                     ),

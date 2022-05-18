@@ -27,19 +27,16 @@ class NotificationSetting extends StatefulWidget {
 class _NotificationSettingState extends State<NotificationSetting> {
   List<Notifications> _notification = [];
 
-
-
+  @override
   void initState() {
     _readJson();
     super.initState();
     NotificationApi.init();
 
-    WidgetsBinding.instance?.addObserver(
-        LifecycleEventHandler(resumeCallBack: () async =>  _readJson(), suspendingCallBack: () async => {})
-    );
-
+    WidgetsBinding.instance?.addObserver(LifecycleEventHandler(
+        resumeCallBack: () async => _readJson(),
+        suspendingCallBack: () async => {}));
   }
-
 
   Future<void> _readJson() async {
     var responseNotification = await GetNotification.getData();
@@ -48,7 +45,6 @@ class _NotificationSettingState extends State<NotificationSetting> {
         _notification = responseNotification;
       });
     }
-
   }
 
   @override
@@ -62,16 +58,23 @@ class _NotificationSettingState extends State<NotificationSetting> {
           // ),
           children: [
             Padding(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               child: _notification.isEmpty
-                  ? DefaultText(text: 'notification',color:true)
+                  ? const DefaultText(text: 'notification', color: true)
                   : Column(
                       children: [
                         TextDefine(
-                            text: "All Notifications",
-                            buttonText: "Clear All", isNotification:true,readJson:_readJson, transactionType: "",),
+                          text: "All Notifications",
+                          buttonText: "Clear All",
+                          isNotification: true,
+                          readJson: _readJson,
+                          transactionType: "",
+                        ),
                         ..._notification.map((notification) {
-                          return NotificationTitle(name: notification.name,notificationId:notification.id,readJson:_readJson);
+                          return NotificationTitle(
+                              name: notification.name,
+                              notificationId: notification.id,
+                              readJson: _readJson);
                         }).toList(),
                       ],
                     ),
@@ -80,10 +83,10 @@ class _NotificationSettingState extends State<NotificationSetting> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => NewNotification()));
+              MaterialPageRoute(builder: (context) => const NewNotification()));
         },
         backgroundColor: AppColors.mainColor,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
