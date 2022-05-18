@@ -1,7 +1,7 @@
 import 'package:paotung_frontend/config/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/transaction/transaction.dart';
+import '../models/transaction/transaction_month.dart';
 import 'package:dio/dio.dart';
 
 class GetTransactionMonthService {
@@ -12,7 +12,8 @@ class GetTransactionMonthService {
     dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
     Response response = await dio.get(apiEndPoint + '/transaction/month');
     // print(response.data);
-    return TransactionResponse.fromJson(response.data).data;
+    //print(TransactionMonthResponse.fromJson(response.data).data.date);
+    return TransactionMonthResponse.fromJson(response.data).data.date;
   }
 
   // static List<Transactions> getTransactionsMonth(data) {

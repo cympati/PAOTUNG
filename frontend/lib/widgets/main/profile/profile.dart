@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
+import 'package:paotung_frontend/core/data/services/user_service.dart';
 import 'package:paotung_frontend/screens/main/profile/edit_profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 
@@ -12,21 +13,33 @@ class profileSection extends StatefulWidget {
 }
 
 class _profileSectionState extends State<profileSection> {
-  User user = UserPreferences.myUser;
+  User _user = User(email: "", username: "", imagePath: "", balance: 0);
 
-  //reload page after Pop edit profile page
-  _navigate(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => EditProfilePage()));
-        if (result){
-          setState(() {
-            
-          });
-        }
+  User nulluser = UserPreferences.myUser;
+
+  void initState() {
+    _readJson();
+    super.initState();
+  }
+
+  Future<void> _readJson() async {
+    var responseUser = await GetUser.getData();
+    if (mounted) {
+      setState(() {
+        _user = responseUser;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    //reload page after Pop edit profile page
+    _navigate(BuildContext context) async {
+      final result = await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EditProfilePage()))
+          .then((_) => setState(() { print("ok"); }));
+    }
+
     return Container(
         padding: const EdgeInsets.only(top: 10),
         child: Row(
@@ -35,7 +48,9 @@ class _profileSectionState extends State<profileSection> {
             CircleAvatar(
               maxRadius: 40.0,
               backgroundColor: AppColors.lightgrey,
-              backgroundImage: user.imagePath.isEmpty ?  NetworkImage(user.imagePath) : NetworkImage(user.imagePath),
+              backgroundImage: _user.imagePath.isEmpty
+                  ? NetworkImage(nulluser.imagePath)
+                  : NetworkImage(_user.imagePath),
             ),
             const Padding(
                 padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12)),
@@ -43,7 +58,7 @@ class _profileSectionState extends State<profileSection> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  user.username,
+                  _user.username,
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
