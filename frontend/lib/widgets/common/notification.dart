@@ -1,9 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 
+import '../../core/data/services/notification_service.dart';
+import '../../screens/main/profile/notification_setting.dart';
+
 class NotificationTitle extends StatelessWidget {
   final String name;
-  const NotificationTitle({Key? key, required this.name}) : super(key: key);
+  final int notificationId;
+  final Function readJson;
+  const NotificationTitle({Key? key, required this.name,required this.notificationId,required this.readJson}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +50,7 @@ class NotificationTitle extends StatelessWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text(
+                              title: const Text(
                                 "Are you sure you want to delete this",
                                 style: TextStyle(fontSize: 18),
                               ),
@@ -52,9 +59,16 @@ class NotificationTitle extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(
                                       primary: AppColors.mainColor),
                                   child: const Text("DELETE"),
-                                  onPressed: () =>
-                                      Navigator.of(context, rootNavigator: true)
-                                          .pop(),
+                                  onPressed: () async {
+                                    await GetNotification.deleteById(notificationId);
+                                    readJson();
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop();
+                                    //     Navigator.pushReplacementNamed(context, '/notisetting');
+                                    // Route route = MaterialPageRoute(builder: (context) => NotificationSetting());
+
+                            }
+                                  ,
                                 ),
                                 // print("delete this category")
                               ],

@@ -29,6 +29,11 @@ class AddTransaction extends StatefulWidget {
 
 class _AddTransactionState extends State<AddTransaction> {
   final _formkey = GlobalKey<FormState>();
+  final List<String> _types = ['Expense', 'Income'];
+  final Categories _default =
+      Categories(id: 0, name: 'Uncategorized', color: 1461410152);
+  final RoundedLoadingButtonController _newtransactionBtnController =
+      RoundedLoadingButtonController();
   String? transactionType;
   String? transactionName;
   double? amount;
@@ -36,12 +41,7 @@ class _AddTransactionState extends State<AddTransaction> {
   bool isSubmit = false;
   TextEditingController dateinput = TextEditingController();
   DateTime? selectedDate;
-  final RoundedLoadingButtonController _newtransactionBtnController =
-      RoundedLoadingButtonController();
-  //var _transactionval;
-  List _types = ['Expense', 'Income'];
-  // var _categoryval;
-  //List _category_types = [];
+  String? _categoryval;
   List<Categories> _categoryTypes = [];
   var _selectedCategory = "";
 
@@ -52,21 +52,16 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   Future<void> _checkTransaction() async {
-    var categoryIsExpense = await GetCategoryExpenseService.getData();
-    var categoryIsIncome = await GetCategoryIncomeService.getData();
+    List<Categories> categoryIsExpense =
+        await GetCategoryExpenseService.getData();
+    List<Categories> categoryIsIncome =
+        await GetCategoryIncomeService.getData();
     setState(() {
       transactionType == "Expense"
-          ? _categoryTypes = categoryIsExpense
-          : _categoryTypes = categoryIsIncome;
+          ? _categoryTypes = [_default, ...categoryIsExpense]
+          : _categoryTypes = [_default, ...categoryIsIncome];
+      _categoryval = 'Uncategorized';
     });
-    // if (transactionType == 'Expense') {
-    //   setState(() {
-
-    //     _categoryTypes = categoryIsExpense;
-    //   });
-    // }else {
-    //   _categoryTypes = categoryIsIncome;
-    // }
   }
 
   void _transactionCall() async {
@@ -91,7 +86,7 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CloseAppBar(title: "Add Transactions"),
+        appBar: const CloseAppBar(title: "Add Transactions"),
         body: ListView(
           key: _formkey,
           children: [
@@ -102,126 +97,158 @@ class _AddTransactionState extends State<AddTransaction> {
                   const SizedBox(
                     height: 55,
                   ),
-                  FormField(builder: (FormFieldState state) {
-                    return InputDecorator(
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        // labelText: 'Transaction type',
-                      ),
-                      // isEmpty: _transactionval == '',
-                      child: DropdownButtons(
-                        onSaved: (value) {
-                          transactionType = value;
-                          print(transactionType);
-                        },
-                        title: "Transaction type",
-                        value: transactionType,
-                        hinttext: '',
-                        onChanged: (value) {
-                          setState(() {
-                            transactionType = value;
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 40, right: 40, top: 0, bottom: 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Transaction Type'),
+                        DropdownButtonFormField<String>(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a transaction type';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                          ),
+                          isDense: false,
+                          value: transactionType,
+                          hint: const Text('Select transaction type'),
+                          isExpanded: true,
+                          items: _types.map((value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _categoryval = 'Uncategorized';
+                              transactionType = value;
+                            });
                             _checkTransaction();
-                            //print(transactionType);
-                          });
-                        },
-                        item: _types.map((value) {
-                          return DropdownMenuItem(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    );
-                  }),
-                  FormField(builder: (FormFieldState state) {
-                    return InputDecorator(
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        // labelText: 'Transaction type',
-                      ),
-                      // isEmpty: _transactionval == '',
-                      child: DropdownButtons(
-                        onSaved: (value) {
-                          _selectedCategory = value;
-                          //print(transactionType);
-                        },
-                        title: "Category",
-                        value: _selectedCategory,
-                        hinttext: '',
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedCategory = value;
-                            // print(_transactionval);
-                          });
-                        },
-                        item: _categoryTypes.map((e) {
-                          return DropdownMenuItem<String>(
-                              value: e.name as String,
-                              child: Text(e.name));
-                        }).toList(),
-                      ),
-                    );
-                  }),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 15),
-                    child: TextFormField(
-                      decoration: InputDecoration(labelText: 'Amount'),
-                      onChanged: (value) {},
-                      onSaved: (value) {
-                        amount = value as double?;
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter amount';
-                        }
-                      },
-                      autovalidateMode: isSubmit
-                          ? AutovalidateMode.onUserInteraction
-                          : AutovalidateMode.disabled,
-                      // title: "Amount",
-                      // obscure: false,
-                      // text: '',
-                      // onChanged: (e) {
-                      //   print("text");
+                          },
+                          onSaved: (value) {
+                            transactionType = value;
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 15),
-                    child: TextFormField(
-                      decoration: InputDecoration(labelText: 'Name'),
-                      onChanged: (value) {},
-                      onSaved: (value) {
-                        transactionName = value;
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter amount';
-                        }
-                      },
-                      autovalidateMode: isSubmit
-                          ? AutovalidateMode.onUserInteraction
-                          : AutovalidateMode.disabled,
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(
+                        left: 40, right: 40, top: 6, bottom: 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Category'),
+                        DropdownButtonFormField<String>(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a category';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                          ),
+                          isDense: false,
+                          value: _categoryval,
+                          hint: const Text('Select transaction type'),
+                          isExpanded: false,
+                          items: _categoryTypes.map((value) {
+                            return DropdownMenuItem(
+                                value: value.name, child: Text(value.name));
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _categoryval = value;
+                            });
+                          },
+                          onSaved: (value) {
+                            _categoryval = value;
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  // textInputField(
-                  //   title: "Name",
-                  //   obscure: false,
-                  //   text: '',
-                  //   onChanged: (e) {
-                  //     print("text");
-                  //   },
-                  // ),
+                  Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(
+                          left: 40, right: 40, top: 6, bottom: 0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Amount'),
+                          TextFormField(
+                            // decoration: InputDecoration(labelText: 'Amount'),
+                            onChanged: (value) {},
+                            onSaved: (value) {
+                              amount = value as double?;
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter amount';
+                              }
+                            },
+                            autovalidateMode: isSubmit
+                                ? AutovalidateMode.onUserInteraction
+                                : AutovalidateMode.disabled,
+                          ),
+                        ],
+                      )),
+                  Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(
+                          left: 40, right: 40, top: 6, bottom: 0),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Name'),
+                            TextFormField(
+                              onChanged: (value) {},
+                              onSaved: (value) {
+                                transactionName = value;
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter transaction name';
+                                }
+                              },
+                              autovalidateMode: isSubmit
+                                  ? AutovalidateMode.onUserInteraction
+                                  : AutovalidateMode.disabled,
+                            ),
+                          ])),
                   Container(
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(
+                        left: 40, right: 40, top: 6, bottom: 0),
                     child: Form(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Date"),
+                          const Text("Date"),
                           TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please select date';
+                              }
+                              return null;
+                            },
                             controller: dateinput,
                             decoration: const InputDecoration(
                                 suffixIcon: Icon(Icons.calendar_today),
@@ -237,12 +264,10 @@ class _AddTransactionState extends State<AddTransaction> {
                                   firstDate: DateTime(2000),
                                   lastDate: DateTime(2101));
                               if (pickedDate != null) {
-                                print(pickedDate);
                                 String formattedDate =
                                     pickedDate.toIso8601String();
                                 String formattedDateShow =
                                     DateFormat('dd-MM-yyyy').format(pickedDate);
-                                print(formattedDate);
 
                                 setState(() {
                                   dateinput.text = formattedDateShow;
@@ -256,7 +281,6 @@ class _AddTransactionState extends State<AddTransaction> {
                       ),
                     ),
                   ),
-                  //DatePicker(),
                   const SizedBox(
                     height: 50,
                   ),
@@ -266,17 +290,19 @@ class _AddTransactionState extends State<AddTransaction> {
                     controller: _newtransactionBtnController,
                     onPressed: () {
                       setState(() {
+                        print("0000000000");
                         isSubmit = true;
                       });
+                      print("11111111111");
                       if (_formkey.currentState!.validate()) {
+                        print("444444444444444");
                         _formkey.currentState!.save();
                         isSubmit = false;
                         _transactionCall();
                       }
+                      print("9999999999999");
                       _newtransactionBtnController.reset();
                     },
-                    // color: AppColors.mainColor,
-                    // textColor: Colors.white
                   )
                 ],
               ),

@@ -71,7 +71,7 @@ class _NewNotificationState extends State<NewNotification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CloseAppBar(title: "New Notification"),
+      appBar: const CloseAppBar(title: "New Notification"),
       body: Form(
         key: _formkey,
         child: Padding(
@@ -81,139 +81,46 @@ class _NewNotificationState extends State<NewNotification> {
               const SizedBox(
                 height: 40,
               ),
-
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                child: TextFormField(
-                    decoration: const InputDecoration(labelText: 'Name'),
-                    onChanged: (value) {},
-                    controller: _newnotiController,
-                    onSaved: (value) {
-                      name = value;
-                    },
-                    //controller: _newnotiController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter name';
-                      }
-                    },
-                    autovalidateMode: isSubmit
-                        ? AutovalidateMode.onUserInteraction
-                        : AutovalidateMode.disabled),
-              ),
-              // DropdownButtons(
-              //   title: "transaction type",
-              //   hinttext: "",
-              //   value: _transactionval,
-              //   onChanged: (value) {
-              //     setState(() {
-              //       _transactionval = value;
-              //     });
-              //   },
-              //   item: _types.map((value) {
-              //     return DropdownMenuItem(
-              //       value: value,
-              //       child: Text(value),
-              //     );
-              //   }).toList(),
-              // ),
               Container(
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(
+                    left: 40, right: 40, top: 6, bottom: 0),
                 child: Form(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Date"),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                      const Text("Name"),
                       TextFormField(
-                        controller: dateinput,
-                        decoration: const InputDecoration(
-                            suffixIcon: Icon(Icons.calendar_today),
-                            labelText: "Select Date"),
-                        readOnly: true,
-                        onSaved: (value) {
-                          selectedDate = value as DateTime?;
-                        },
+                        // decoration: InputDecoration(labelText: 'Name'),
+                        controller: _newnotiController,
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            'Please select date';
-                          }
-                          return null;
-                        },
-                        onTap: () async {
-                          pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2101));
-                          if (pickedDate != null) {
-                            print(pickedDate);
-                            formattedDate =
-                                pickedDate!.toIso8601String().substring(0, 10);
-                            String formattedDateShow =
-                                DateFormat('dd-MM-yyyy').format(pickedDate!);
-                            print(formattedDate);
-
-                            setState(() {
-                              dateinput.text = formattedDateShow;
-                            });
-                          } else {
-                            print("Date is not selected");
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter name';
                           }
                         },
-                      )
-                    ],
-                  ),
-                ),
+                      ),
+                    ])),
+                // DropdownButtons(
+                //   title: "transaction type",
+                //   hinttext: "",
+                //   value: _transactionval,
+                //   onChanged: (value) {
+                //     setState(() {
+                //       _transactionval = value;
+                //     });
+                //   },
+                //   item: _types.map((value) {
+                //     return DropdownMenuItem(
+                //       value: value,
+                //       child: Text(value),
+                //     );
+                //   }).toList(),
+                // ),
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                child: Form(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Time"),
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            'Please select time';
-                          }
-                          return null;
-                        },
-                        controller: timeinput,
-                        decoration: const InputDecoration(
-                            suffixIcon: Icon(Icons.timer),
-                            labelText: "Select time"),
-                        readOnly: true,
-                        onTap: () async {
-                          TimeOfDay? pickedTime = await showTimePicker(
-                            context: context,
-                            initialTime: TimeOfDay.now(),
-                          );
-                          if (pickedTime != null) {
-                            print(pickedTime.format(context));
-                            DateTime parsedTime = DateFormat.jm()
-                                .parse(pickedTime.format(context).toString());
-                            print(parsedTime);
-                            formattedTime =
-                                DateFormat('HH:mm:ss').format(parsedTime);
-                            print(formattedTime);
-
-                            setState(() {
-                              timeinput.text = formattedTime;
-                            });
-                          } else {
-                            print("Time is not selected");
-                          }
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Spacer(),
+              const DatePicker(),
+              const TimePicker(),
+              const Spacer(),
               RoundedLoadingBtn(
                 text: "Add",
                 controller: _newnotiBtnController,

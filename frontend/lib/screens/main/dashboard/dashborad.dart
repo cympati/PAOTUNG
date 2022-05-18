@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/widgets/common/overview_pie_chart.dart';
 import 'package:paotung_frontend/widgets/common/text_title.dart';
 
@@ -42,14 +43,14 @@ class _DashboardState extends State<Dashboard> {
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
       const Padding(
-        padding: EdgeInsets.only(left: 32, top: 32, right: 32),
+        padding: EdgeInsets.only(left: 40, top: 70, right: 40),
         child: TextTitle(title: "My Finance", size: 24),
       ),
       // const SizedBox(
       //   height: 24,
       // ),
       Container(
-          padding: const EdgeInsets.only(left: 16, right: 16),
+          padding: const EdgeInsets.only(left: 40, right: 40),
           child: Column(
             children: <Widget>[
               Container(
@@ -67,7 +68,12 @@ class _DashboardState extends State<Dashboard> {
               Padding(
                   padding: const EdgeInsets.all(1),
                   child: _dashboardExpense.isEmpty
-                      ? const DefaultText(text: 'category')
+                      ? Card(
+                      color: AppColors.lightgrey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const DefaultText(text: 'category',color:false))
                       : OverviewPieChart(piedata: _dashboardExpense)),
               const SizedBox(
                 height: 24,
@@ -87,7 +93,12 @@ class _DashboardState extends State<Dashboard> {
               Padding(
                   padding: const EdgeInsets.all(1),
                   child: _dashboardIncome.isEmpty
-                      ? const DefaultText(text: 'category')
+                      ? Card(
+                      color: AppColors.lightgrey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const DefaultText(text: 'category',color:false))
                       : OverviewPieChart(piedata: _dashboardIncome)),
               const SizedBox(
                 height: 24,
