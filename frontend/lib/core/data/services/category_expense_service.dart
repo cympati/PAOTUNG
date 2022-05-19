@@ -7,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/category/categories.dart';
 import 'package:dio/dio.dart';
 
+import '../models/response/response.dart';
+
 class GetCategoryExpenseService {
   static Future<dynamic> addCategoryService(
       String name, String transactionType, int selectedColor) async {
@@ -21,39 +23,20 @@ class GetCategoryExpenseService {
           },
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
       AddCategoryResponse res = AddCategoryResponse.fromJson(response.data);
-      if (res.success) {
-        return res;
-      } else if (response is ErrorResponse) {
-        var error = SnackBar(
+      return res;
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
+        ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
+        var snb = SnackBar(
           behavior: SnackBarBehavior.floating,
           margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(res.message),
+          content: Text(error.message),
           action: SnackBarAction(
             label: 'OK',
             onPressed: () {},
           ),
         );
         // ScaffoldMessenger.of(context).showSnackBar(error);
-      }
-      //  if (res.success) {
-      //   return res;
-      // } else if (response is ErrorResponse) {
-      //   var error = SnackBar(
-      //     behavior: SnackBarBehavior.floating,
-      //     margin: const EdgeInsets.only(left: 15, right: 15),
-      //     content: Text(res.message),
-      //     action: SnackBarAction(
-      //       label: 'OK',
-      //       onPressed: () {},
-      //     ),
-      //   );
-      //   // ScaffoldMessenger.of(context).showSnackBar(error);
-      // }
-      return res;
-    } on DioError catch (e) {
-      if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
-        ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
-        return error;
       }
     }
     return null;
@@ -65,7 +48,6 @@ class GetCategoryExpenseService {
     Dio dio = Dio();
     dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
     Response response = await dio.get(apiEndPoint + '/category/all');
-    // print(CategoryResponse.fromJson(response.data).data.expenseList);
     return CategoryResponse.fromJson(response.data).data.expenseList;
   }
 }

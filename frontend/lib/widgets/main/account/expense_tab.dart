@@ -6,14 +6,14 @@ import 'package:paotung_frontend/widgets/main/account/today_tab.dart';
 
 enum Tab { today, month }
 
-class ExpenseTab extends StatefulWidget {
-  const ExpenseTab({ Key? key }) : super(key: key);
+class TransactionsTab extends StatefulWidget {
+  const TransactionsTab({ Key? key }) : super(key: key);
 
   @override
-  State<ExpenseTab> createState() => _ExpenseTabState();
+  State<TransactionsTab> createState() => _TransactionsTabState();
 }
 
-class _ExpenseTabState extends State<ExpenseTab> {
+class _TransactionsTabState extends State<TransactionsTab> {
   Tab currentTab = Tab.today;
 
   @override

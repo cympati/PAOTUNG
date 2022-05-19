@@ -71,21 +71,3 @@ class CategoryResponse {
   }
 }
 
-class AddCategoryResponse {
-  bool success;
-  String message;
-  Categories data;
-
-  AddCategoryResponse({
-    required this.success,
-    required this.message,
-    required this.data,
-  });
-
-  factory AddCategoryResponse.fromJson(Map<String, dynamic> json) {
-    return AddCategoryResponse(
-        success: json['success'],
-        message: json['message'],
-        data: Categories.fromJson(json['data']));
-  }
-}

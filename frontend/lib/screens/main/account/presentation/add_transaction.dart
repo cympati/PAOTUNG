@@ -21,7 +21,8 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../../../../core/data/models/category/categories.dart';
 
 class AddTransaction extends StatefulWidget {
-  const AddTransaction({Key? key}) : super(key: key);
+  final Function? backTrigger;
+  const AddTransaction({Key? key, this.backTrigger}) : super(key: key);
 
   @override
   State<AddTransaction> createState() => _AddTransactionState();
@@ -29,25 +30,27 @@ class AddTransaction extends StatefulWidget {
 
 class _AddTransactionState extends State<AddTransaction> {
   final _formkey = GlobalKey<FormState>();
+  final _transactionNameKey = TextEditingController();
+  final _amountKey = TextEditingController();
+  final _dateKey = TextEditingController();
   final List<String> _types = ['Expense', 'Income'];
   final Categories _default =
       Categories(id: 0, name: 'Uncategorized', color: 1461410152);
   final RoundedLoadingButtonController _newtransactionBtnController =
       RoundedLoadingButtonController();
   String? transactionType;
-  String? transactionName;
-  double? amount;
   DateTime? pickedDate;
+  String? formattedDate;
   bool isSubmit = false;
-  TextEditingController dateinput = TextEditingController();
-  DateTime? selectedDate;
-  String? _categoryval;
+  int? _categoryIdInput;
   List<Categories> _categoryTypes = [];
-  var _selectedCategory = "";
 
   @override
   void initState() {
-    dateinput.text = "";
+    _dateKey.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    formattedDate = DateTime.now().toIso8601String().substring(0,20)+"000Z";
+    transactionType = _types[0];
+    _checkTransaction();
     super.initState();
   }
 
@@ -60,17 +63,24 @@ class _AddTransactionState extends State<AddTransaction> {
       transactionType == "Expense"
           ? _categoryTypes = [_default, ...categoryIsExpense]
           : _categoryTypes = [_default, ...categoryIsIncome];
-      _categoryval = 'Uncategorized';
+      _categoryIdInput = _categoryTypes[0].id;
     });
   }
 
   void _transactionCall() async {
-    final DateTime selectedDate = pickedDate?.toIso8601String() as DateTime;
+
+    print(_amountKey.text);
+    print(transactionType);
+    print(_transactionNameKey.text);
+    print(formattedDate);
+    print(_categoryIdInput);
+
     var newTransaction = await GetTransactionTodayService.addTransactionService(
-        transactionType!, transactionName!, amount!, selectedDate);
+        transactionType!.toLowerCase(), _transactionNameKey.text, double.parse(_amountKey.text), formattedDate!, _categoryIdInput!);
     if (newTransaction is ErrorResponse) {
       showAlertDialog(context, newTransaction.message);
       _newtransactionBtnController.reset();
+      _formkey.currentState!.reset();
     } else {
       _newtransactionBtnController.success();
       _transactionNavigate();
@@ -79,7 +89,10 @@ class _AddTransactionState extends State<AddTransaction> {
 
   void _transactionNavigate() {
     Timer(const Duration(milliseconds: 1500), () {
-      Navigator.pop(context);
+      Navigator.of(
+          context,
+          rootNavigator: true)
+          .pop();
     });
   }
 
@@ -87,8 +100,9 @@ class _AddTransactionState extends State<AddTransaction> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const CloseAppBar(title: "Add Transactions"),
-        body: ListView(
-          key: _formkey,
+        body: Form(
+        key: _formkey,
+        child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -106,6 +120,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       children: [
                         const Text('Transaction Type'),
                         DropdownButtonFormField<String>(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please select a transaction type';
@@ -129,13 +144,9 @@ class _AddTransactionState extends State<AddTransaction> {
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _categoryval = 'Uncategorized';
                               transactionType = value;
                             });
                             _checkTransaction();
-                          },
-                          onSaved: (value) {
-                            transactionType = value;
                           },
                         ),
                       ],
@@ -150,9 +161,10 @@ class _AddTransactionState extends State<AddTransaction> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Category'),
-                        DropdownButtonFormField<String>(
+                        DropdownButtonFormField<int>(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value!.isNaN || value.isNegative) {
                               return 'Please select a category';
                             }
                             return null;
@@ -163,20 +175,17 @@ class _AddTransactionState extends State<AddTransaction> {
                             ),
                           ),
                           isDense: false,
-                          value: _categoryval,
+                          value: _categoryIdInput,
                           hint: const Text('Select transaction type'),
                           isExpanded: false,
                           items: _categoryTypes.map((value) {
                             return DropdownMenuItem(
-                                value: value.name, child: Text(value.name));
+                                value: value.id, child: Text(value.name));
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _categoryval = value;
+                              _categoryIdInput = value;
                             });
-                          },
-                          onSaved: (value) {
-                            _categoryval = value;
                           },
                         ),
                       ],
@@ -192,19 +201,17 @@ class _AddTransactionState extends State<AddTransaction> {
                         children: [
                           const Text('Amount'),
                           TextFormField(
-                            // decoration: InputDecoration(labelText: 'Amount'),
-                            onChanged: (value) {},
-                            onSaved: (value) {
-                              amount = value as double?;
-                            },
+                            keyboardType: TextInputType.number,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            controller: _amountKey,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
+                              if (value == null || value.isEmpty ) {
                                 return 'Please enter amount';
+                              } else if (value.contains('-') || value.contains('+') || double.parse(value).isNaN) {
+                                return 'Please enter valid amount form as 999, 999.00';
                               }
+                              return null;
                             },
-                            autovalidateMode: isSubmit
-                                ? AutovalidateMode.onUserInteraction
-                                : AutovalidateMode.disabled,
                           ),
                         ],
                       )),
@@ -218,18 +225,13 @@ class _AddTransactionState extends State<AddTransaction> {
                           children: [
                             const Text('Name'),
                             TextFormField(
-                              onChanged: (value) {},
-                              onSaved: (value) {
-                                transactionName = value;
-                              },
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              controller: _transactionNameKey,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter transaction name';
                                 }
                               },
-                              autovalidateMode: isSubmit
-                                  ? AutovalidateMode.onUserInteraction
-                                  : AutovalidateMode.disabled,
                             ),
                           ])),
                   Container(
@@ -237,26 +239,26 @@ class _AddTransactionState extends State<AddTransaction> {
                     margin: const EdgeInsets.only(top: 20),
                     padding: const EdgeInsets.only(
                         left: 40, right: 40, top: 6, bottom: 0),
-                    child: Form(
+                    child: Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text("Date"),
                           TextFormField(
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              if (value!.isEmpty) {
+                              if (value == "" || value!.isEmpty) {
                                 return 'Please select date';
                               }
                               return null;
                             },
-                            controller: dateinput,
+                            controller: _dateKey,
                             decoration: const InputDecoration(
-                                suffixIcon: Icon(Icons.calendar_today),
-                                labelText: "Select Date"),
+                                suffixIcon: Icon(Icons.calendar_today)),
                             readOnly: true,
-                            onSaved: (value) {
-                              selectedDate = value as DateTime?;
-                            },
+                            // onSaved: (value) {
+                            //   selectedDate = value as DateTime?;
+                            // },
                             onTap: () async {
                               DateTime? pickedDate = await showDatePicker(
                                   context: context,
@@ -264,13 +266,12 @@ class _AddTransactionState extends State<AddTransaction> {
                                   firstDate: DateTime(2000),
                                   lastDate: DateTime(2101));
                               if (pickedDate != null) {
-                                String formattedDate =
-                                    pickedDate.toIso8601String();
+                                 formattedDate =
+                                    pickedDate.toIso8601String().substring(0,20)+"000Z";
                                 String formattedDateShow =
                                     DateFormat('dd-MM-yyyy').format(pickedDate);
-
                                 setState(() {
-                                  dateinput.text = formattedDateShow;
+                                  _dateKey.text = formattedDateShow;
                                 });
                               } else {
                                 print("Date is not selected");
@@ -297,17 +298,19 @@ class _AddTransactionState extends State<AddTransaction> {
                       if (_formkey.currentState!.validate()) {
                         print("444444444444444");
                         _formkey.currentState!.save();
-                        isSubmit = false;
                         _transactionCall();
+                        isSubmit = false;
                       }
+                        _newtransactionBtnController.reset();
+
                       print("9999999999999");
-                      _newtransactionBtnController.reset();
+
                     },
                   )
                 ],
               ),
             ),
           ],
-        ));
+        )));
   }
 }

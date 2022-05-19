@@ -1,12 +1,12 @@
 class Transactions {
-  String tansactionName;
+  String transactionName;
   String date;
   String amount;
   String categoryName;
   int categoryColor;
 
   Transactions(
-      {required this.tansactionName,
+      {required this.transactionName,
       required this.date,
       required this.amount,
       required this.categoryName,
@@ -14,7 +14,7 @@ class Transactions {
 
   factory Transactions.fromJson(Map<String, dynamic> json) {
     return Transactions(
-        tansactionName: json["transaction_name"],
+        transactionName: json["transaction_name"],
         date: json["date_string"],
         amount: json["amount"],
         categoryName: json["category_name"],
@@ -22,7 +22,7 @@ class Transactions {
   }
   Map<String, dynamic> toJson() {
     return {
-      "tansactionName": tansactionName,
+      "tansactionName": transactionName,
       "date": date,
       "amount": amount,
       "categoryName": categoryName,
@@ -32,7 +32,6 @@ class Transactions {
 }
 
 class TransactionResponse {
- // String message;
   bool success;
   String code;
   List<Transactions> data;
@@ -40,7 +39,7 @@ class TransactionResponse {
   TransactionResponse(this.success, this.code, this.data, );
 
   factory TransactionResponse.fromJson(Map<String, dynamic> json) {
-    var transaction = json['data'] as List;
+    var transaction = json['data'] != null ? json['data'] as List : List.empty();
     List<Transactions> tempTransaction =
         transaction.map((e) => Transactions.fromJson(e)).toList();
 
@@ -48,7 +47,7 @@ class TransactionResponse {
       json['success'],
       json['code'],
       tempTransaction,
-      //json['message'],
     );
   }
 }
+

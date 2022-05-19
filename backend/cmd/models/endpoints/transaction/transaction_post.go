@@ -1,7 +1,6 @@
 package transaction
 
 import (
-	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/common"
@@ -23,8 +22,6 @@ func PostHandler(c *fiber.Ctx) error {
 			Err:     err, Code: "INVALID_INFORMATION",
 		}
 	}
-
-	spew.Dump(body)
 
 	var transactionType = body.TransactionType
 	var amount = 0.0
@@ -68,7 +65,6 @@ func PostHandler(c *fiber.Ctx) error {
 			Code:    "INVALID_INFORMATION",
 		}
 	}
-
 	// * Update balance
 	balance = balance + amount
 	if updateBalance := database.Gorm.Model(new(models.User)).Where("id = ?", claims.UserId).Update("balance", balance); updateBalance.Error != nil {

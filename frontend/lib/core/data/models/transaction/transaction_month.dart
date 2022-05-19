@@ -1,19 +1,19 @@
-class Transactions {
+class TransactionInfo {
   String tansactionName;
   String amount;
   String categoryName;
   String dateString;
   int categoryColor;
 
-  Transactions(
+  TransactionInfo(
       {required this.tansactionName,
       required this.amount,
       required this.dateString,
       required this.categoryName,
       required this.categoryColor});
 
-  factory Transactions.fromJson(Map<String, dynamic> json) {
-    return Transactions(
+  factory TransactionInfo.fromJson(Map<String, dynamic> json) {
+    return TransactionInfo(
         tansactionName: json["transaction_name"],
         amount: json["amount"],
         dateString: json["date_string"],
@@ -31,46 +31,47 @@ class Transactions {
   }
 }
 
-class DateTransaction {
-  List<Transactions> date;
+class TransactionMap {
+  List<List<TransactionInfo>> transactionMap;
 
-  DateTransaction({required this.date});
+  TransactionMap({required this.transactionMap});
 
-  factory DateTransaction.fromJson(Map<String, dynamic> json) {
-    Iterable<Transactions> list= [];
-    json.keys.forEach((k) {
+  factory TransactionMap.fromJson(Map<String, dynamic> json) {
+    List<TransactionInfo> list = [];
+    Map<String, List<TransactionInfo>> map = {};
+    List<List<TransactionInfo>> transactionMapList = [];
+    json.forEach((key, value) {
       var transactionMonthList =
-          json[k] != null ? json[k] as List : List.empty();
-      List<Transactions> transactionsMonth = transactionMonthList
-          .map<Transactions>((k) => Transactions.fromJson(k))
+      json[key] != null ? json[key] as List : List.empty();
+      list = transactionMonthList
+          .map<TransactionInfo>((k) => TransactionInfo.fromJson(k))
           .toList();
-      // print("$k---------------");
-      // print(transactionMonthList);
-      // print(transactionsMonth);
-      setState() {
-        list.addAll(DateTransaction(date: transactionsMonth););
-      }
+      map[key] = list;
+
     });
-    // print("out");
-    // print(transactionMonthList);
-    //   print(transactionsMonth);
-    // return DateTransaction(date: transactionsMonth);
+    map.forEach((key, value) {
+          transactionMapList.add(value);
+    });
+
+    return TransactionMap(transactionMap: transactionMapList);
   }
 }
 
 class TransactionMonthResponse {
   bool success;
   String code;
-  DateTransaction data;
+  TransactionMap data;
 
   TransactionMonthResponse(
       {required this.success, required this.code, required this.data});
 
   factory TransactionMonthResponse.fromJson(Map<String, dynamic> json) {
+
+    print(TransactionMap.fromJson(json['data']));
     return TransactionMonthResponse(
       success: json['success'],
       code: json['code'],
-      data: DateTransaction.fromJson(json['data']),
+      data: TransactionMap.fromJson(json['data']),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:paotung_frontend/config/api.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
@@ -16,7 +17,7 @@ class GetUser{
   }
 
   static Future<dynamic> updateProfile(
-      String email, String username, String password) async {
+      {required String email, required String username, required String password}) async {
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
@@ -25,7 +26,20 @@ class GetUser{
           data: {"email": email, "user_name": username, "password": password},
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
       InfoResponse res = InfoResponse.fromJson(response.data);
-      return res;
+      if (res.success) {
+        return res;
+      } else if (res is ErrorResponse) {
+        var error = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(left: 15, right: 15),
+          content: Text(res.code),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {},
+          ),
+        );
+        // ScaffoldMessenger.of(context).showSnackBar(error);
+      }
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);

@@ -1,3 +1,4 @@
+// double reciprocal(double d) => 1 / d;
 
 class PieData {
   String name;
@@ -7,9 +8,10 @@ class PieData {
   PieData({required this.name, required this.percent, required this.color});
 
   factory PieData.fromJson(Map<String, dynamic> json) {
+    print(json["percent"]);
     return PieData(
       name: json["category_name"],
-      percent: json["percent"],
+      percent: json["percent"].toDouble() ,
       color: json["category_color"],
     );
   }
@@ -30,7 +32,6 @@ class PieDataResponse {
   PieDataResponse(this.success, this.code, this.piedata);
 
   factory PieDataResponse.fromJson(Map<String, dynamic> json) {
-    // TODO: Refactor category
     var category = json['data'] as List;
     List<PieData> data =
         category.map((e) => PieData.fromJson(e)).toList();

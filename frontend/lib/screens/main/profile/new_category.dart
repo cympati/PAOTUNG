@@ -72,12 +72,10 @@ class _NewCategoryState extends State<NewCategory> {
 
   void _categoryCall() async {
     var hex = '${mycolor.value.toRadixString(16).substring(2)}';
-    //print(hex);
     final int selectedColor = int.parse("0x$hex");
     print(selectedColor);
     var addCategory = await GetCategoryExpenseService.addCategoryService(
         name!, transactionType!, selectedColor);
-    // print(selectedColor);
     if (addCategory is ErrorResponse) {
       showAlertDialog(context, addCategory.message);
       _newcategoryBtnController.reset();
@@ -118,7 +116,9 @@ class _NewCategoryState extends State<NewCategory> {
                         const Text('Name'),
                         TextFormField(
                           // decoration: InputDecoration(labelText: 'Name'),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            name = value;
+                          },
                           controller: _categoryController,
                           onSaved: (value) {
                             name = value;
@@ -179,31 +179,6 @@ class _NewCategoryState extends State<NewCategory> {
                   ],
                 ),
               ),
-              // DropdownButtons(
-              //   // onSaved: (value) {
-              //   //   _transactionval = value;
-              //   // },
-              //   // validator: (value) {
-              //   //   if (value!.isEmpty) {
-              //   //     return 'Please select one';
-              //   //   }
-              //   //   return null;
-              //   // },
-              //   title: "Transaction type",
-              //   hinttext: "",
-              //   value: _transactionval,
-              //   onChanged: (value) {
-              //     setState(() {
-              //       _transactionval = value;
-              //     });
-              //   },
-              //   item: _types.map((value) {
-              //     return DropdownMenuItem(
-              //       value: value,
-              //       child: Text(value),
-              //     );
-              //   }).toList(),
-              // ),
               Expanded(
                   child: Container(
                 margin: const EdgeInsets.only(top: 20),
@@ -294,21 +269,6 @@ class _NewCategoryState extends State<NewCategory> {
                   _newcategoryBtnController.reset();
                 },
               )
-              // RoundedButton(
-              //     text: "Add",
-              //     bottom: 80,
-              //     onPressed: () {
-              //       setState(() {
-              //         isSubmit = true;
-              //         Navigator.pushReplacementNamed(context, '/categorysetting');
-              //       });
-              //       if (_formkey.currentState!.validate()) {
-              //         _formkey.currentState!.save();
-              //         isSubmit = false;
-              //       }
-              //     },
-              //     color: AppColors.mainColor,
-              //     textColor: Colors.white)
             ],
           ),
         ),

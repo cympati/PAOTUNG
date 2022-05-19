@@ -1,6 +1,7 @@
 package profile
 
 import (
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/dto/profile"
@@ -24,6 +25,24 @@ func PatchHandler(c *fiber.Ctx) error {
 	// * Parse cookie
 	cookie := c.Locals("user").(*jwt.Token)
 	claims := cookie.Claims.(*common.UserClaim)
+
+	var passwd = ""
+	if pswResult := database.Gorm.Table("users").Select("password").Where("id != ?", claims.UserId).Scan(&passwd); pswResult.Error != nil {
+		return &common.GenericError{
+			Code:    "INVALID_INFORMATION",
+			Message: "User account is not exist",
+			Err:     pswResult.Error,
+		}
+	}
+
+	spew.Dump(passwd)
+	if body.Password != passwd {
+		return &common.GenericError{
+			Code:    "INVALID_INFORMATION",
+			Message: "Password is incorrect",
+			Err:     fiber.ErrBadRequest,
+		}
+	}
 
 	// * Validate email
 	var emailRegex = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")

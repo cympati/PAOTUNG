@@ -8,6 +8,7 @@ class TransactionBox extends StatelessWidget {
   final String text;
   final int color;
   final String amount;
+  // final bool isExpense = true;
   const TransactionBox({
     Key? key,
     required this.color,

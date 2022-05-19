@@ -19,7 +19,12 @@ import 'package:path/path.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+  final Function readJson;
+  final User userInfo;
+
+  const EditProfilePage(
+      {Key? key, required this.readJson, required this.userInfo})
+      : super(key: key);
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -27,35 +32,30 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final _formkey = GlobalKey<FormState>();
-
+  final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final RoundedLoadingButtonController _editBtnController =
       RoundedLoadingButtonController();
-
-  String tempEmail = '';
-  String tempUsername = '';
-
   bool isSubmit = false;
-
   User _user = User(email: "", username: "", imagePath: "", balance: 0);
-  User nulluser = UserPreferences.myUser;
+  User nullUser = UserPreferences.myUser;
 
   PickedFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
 
   void initState() {
-    _readJson();
-    super.initState();
-  }
-
-  Future<void> _readJson() async {
-    var responseUser = await GetUser.getData();
+    widget.readJson();
     if (mounted) {
       setState(() {
-        _user = responseUser;
+        _user = widget.userInfo;
+        print(_user.username);
       });
     }
+    _emailController.text = _user.email;
+    _usernameController.text  = _user.username;
+    super.initState();
   }
 
   void getImage({required ImageSource source}) async {
@@ -68,33 +68,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     void _editNavigate() {
-      Timer(const Duration(milliseconds: 1500), () {
-        Navigator.pop(context, true);
+      Timer(const Duration(milliseconds: 1000), () {
+        widget.readJson();
+        Navigator.of(context, rootNavigator: true).pop();
       });
     }
 
     void _editCall() async {
-      print(tempEmail);
-      print(tempUsername);
-      print(_passwordController.text);
-      if (tempEmail.isNotEmpty &&
-          tempUsername.isNotEmpty &&
-          _passwordController.text.isNotEmpty &&
-          _confirmPasswordController.text.isNotEmpty &&
-          _passwordController.text == _confirmPasswordController.text) {
+      if (_passwordController.text == _confirmPasswordController.text && _passwordController.text.isNotEmpty && _confirmPasswordController.text.isNotEmpty) {
         var updateProfile = await GetUser.updateProfile(
-            tempEmail, tempUsername, _passwordController.text);
-        print("email: " + tempEmail);
-        print("username: " + tempUsername);
+            username: _usernameController.text,
+            email: _emailController.text,
+            password: _passwordController.text);
         if (updateProfile is ErrorResponse) {
           showAlertDialog(context, updateProfile.message);
           _editBtnController.reset();
+          _formkey.currentState!.reset();
         } else {
           _editBtnController.success();
           _editNavigate();
         }
-      } else {
-        _editBtnController.reset();
       }
     }
 
@@ -102,160 +95,138 @@ class _EditProfilePageState extends State<EditProfilePage> {
       appBar: const BackwardAppBar(title: "Edit Profile"),
       body: Form(
         key: _formkey,
-        child: Container(
-          child: ListView(
-            children: [
-              Container(
-                height: 40,
+        child: ListView(
+          children: [
+            Container(
+              height: 40,
+            ),
+            //Picture
+            EditProfilePic(
+              imagePath: _imageFile == null
+                  ? nullUser.imagePath
+                  : FileImage(File(_imageFile!.path)).toString(),
+              onTaped: () {
+                getImage(source: ImageSource.gallery);
+              },
+            ),
+            const SizedBox(
+              height: 48,
+            ),
+            //Input
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Email"),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter email';
+                      }
+                    },
+                    autovalidateMode:  AutovalidateMode.onUserInteraction , // turn on automatic verification
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                        // labelText: _user.email,
+                        filled: true,
+                        fillColor: Colors.white,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.mainColor))),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text("Username"),
+                  TextFormField(
+                    autovalidateMode:  AutovalidateMode.onUserInteraction , // turn on automatic verification
+                    controller: _usernameController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter username';
+                      }
+                    },
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.mainColor))),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text("Password"),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter password';
+                      } else if (value.length< 8) {
+                        return 'Your password length is incorrect';
+                      }
+                    },
+                    autovalidateMode:  AutovalidateMode.onUserInteraction ,
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.mainColor))),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text("Confirm Password"),
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter confirm password';
+                      } else if (_passwordController.text !=
+                          _confirmPasswordController.text) {
+                        return 'Confirm password is not match';
+                      }
+                    },
+                    controller: _confirmPasswordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.mainColor))),
+                  ),
+                ],
               ),
-              //Picture
-              EditProfilePic(
-                imagePath: _imageFile == null
-                    ? _user.imagePath
-                    : FileImage(File(_imageFile!.path)).toString(),
-                onTaped: () {
-                  getImage(source: ImageSource.gallery);
-                },
-              ),
-              const SizedBox(
-                height: 48,
-              ),
-              //Input
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("Email"),
-                    TextFormField(
-                      controller: TextEditingController(text: _user.email),
-                      onSaved: (text) => setState(() {
-                        tempEmail = text!;
-                      }),
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColors.mainColor))),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const Text("Username"),
-                    TextFormField(
-                      controller: TextEditingController(text: _user.username),
-                      onSaved: (text) => setState(() {
-                        tempUsername = text!;
-                      }),
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColors.mainColor))),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const Text("Password"),
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColors.mainColor))),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const Text("Confirm Password"),
-                    TextFormField(
-                      controller: _confirmPasswordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColors.mainColor))),
-                    ),
-                  ],
-                ),
-              ),
-              // textInputField(
-              //   title: "Email",
-              //   obscure: false,
-              //   text: _user.email,
-              //   onChanged: (text) => setState(() {
-              //     tempEmail = text;
-              //     print(tempEmail);
-              //   }),
-              // ),
-              // textInputField(
-              //   title: "Username",
-              //   obscure: false,
-              //   text: _user.username,
-              //   onChanged: (value) => setState(() {
-              //     tempUsername = value;
-              //   }),
-              // ),
-              // textInputField(
-              //   //controller: _passwordController,
-              //   title: "Password",
-              //   obscure: true,
-              //   text: "",
-              //   onChanged: (value) => setState(() {
-              //     tempEmail = value;
-              //   }),
-              // ),
-              // textInputField(
-              //   //controller: _confirmPasswordController,
-              //   title: "Confirm Password",
-              //   obscure: true,
-              //   text: "",
-              //   onChanged: (value) => setState(() {
-              //     tempEmail = value;
-              //   }),
-              // ),
-              const SizedBox(
-                height: 50,
-              ),
-              //Save
-              RoundedLoadingBtn(
-                text: 'Save',
-                bottom: 40,
-                controller: _editBtnController,
-                onPressed: () {
-                  setState(() {
-                    isSubmit = true;
-                  });
-                  if (_formkey.currentState!.validate()) {
-                    _formkey.currentState!.save();
-                    isSubmit = false;
-                    _editCall();
-                  }
-                  _editBtnController.reset();
-                },
-              ),
-              // RoundedButton(
-              //   text: "Save",
-              //   onPressed: () {
-              //     Navigator.pop(context, true);
-              //   },
-              //   color: AppColors.mainColor,
-              //   textColor: Colors.white,
-              //   bottom: 0,
-              // ),
-              Container(
-                height: 40,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            //Save
+            RoundedLoadingBtn(
+              text: 'Save',
+              bottom: 40,
+              controller: _editBtnController,
+              onPressed: () {
+                setState(() {
+                  isSubmit = true;
+                });
+                if (_formkey.currentState!.validate()) {
+                  _formkey.currentState!.save();
+                  _editCall();
+                  isSubmit = false;
+                }
+                _editBtnController.reset();
+              },
+            ),
+            Container(
+              height: 40,
+            ),
+          ],
         ),
       ),
     );

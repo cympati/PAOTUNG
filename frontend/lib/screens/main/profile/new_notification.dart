@@ -1,18 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/services/notification_service.dart';
-import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
-import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/date_picker.dart';
-import 'package:paotung_frontend/widgets/common/dropdown_form_field.dart';
 import 'package:paotung_frontend/widgets/common/roundloadingbtn.dart';
-import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:paotung_frontend/widgets/common/time_picker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -24,10 +18,8 @@ class NewNotification extends StatefulWidget {
 }
 
 class _NewNotificationState extends State<NewNotification> {
-  var _transactionval;
   var formattedDate = "";
   var formattedTime = "";
-  List _types = ['Expense', 'Income'];
   final _formkey = GlobalKey<FormState>();
   final _newnotiController = TextEditingController();
   final RoundedLoadingButtonController _newnotiBtnController =
@@ -98,6 +90,7 @@ class _NewNotificationState extends State<NewNotification> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter name';
                           }
+                          return null;
                         },
                       ),
                     ])),

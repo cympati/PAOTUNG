@@ -26,7 +26,7 @@ class OverviewPieChartState extends State<OverviewPieChart> {
 
         final value = PieChartSectionData(
           color: Color(piedata.color),
-          value: piedata.percent,
+          value: piedata.percent ,
           title: '${piedata.percent.toStringAsFixed(1)}%',
           radius: radius,
           titleStyle: TextStyle(

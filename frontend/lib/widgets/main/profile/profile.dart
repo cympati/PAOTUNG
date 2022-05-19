@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
 import 'package:paotung_frontend/core/data/services/user_service.dart';
+import 'package:paotung_frontend/core/utils/life_cycle.dart';
 import 'package:paotung_frontend/screens/main/profile/edit_profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 
@@ -15,7 +16,7 @@ class profileSection extends StatefulWidget {
 class _profileSectionState extends State<profileSection> {
   User _user = User(email: "", username: "", imagePath: "", balance: 0);
 
-  User nulluser = UserPreferences.myUser;
+  User nullUser = UserPreferences.myUser;
 
   void initState() {
     _readJson();
@@ -27,6 +28,7 @@ class _profileSectionState extends State<profileSection> {
     if (mounted) {
       setState(() {
         _user = responseUser;
+        print(_user.username);
       });
     }
   }
@@ -36,7 +38,7 @@ class _profileSectionState extends State<profileSection> {
     //reload page after Pop edit profile page
     _navigate(BuildContext context) async {
       final result = await Navigator.push(context,
-              MaterialPageRoute(builder: (context) => EditProfilePage()))
+              MaterialPageRoute(builder: (context) => EditProfilePage(readJson: _readJson,userInfo: _user,)))
           .then((_) => setState(() { print("ok"); }));
     }
 
@@ -49,7 +51,7 @@ class _profileSectionState extends State<profileSection> {
               maxRadius: 40.0,
               backgroundColor: AppColors.lightgrey,
               backgroundImage: _user.imagePath.isEmpty
-                  ? NetworkImage(nulluser.imagePath)
+                  ? NetworkImage(nullUser.imagePath)
                   : NetworkImage(_user.imagePath),
             ),
             const Padding(

@@ -30,15 +30,15 @@ class _MyPageState extends State<MyPage> {
         child: Column(
           children: [
             //Title
-            TextTitle(title: "Profile", size: 24),
+            const TextTitle(title: "Profile", size: 24),
             //User pic & username
-            profileSection(),
-            SizedBox(
+            const profileSection(),
+            const SizedBox(
               height: 35,
             ),
             //list
-            ListItem(title: "Category Setting", routes: CategorySetting()),
-            ListItem(
+            const ListItem(title: "Category Setting", routes: CategorySetting()),
+            const ListItem(
                 title: "Notification Setting", routes: NotificationSetting()),
             ListItem(title: "Help Center", routes: HelpCenter()),
             //Log out

@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
 import 'package:paotung_frontend/core/data/services/user_service.dart';
+import 'package:paotung_frontend/core/utils/app_builder.dart';
+import 'package:paotung_frontend/core/utils/life_cycle.dart';
 import 'package:paotung_frontend/screens/main/account/presentation/add_transaction.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 import 'package:paotung_frontend/widgets/main/account/expense_tab.dart';
@@ -14,17 +18,23 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  
+
   User _user = User(
       email: "",
       username: "",
       imagePath: "",
       balance: 0
-    );
+  );
 
   void initState() {
     _readJson();
     super.initState();
+  }
+
+  void refresh() {
+    debugPrint("1112");
+    _readJson();
+    AppBuilder.of(context)?.rebuild();
   }
   Future<void> _readJson() async {
     var responseUser = await GetUser.getData();
@@ -59,22 +69,26 @@ class _AccountPageState extends State<AccountPage> {
           ),
           SliverList(
               delegate: SliverChildListDelegate(
-            [
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 32),
-                  child: const ExpenseTab(),
-                )
-              ),
-            ],
-          )
-        ),  
+                [
+                  Container(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 32),
+                        child: AppBuilder(builder: (context)  {
+                          return const TransactionsTab();
+                        }),
+                      )
+                  ),
+                ],
+              )
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          debugPrint("222");
+          refresh();
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddTransaction()));
+              context, MaterialPageRoute(builder: (context) => AddTransaction(backTrigger: refresh)));
         },
         backgroundColor: AppColors.mainColor,
         child: Icon(Icons.add),

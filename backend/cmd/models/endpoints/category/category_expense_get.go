@@ -52,7 +52,7 @@ func GetExpenseHandler(c *fiber.Ctx) error {
 	}
 
 	// * Cal each category percent
-	var sumPercent = 100.0
+	var sumPercent = 100.00
 	for _, c := range categoryList {
 		c.Percent = CalPercent(c.Amount, total)
 		sumPercent = sumPercent - c.Percent
