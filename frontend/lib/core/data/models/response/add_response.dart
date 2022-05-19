@@ -66,3 +66,36 @@ class AddCategoryResponse {
     );
   }
 }
+
+class NotificationId {
+  int id;
+
+  NotificationId({required this.id});
+
+  factory NotificationId.fromJson(Map<String, dynamic> json) {
+    return NotificationId(
+      id: json["notification_id"],
+    );
+  }
+}
+
+class AddNotiResponse {
+  bool success;
+  String message;
+  NotificationId data;
+
+  AddNotiResponse({
+    required this.success,
+    required this.message,
+    required this.data,
+
+  });
+
+  factory AddNotiResponse.fromJson(Map<String, dynamic> json) {
+    return AddNotiResponse(
+      success: json['success'],
+      message: json['message'],
+      data: NotificationId.fromJson(json['data']),
+    );
+  }
+}

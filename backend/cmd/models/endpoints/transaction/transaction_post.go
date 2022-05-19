@@ -19,7 +19,8 @@ func PostHandler(c *fiber.Ctx) error {
 	if err := c.BodyParser(&body); err != nil {
 		return &common.GenericError{
 			Message: "Unable to parse body",
-			Err:     err, Code: "INVALID_INFORMATION",
+			Err:     err,
+			Code:    "INVALID_INFORMATION",
 		}
 	}
 

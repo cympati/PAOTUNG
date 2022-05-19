@@ -1,6 +1,7 @@
 package notification
 
 import (
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/common"
@@ -24,7 +25,7 @@ func PostHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	// * Change dateTime Format
+	spew.Dump(body.DateTime.Local())
 
 	// * Create category record
 	notification := &models.Notification{
@@ -32,6 +33,8 @@ func PostHandler(c *fiber.Ctx) error {
 		DateTime: &body.DateTime,
 		OwnerId:  claims.UserId,
 	}
+
+	spew.Dump(notification.DateTime.Local())
 
 	if result := database.Gorm.Create(&notification); result.Error != nil {
 		return &common.GenericError{

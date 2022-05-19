@@ -29,56 +29,42 @@ class NewCategory extends StatefulWidget {
 class _NewCategoryState extends State<NewCategory> {
   final _formkey = GlobalKey<FormState>();
   final _categoryController = TextEditingController();
+  final _colorPickerKey = TextEditingController();
   final RoundedLoadingButtonController _newcategoryBtnController =
       RoundedLoadingButtonController();
-  String? name;
-
-  // String? color;
+  // String? categoryName;
   String? transactionType;
   int? selectedColor;
   bool isSubmit = false;
-
-  // final RoundedButton _categoryBtnController = RoundedButton();
   Color mycolor = Colors.lightBlue;
-
-  //var _transactionval;
   List _types = ['Expense', 'Income'];
-
   void changeColor(Color color) {
     setState(() {
       pickerColor = color;
     });
   }
-
-  // Color color = AppColors.mainColor;
   Color pickerColor = AppColors.secondaryColor;
 
-  // void _handleSubmit() {
-  //   if (_formkey.currentState!.validate()) {
-  //     Timer(const Duration(milliseconds: 1500), () {
-  //       Navigator.pushReplacementNamed(context, '/categorysetting');
-  //     });
-  //   }
-  // }
 
-  // Future<dynamic> addCategory(
-  //     String name, String transactionType, int color) async {
-  //   var response = await GetCategoryExpenseService.addCategoryService(
-  //       name, transactionType, color);
-  //       if (response is AddCategoryResponse) {
-  //         read
-  //       }
-  // }
+  @override
+  void initState() {
+    transactionType = _types[0];
+    selectedColor = 4280391411 ;
+    super.initState();
+  }
 
   void _categoryCall() async {
-    var hex = '${mycolor.value.toRadixString(16).substring(2)}';
-    final int selectedColor = int.parse("0x$hex");
+    // var hex = '${mycolor.value.toRadixString(16).substring(2)}';
+    // final int selectedColor = int.parse("0x$hex");
+    print(_categoryController.text);
     print(selectedColor);
+    print(transactionType);
     var addCategory = await GetCategoryExpenseService.addCategoryService(
-        name!, transactionType!, selectedColor);
+        _categoryController.text, transactionType!.toLowerCase(), selectedColor!);
     if (addCategory is ErrorResponse) {
       showAlertDialog(context, addCategory.message);
       _newcategoryBtnController.reset();
+      _formkey.currentState!.reset();
     } else {
       _newcategoryBtnController.success();
       _categoryNavigate();
@@ -87,8 +73,8 @@ class _NewCategoryState extends State<NewCategory> {
 
   void _categoryNavigate() async {
     Timer(const Duration(milliseconds: 1500), () {
-      // Navigator.pop(context);
-      Navigator.pushReplacementNamed(context, '/categorysetting');
+      Navigator.of(context, rootNavigator: true).pop();
+      // Navigator.restorablePushReplacementNamed(context, '/categorysetting');
     });
   }
 
@@ -115,23 +101,14 @@ class _NewCategoryState extends State<NewCategory> {
                       children: [
                         const Text('Name'),
                         TextFormField(
-                          // decoration: InputDecoration(labelText: 'Name'),
-                          onChanged: (value) {
-                            name = value;
-                          },
                           controller: _categoryController,
-                          onSaved: (value) {
-                            name = value;
-                            //print(name);
-                          },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter category';
                             }
+                            return null;
                           },
-                          autovalidateMode: isSubmit
-                              ? AutovalidateMode.onUserInteraction
-                              : AutovalidateMode.disabled,
+                          autovalidateMode: AutovalidateMode.onUserInteraction
                         ),
                       ])),
               Container(
@@ -143,38 +120,33 @@ class _NewCategoryState extends State<NewCategory> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Transaction Type'),
-                    Container(
-                      child: DropdownButtonFormField<String>(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select a transaction type';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
+                    DropdownButtonFormField<String>(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please select a transaction type';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
                         ),
-                        isDense: false,
-                        value: transactionType,
-                        hint: const Text('Select transaction type'),
-                        isExpanded: true,
-                        items: _types.map((value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            transactionType = value;
-                          });
-                        },
-                        onSaved: (value) {
-                          transactionType = value;
-                        },
                       ),
+                      isDense: false,
+                      value: transactionType,
+                      hint: const Text('Select transaction type'),
+                      isExpanded: true,
+                      items: _types.map((value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          transactionType = value;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -184,72 +156,65 @@ class _NewCategoryState extends State<NewCategory> {
                 margin: const EdgeInsets.only(top: 20),
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-                child: Form(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Color"),
-                      TextFormField(
-                        readOnly: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select the color';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          selectedColor = value as int?;
-                        },
-                        onChanged: (value) {},
-
-                        // autovalidateMode: isSubmit
-                        //     ? AutovalidateMode.onUserInteraction
-                        //     : AutovalidateMode.disabled,
-                        decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: AppColors.mainColor)),
-                            prefixIcon: Icon(
-                              Icons.circle,
-                              color: mycolor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Color"),
+                    TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      readOnly: true,
+                      validator: (value) {
+                        if (selectedColor == null || selectedColor!.isNaN || selectedColor == 0) {
+                          return 'Please select the color';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.mainColor)),
+                          prefixIcon: Icon(
+                            Icons.circle,
+                            color: mycolor,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              size: 30,
                             ),
-                            suffixIcon: IconButton(
-                              icon: const Icon(
-                                Icons.arrow_drop_down_outlined,
-                                size: 30,
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text('Pick a color!'),
-                                        content: SingleChildScrollView(
-                                          child: BlockPicker(
-                                            pickerColor: mycolor,
-                                            onColorChanged: (Color color) {
-                                              setState(() {
-                                                mycolor = color;
-                                                print(color);
-                                              });
-                                            },
-                                          ),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Pick a color!'),
+                                      content: SingleChildScrollView(
+                                        child: BlockPicker(
+                                          pickerColor: mycolor,
+                                          onColorChanged: (Color color) {
+                                            setState(() {
+                                              mycolor = color;
+                                              selectedColor = color.value.toInt() ;
+                                              print(selectedColor);
+                                              print(color);
+                                            });
+                                          },
                                         ),
-                                        actions: <Widget>[
-                                          ElevatedButton(
-                                              child: const Text('DONE'),
-                                              onPressed: () => Navigator.of(
-                                                      context,
-                                                      rootNavigator: true)
-                                                  .pop())
-                                        ],
-                                      );
-                                    });
-                              },
-                            )),
-                      ),
-                    ],
-                  ),
+                                      ),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                            child: const Text('DONE'),
+                                            onPressed: () => Navigator.of(
+                                                    context,
+                                                    rootNavigator: true)
+                                                .pop())
+                                      ],
+                                    );
+                                  });
+                            },
+                          )),
+                    ),
+                  ],
                 ),
               )),
               Spacer(),

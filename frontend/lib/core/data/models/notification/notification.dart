@@ -47,25 +47,4 @@ class NotificationResponse{
   }
 }
 
-class AddNotiResponse {
-  bool success;
-  String message;
-  Notifications data;
-  //String userId;
 
-  AddNotiResponse({
-    required this.success,
-    required this.message,
-    required this.data,
-    
-  });
-
-  factory AddNotiResponse.fromJson(Map<String, dynamic> json) {
-    return AddNotiResponse(
-      success: json['success'],
-      message: json['message'],
-      //userId: json['userId'],
-      data: Notifications.fromJson(json['data']),
-    );
-  }
-}

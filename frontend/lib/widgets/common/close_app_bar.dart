@@ -38,7 +38,8 @@ class CloseAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: Colors.black,
             ),
             padding: EdgeInsets.fromLTRB(0, 0, 40, 0),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+
           )
         ],
       ),

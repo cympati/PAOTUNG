@@ -24,6 +24,7 @@ class GetCategoryExpenseService {
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
       AddCategoryResponse res = AddCategoryResponse.fromJson(response.data);
       return res;
+      // print(AddCategoryResponse.fromJson(response.data));
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
@@ -37,6 +38,7 @@ class GetCategoryExpenseService {
           ),
         );
         // ScaffoldMessenger.of(context).showSnackBar(error);
+        return error;
       }
     }
     return null;

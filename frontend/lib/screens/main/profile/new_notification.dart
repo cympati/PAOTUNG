@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/services/notification_service.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
@@ -21,7 +22,9 @@ class _NewNotificationState extends State<NewNotification> {
   var formattedDate = "";
   var formattedTime = "";
   final _formkey = GlobalKey<FormState>();
-  final _newnotiController = TextEditingController();
+  final _notificationNameKey = TextEditingController();
+  final _dateKey = TextEditingController();
+  final _timeKey = TextEditingController();
   final RoundedLoadingButtonController _newnotiBtnController =
       RoundedLoadingButtonController();
   DateTime? pickedDate;
@@ -30,24 +33,30 @@ class _NewNotificationState extends State<NewNotification> {
   DateTime? selectedDate;
   TextEditingController timeinput = TextEditingController();
   TimeOfDay? pickedTime;
-  String? name;
-  String? dateTime;
+  // String? name;
+  // String? dateTime;
 
-  // void _handleSubmit() {
-  //   if (_formkey.currentState!.validate()) {
-  //     Timer(const Duration(milliseconds: 1500), () {
-  //       Navigator.pushReplacementNamed(context, '/notisetting');
-  //     });
-  //   }
-  // }
+  void initState() {
+    _dateKey.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    _timeKey.text = DateFormat('hh:mm a').format(DateTime.now()) ;
+    formattedTime =
+        DateFormat('hh:mm:ss').format(DateTime.now());
+    print(DateTime.now());
+    super.initState();
+  }
 
   void _notificationCall() async {
-    var format = formattedDate + "T" + formattedTime + "Z";
-    //print(format);
-    var addNotification = await GetNotification.newNotification(name!, format);
+    // var formattedDateTime = formattedDate + "T" + formattedTime + "Z";
+    var formattedDateTime = formattedDate + "T" + formattedTime + "Z";
+    print(formattedDateTime);
+    print(_notificationNameKey.text);
+    var addNotification = await GetNotification.newNotification(_notificationNameKey.text, formattedDateTime);
+    print(addNotification);
     if (addNotification is ErrorResponse) {
       showAlertDialog(context, addNotification.message);
       _newnotiBtnController.reset();
+      _formkey.currentState!.reset();
     } else {
       _newnotiBtnController.success();
       _notificationNavigate();
@@ -56,7 +65,8 @@ class _NewNotificationState extends State<NewNotification> {
 
   void _notificationNavigate() async {
     Timer(const Duration(milliseconds: 1500), () {
-      Navigator.pop(context);
+      Navigator.of(context, rootNavigator: true).pop();
+      // Navigator.restorablePushReplacementNamed(context, '/notisetting');
     });
   }
 
@@ -78,41 +88,111 @@ class _NewNotificationState extends State<NewNotification> {
                 margin: const EdgeInsets.only(top: 20),
                 padding: const EdgeInsets.only(
                     left: 40, right: 40, top: 6, bottom: 0),
-                child: Form(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                      const Text("Name"),
-                      TextFormField(
-                        // decoration: InputDecoration(labelText: 'Name'),
-                        controller: _newnotiController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter name';
-                          }
-                          return null;
-                        },
-                      ),
-                    ])),
-                // DropdownButtons(
-                //   title: "transaction type",
-                //   hinttext: "",
-                //   value: _transactionval,
-                //   onChanged: (value) {
-                //     setState(() {
-                //       _transactionval = value;
-                //     });
-                //   },
-                //   item: _types.map((value) {
-                //     return DropdownMenuItem(
-                //       value: value,
-                //       child: Text(value),
-                //     );
-                //   }).toList(),
-                // ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  const Text("Name"),
+                  TextFormField(
+                    controller: _notificationNameKey,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter name';
+                      }
+                      return null;
+                    },
+                      autovalidateMode: AutovalidateMode.onUserInteraction
+                  ),
+                ]),// ),
               ),
-              const DatePicker(),
-              const TimePicker(),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(
+                    left: 40, right: 40, top: 6, bottom: 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Date"),
+                    TextFormField(
+                      autovalidateMode:
+                      AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "" || value!.isEmpty) {
+                          return 'Please select date';
+                        }
+                        return null;
+                      },
+                      controller: _dateKey,
+                      decoration: const InputDecoration(
+                          suffixIcon: Icon(Icons.calendar_today),),
+                      readOnly: true,
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime.now().add(const Duration(days: 365,)));
+                        if (pickedDate != null) {
+                          print(pickedDate);
+                          formattedDate =
+                          DateFormat('yyyy-MM-dd').format(pickedDate);
+                          _dateKey.text =
+                              DateFormat('dd-MM-yyyy').format(pickedDate);
+                          // print(formattedDate);
+                          print(_dateKey.text);
+                        } else {
+                          print("Date is not selected");
+                        }
+                      },
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(
+                    left: 40, right: 40, top: 8, bottom: 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Time"),
+                    TextFormField(
+                      autovalidateMode:
+                      AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == "" || value!.isEmpty) {
+                          return 'Please select date';
+                        }
+                        return null;
+                      },
+                      controller: _timeKey,
+                      decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.timer)),
+                      readOnly: true,
+                      onTap: () async {
+                        TimeOfDay? pickedTime = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
+                        if (pickedTime != null) {
+                          print(pickedTime.format(context));
+                          DateTime parsedTime = DateFormat.jm()
+                              .parse(pickedTime.format(context).toString());
+                          print(parsedTime.toString() + "parsedTime");
+                          formattedTime =
+                          DateFormat('hh:mm:ss').format(parsedTime);
+                          print(formattedTime + "formattedTime");
+                          _timeKey.text = DateFormat('hh:mm a').format(parsedTime) ;
+                          print(_timeKey.text + "_timeKey.text");
+                        } else {
+                          print("Time is not selected");
+                        }
+                      },
+                    )
+                  ],
+                ),
+              ),
               const Spacer(),
               RoundedLoadingBtn(
                 text: "Add",
@@ -127,7 +207,6 @@ class _NewNotificationState extends State<NewNotification> {
                     isSubmit = false;
                     _notificationCall();
                   }
-                  //print("mmujyuutjutjtt ");
                   _newnotiBtnController.reset();
                 },
               )

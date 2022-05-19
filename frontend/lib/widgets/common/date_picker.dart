@@ -25,42 +25,40 @@ class _DatePickerState extends State<DatePicker> {
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.only(
           left: 40, right: 40, top: 6, bottom: 0),
-      child: Form(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Date"),
-            TextFormField(
-              controller: dateinput,
-              decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.calendar_today),
-                  labelText: "Select Date"),
-              readOnly: true,
-              onSaved: (value) {
-                Date = value as DateTime?;
-              },
-              onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101));
-                if (pickedDate != null) {
-                  print(pickedDate);
-                  String formattedDate =
-                      DateFormat('dd-MM-yyyy HH:mm:ss').format(pickedDate);
-                  print(formattedDate);
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Date"),
+          TextFormField(
+            controller: dateinput,
+            decoration: InputDecoration(
+                suffixIcon: Icon(Icons.calendar_today),
+                labelText: "Select Date"),
+            readOnly: true,
+            onSaved: (value) {
+              Date = value as DateTime?;
+            },
+            onTap: () async {
+              DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2101));
+              if (pickedDate != null) {
+                print(pickedDate);
+                String formattedDate =
+                    DateFormat('dd-MM-yyyy HH:mm:ss').format(pickedDate);
+                print(formattedDate);
 
-                  setState(() {
-                    dateinput.text = formattedDate;
-                  });
-                } else {
-                  print("Date is not selected");
-                }
-              },
-            )
-          ],
-        ),
+                setState(() {
+                  dateinput.text = formattedDate;
+                });
+              } else {
+                print("Date is not selected");
+              }
+            },
+          )
+        ],
       ),
     );
   }

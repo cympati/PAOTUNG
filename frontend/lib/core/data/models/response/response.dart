@@ -20,6 +20,6 @@ class AddCategoryIdResponse {
   AddCategoryIdResponse({required this.categoryId});
 
   factory AddCategoryIdResponse.fromJson(Map<String, dynamic> json) {
-    return AddCategoryIdResponse(categoryId: json['categoryId']);
+    return AddCategoryIdResponse(categoryId: json['category_id']);
   }
 }
