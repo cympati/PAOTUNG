@@ -41,7 +41,7 @@ class NotificationApi {
 
   static Future init({bool initScheduled = false}) async {
     final android =
-        AndroidInitializationSettings('lib/asset/images/PAOTUNG_Logo.png');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     final iOS = IOSInitializationSettings();
     final settings = InitializationSettings(android: android, iOS: iOS);
     await _notifications.initialize(

@@ -6,6 +6,7 @@ import (
 	"paotung-backend/cmd/models/common"
 	"paotung-backend/cmd/models/dto/notification"
 	"paotung-backend/pkg/database"
+	"time"
 )
 
 func GetHandler(c *fiber.Ctx) error {
@@ -25,5 +26,10 @@ func GetHandler(c *fiber.Ctx) error {
 			Code:    "INVALID_INFORMATION",
 		}
 	}
+
+	for _, noti := range notificationList {
+		noti.DateTime = noti.DateTime.Add(7 * 60 * time.Minute)
+	}
+	
 	return c.JSON(common.NewInfoResponse(&notificationList, ""))
 }

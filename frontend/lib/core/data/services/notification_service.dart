@@ -1,5 +1,7 @@
 // import 'dart:js';
 
+import 'dart:developer';
+
 import 'package:calendar_time/calendar_time.dart';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
@@ -27,16 +29,17 @@ class GetNotification {
       if (res.isNotEmpty) {
         for (var i = 0; i < res.length; i++) {
           if (DateTime.parse(res[i].dateTime)
-              .isBefore(DateTime.now().add(const Duration(minutes: 15)))) {
+              .isBefore(DateTime.now())) {
             continue;
           }
+          debugPrint(DateTime.parse(res[i].dateTime).toString());
           NotificationApi.showScheduledNotification(
             id: res[i].id,
             title: res[i].name,
             body: CalendarTime(parseDate(res[i].dateTime)).toHuman,
-            // scheduledDate: parseDate(res[i].dateTime)
-            //     .subtract(const Duration(minutes: 15)),
-            scheduledDate: DateTime.now().add(const Duration(seconds: 5))
+            scheduledDate: parseDate(res[i].dateTime)
+                .subtract(const Duration(seconds: 30)),
+            // scheduledDate: DateTime.now().add(const Duration(seconds: 5)),
           );
         }
       }

@@ -270,7 +270,8 @@ class _AddTransactionState extends State<AddTransaction> {
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2000),
-                                      lastDate: DateTime.now().add(const Duration(days: 365,)));
+                                      lastDate: DateTime.now());
+                                      // lastDate: DateTime.now().add(const Duration(days: 365,)));
                                   if (pickedDate != null) {
                                     formattedDate = pickedDate
                                             .toIso8601String()

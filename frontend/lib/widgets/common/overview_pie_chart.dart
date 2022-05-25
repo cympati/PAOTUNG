@@ -45,7 +45,7 @@ class OverviewPieChartState extends State<OverviewPieChart> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(0),
       height: 240,
       child: Card(
         color: AppColors.lightgrey,
@@ -53,9 +53,10 @@ class OverviewPieChartState extends State<OverviewPieChart> {
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              width: 180,
+              width: 150,
               child: PieChart(
                 PieChartData(
                   startDegreeOffset: 10,
