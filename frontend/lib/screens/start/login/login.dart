@@ -7,6 +7,7 @@ import 'package:paotung_frontend/core/data/services/account_service.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
 import 'package:paotung_frontend/screens/main/mainpage.dart';
+import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
 import 'package:paotung_frontend/screens/start/sign_up/sign_up.dart';
 import 'package:paotung_frontend/widgets/authentication/login.dart';
 import 'package:paotung_frontend/widgets/common/text_input_field.dart';
@@ -23,11 +24,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // final _emailKey = GlobalKey<FormState>();
-  // final _passwordKey = GlobalKey<FormState>();
-  // void _checkEmail() {}
-  // void _checkPassword() {}
   late TapGestureRecognizer _recognizer;
+  final _formkey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final RoundedLoadingButtonController _loginBtnController =
+      RoundedLoadingButtonController();
+  String errorText = "";
+  late SharedPreferences prefs;
+  bool isSubmit = false;
 
   @override
   void initState() {
@@ -39,32 +44,18 @@ class _LoginScreenState extends State<LoginScreen> {
       };
   }
 
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final RoundedLoadingButtonController _loginBtnController =
-      RoundedLoadingButtonController();
-  String errorText = "";
-  late SharedPreferences prefs;
-
   getSharedPreference() async {
     prefs = await SharedPreferences.getInstance();
     String? userData = prefs.getString('user');
   }
 
   void _logincall() async {
-    if (_emailController.value.text.isEmpty ||
-        _passwordController.value.text.isEmpty) {
-      setState(() {
-        errorText = 'Email or password is empty';
-      });
-    }
     var login = await AccountService.login(
         _emailController.text, _passwordController.text);
-    if (login is ErrorResponse) {
-      setState(() {
-        errorText = login.message;
-      });
+    if (login is ErrorStartResponse) {
+      showAlertDialog(context, login.message);
       _loginBtnController.reset();
+      _formkey.currentState!.reset();
     } else {
       _loginBtnController.success();
       _loginNavigate();
@@ -78,135 +69,136 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  // @override
-  // void initState() {
-  //   getSharedPreference();
-  //   super.initState();
-  // }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          //Login Title
-          const SizedBox(
-            height: 80,
-          ),
-          const AuthenTitle(
-              title: "Login", description: "Welcome back to PAOTUNG!💰"),
-          const SizedBox(
-            height: 15,
-          ),
-          //Input text
-          ValueListenableBuilder(
-              valueListenable: _passwordController,
-              builder: (context, TextEditingValue value, __) {
-                return Expanded(
-                    child: ListView(
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                      child: TextFormField(
-                        decoration: InputDecoration(labelText: 'Email'),
-                        controller: _emailController,
-                        obscureText: false,
-                        onChanged: (_) => setState(() {
-                          errorText = '';
-                        }),
-                      ),
-                    ),
-
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                      child: TextFormField(
-                        decoration: InputDecoration(labelText: 'Password'),
-                        controller: _passwordController,
-                        obscureText: true,
-                        onChanged: (_) => setState(() {
-                          errorText = '';
-                        }),
-                      ),
-                    ),
-
-                    errorText.isNotEmpty
-                        ? Container(
-                            width: double.infinity,
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Text(
-                              errorText,
-                              style: TextStyle(color: Colors.red),
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        : Container(),
-                    Container(
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(bottom: 195, top: 10),
-                      child: const Text(
-                        '',
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    //Go to signup page
-                    const Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: RichText(
-                            text: TextSpan(children: <TextSpan>[
-                              const TextSpan(
-                                  text: "New Here? Create an account ",
-                                  style: TextStyle(color: Colors.grey)),
-                              TextSpan(
-                                  text: "Sign Up",
-                                  style: TextStyle(color: AppColors.mainColor),
-                                  recognizer: _recognizer)
-                            ]),
-                          ),
-                        ),
-                        //Button
-                        Container(
-                          margin: EdgeInsets.only(bottom: 60),
-                          child: RoundedLoadingButton(
-                            height: 70,
-                            width: 420,
-                            child: const Text(
-                              'log in',
+        body: ListView(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(
+                height: 100,
+              ),
+              const AuthenTitle(
+                  title: "Login", description: "Welcome back to PAOTUNG!💰"),
+              const SizedBox(
+                height: 15,
+              ),
+              Form(
+                key: _formkey,
+                child: Padding(
+                    padding: EdgeInsets.only(left: 40, right: 53, top: 40),
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Email",
                               style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
+                                  fontSize: 14, color: AppColors.MedGrey),
+                            ),
+                            TextFormField(
+                              controller: _emailController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your email';
+                                }
+                                return null;
+                              },
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.mainColor))),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Password",
+                              style: TextStyle(
+                                  fontSize: 14, color: AppColors.MedGrey),
+                            ),
+                            TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter password';
+                                } else if (value.length < 8) {
+                                  return 'Your password length is incorrect';
+                                }
+                                return null;
+                              },
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: _passwordController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.mainColor))),
+                            ),
+                            const SizedBox(
+                              height: 207,
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              child: RichText(
+                                text: TextSpan(children: <TextSpan>[
+                                  const TextSpan(
+                                      text: "New Here? Create an account  ",
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 16)),
+                                  TextSpan(
+                                      text: "Sign Up",
+                                      style: TextStyle(
+                                          color: AppColors.mainColor,
+                                          fontSize: 16),
+                                      recognizer: _recognizer)
+                                ]),
                               ),
                             ),
-                            color: AppColors.mainColor,
-                            borderRadius: 20,
-                            controller: _loginBtnController,
-                            onPressed:
-                                _passwordController.value.text.isNotEmpty &&
-                                        _emailController.value.text.isNotEmpty
-                                    ? _logincall
-                                    : null,
-                            disabledColor: AppColors.mainColor,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ));
-              })
-        ],
-      ),
-    );
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            RoundedLoadingButton(
+                              height: 70,
+                              child: const Text(
+                                'log in',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              color: AppColors.mainColor,
+                              borderRadius: 20,
+                              controller: _loginBtnController,
+                              onPressed: () {
+                                setState(() {
+                                  isSubmit = true;
+                                });
+                                if (_formkey.currentState!.validate()) {
+                                  _formkey.currentState!.save();
+                                  isSubmit = false;
+                                  _logincall();
+                                }
+                                _loginBtnController.reset();
+                              },
+                              // disabledColor: AppColors.mainColor,
+                            ),
+                            SizedBox(height: 40,)
+                          ]),
+                    )),
+              ),
+            ],
+          ),
+        )
+      ],
+    ));
   }
 }

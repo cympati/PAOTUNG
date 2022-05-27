@@ -38,7 +38,7 @@ class GetNotification {
             title: res[i].name,
             body: CalendarTime(parseDate(res[i].dateTime)).toHuman,
             scheduledDate: parseDate(res[i].dateTime)
-                .subtract(const Duration(seconds: 30)),
+                .subtract(const Duration(minutes: 15)),
             // scheduledDate: DateTime.now().add(const Duration(seconds: 5)),
           );
         }

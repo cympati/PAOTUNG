@@ -129,7 +129,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     autovalidateMode:  AutovalidateMode.onUserInteraction , // turn on automatic verification
                     controller: _emailController,
                     decoration: InputDecoration(
-                        // labelText: _user.email,
                         filled: true,
                         fillColor: Colors.white,
                         focusedBorder: UnderlineInputBorder(
@@ -223,7 +222,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 _editBtnController.reset();
               },
             ),
-            Container(
+            const SizedBox(
               height: 40,
             ),
           ],

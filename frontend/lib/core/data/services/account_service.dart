@@ -33,7 +33,7 @@ class AccountService {
 
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
-        ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
+        ErrorStartResponse error = ErrorStartResponse.fromJson(e.response?.data);
         return error;
       }
     }
@@ -69,7 +69,7 @@ class AccountService {
 
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
-        ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
+        ErrorStartResponse error = ErrorStartResponse.fromJson(e.response?.data);
         return error;
       }
     }
