@@ -2,7 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/core/data/models/transaction/transaction.dart';
+import 'package:paotung_frontend/core/data/models/transaction/transaction_month.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
+import 'package:paotung_frontend/core/data/services/transaction_month_service.dart';
+import 'package:paotung_frontend/core/data/services/transaction_today_service.dart';
 import 'package:paotung_frontend/core/data/services/user_service.dart';
 import 'package:paotung_frontend/core/utils/app_builder.dart';
 import 'package:paotung_frontend/core/utils/life_cycle.dart';
@@ -18,6 +22,30 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  late List<List<TransactionInfo>> _transactionMonthList = [];
+  late List<Transactions> _transactionDayList = [];
+
+  Future<void> _readTransactionMonthJson() async {
+    List<List<TransactionInfo>> responseTransactions =
+    await GetTransactionMonthService.getData();
+
+    setState(() {
+      _transactionMonthList = responseTransactions.reversed.toList();
+    });
+    print("Month");
+
+    // print(_transactionMonthList.toString());
+  }
+
+  Future<void> _readTransactionDayJson() async {
+    var responseTransactions = await GetTransactionTodayService.getData();
+
+    setState(() {
+      _transactionDayList = responseTransactions.reversed.toList();
+    });
+
+    print("Day");
+  }
 
   User _user = User(
       email: "",
@@ -26,9 +54,15 @@ class _AccountPageState extends State<AccountPage> {
       balance: 0
   );
 
+  @override
   void initState() {
-    _readJson();
     super.initState();
+    _readJson();
+    _readTransactionMonthJson();
+    _readTransactionDayJson();
+    print("testtestttedgyshld");
+    debugPrint(_transactionMonthList.toString());
+
   }
 
   void refresh() {
@@ -74,7 +108,7 @@ class _AccountPageState extends State<AccountPage> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 32),
                         child: AppBuilder(builder: (context)  {
-                          return const TransactionsTab();
+                          return TransactionsTab(transactionMonthList: _transactionMonthList, transactionDayList: _transactionDayList, readTransactionMonthJson: _readTransactionMonthJson, readTransactionDayJson:_readTransactionDayJson);
                         }),
                       )
                   ),
@@ -88,7 +122,7 @@ class _AccountPageState extends State<AccountPage> {
           debugPrint("222");
           refresh();
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddTransaction(backTrigger: refresh)));
+              context, MaterialPageRoute(builder: (context) => AddTransaction(backTrigger: refresh,readMonthJson:_readTransactionMonthJson, readDayJson:_readTransactionDayJson,)));
         },
         backgroundColor: AppColors.mainColor,
         child: Icon(Icons.add),

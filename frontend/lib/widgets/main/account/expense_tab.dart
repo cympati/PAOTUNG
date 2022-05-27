@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/core/data/models/transaction/transaction.dart';
+import 'package:paotung_frontend/core/data/models/transaction/transaction_month.dart';
 import 'package:paotung_frontend/core/utils/extensions.dart';
 import 'package:paotung_frontend/widgets/main/account/month_tab.dart';
 import 'package:paotung_frontend/widgets/main/account/today_tab.dart';
@@ -7,17 +9,38 @@ import 'package:paotung_frontend/widgets/main/account/today_tab.dart';
 enum Tab { today, month }
 
 class TransactionsTab extends StatefulWidget {
-  const TransactionsTab({ Key? key }) : super(key: key);
+  List<List<TransactionInfo>> transactionMonthList;
+  List<Transactions> transactionDayList;
+  Function readTransactionMonthJson;
+  Function readTransactionDayJson;
+
+  TransactionsTab({ Key? key , required this.transactionMonthList, required this.transactionDayList, required this.readTransactionDayJson, required this.readTransactionMonthJson}) : super(key: key);
 
   @override
   State<TransactionsTab> createState() => _TransactionsTabState();
 }
 
 class _TransactionsTabState extends State<TransactionsTab> {
+  List<List<TransactionInfo>> _transactionMonth = [];
+  List<Transactions> _transactionDayList = [];
   Tab currentTab = Tab.today;
+
+  void initState() {
+    super.initState();
+    // widget.readTransactionDayJson();
+    // widget.readTransactionMonthJson();
+    setState(() {
+
+    });
+
+    print("TEst");
+    print(widget.transactionDayList.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
+    _transactionMonth = widget.transactionMonthList;
+    _transactionDayList = widget.transactionDayList;
     return Column(
       children: [
         Padding(
@@ -47,7 +70,7 @@ class _TransactionsTabState extends State<TransactionsTab> {
         ),
         IndexedStack(
           index: currentTab.index,
-          children: const [TodayTab(), MonthTab()],
+          children: [TodayTab(transactionList: _transactionDayList, readJson: widget.readTransactionDayJson,), MonthTab(transactionList: _transactionMonth,readJson: widget.readTransactionMonthJson,)],
         ),
       ],
     );

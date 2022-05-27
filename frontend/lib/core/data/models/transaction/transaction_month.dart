@@ -66,8 +66,8 @@ class TransactionMonthResponse {
       {required this.success, required this.code, required this.data});
 
   factory TransactionMonthResponse.fromJson(Map<String, dynamic> json) {
-
-    print(TransactionMap.fromJson(json['data']));
+    print("E Art Esus");
+    print(TransactionMap.fromJson(json['data']).transactionMap.toString());
     return TransactionMonthResponse(
       success: json['success'],
       code: json['code'],

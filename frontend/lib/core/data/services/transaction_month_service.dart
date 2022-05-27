@@ -14,6 +14,8 @@ class GetTransactionMonthService {
     Dio dio = Dio();
     dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
     Response response = await dio.get(apiEndPoint + '/transaction/month');
+    print("Month service");
+    debugPrint(response.data.toString());
     TransactionMonthResponse res = TransactionMonthResponse.fromJson(response.data);
     if (res.success) {
       return res.data.transactionMap;
