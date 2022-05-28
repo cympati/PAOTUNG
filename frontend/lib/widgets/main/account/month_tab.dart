@@ -24,19 +24,20 @@ class _MonthTabState extends State<MonthTab> {
   void initState() {
     _readJson();
     super.initState();
-    WidgetsBinding.instance?.addObserver(
-        LifecycleEventHandler(resumeCallBack: () async =>  _readJson(), suspendingCallBack: () async => {})
-    );
+    WidgetsBinding.instance?.addObserver(LifecycleEventHandler(
+        resumeCallBack: () async => _readJson(),
+        suspendingCallBack: () async => {}));
   }
 
   Future<void> _readJson() async {
     List<List<TransactionInfo>> responseTransactions =
         await GetTransactionMonthService.getData();
 
-    setState(() {
-      _transaction = responseTransactions.reversed.toList();
-    });
-
+    if (mounted) {
+      setState(() {
+        _transaction = responseTransactions.reversed.toList();
+      });
+    }
 
     // _transaction.forEach((key, value) {
     //   print(value[0].dateString);
@@ -56,7 +57,9 @@ class _MonthTabState extends State<MonthTab> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          DateFormat('yyyy-MM-dd').format(HttpDate.parse(m[0].dateString+' 01:02:03 GMT')) == formattedDateTimeNow
+                          DateFormat('yyyy-MM-dd').format(HttpDate.parse(
+                                      m[0].dateString + ' 01:02:03 GMT')) ==
+                                  formattedDateTimeNow
                               ? 'Today'
                               : m[0].dateString,
                           style: TextStyle(color: AppColors.grey, fontSize: 14),
@@ -70,8 +73,7 @@ class _MonthTabState extends State<MonthTab> {
                         }),
                       ],
                     );
-                  }
-                  ).toList(),
+                  }).toList(),
                 ],
               ));
   }

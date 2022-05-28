@@ -8,14 +8,10 @@ import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
 import 'package:paotung_frontend/core/data/services/user_service.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
-import 'package:paotung_frontend/screens/main/profile/profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
-import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/widgets/common/roundloadingbtn.dart';
-import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:paotung_frontend/widgets/main/profile/edit_profile_pic.dart';
-import 'package:path/path.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -42,15 +38,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
   User _user = User(email: "", username: "", imagePath: "", balance: 0);
   User nullUser = UserPreferences.myUser;
 
-  PickedFile? _imageFile;
+  // ignore: avoid_init_to_null
+  File? _imageFile = null;
   final ImagePicker _picker = ImagePicker();
 
+  @override
   void initState() {
     widget.readJson();
     if (mounted) {
       setState(() {
         _user = widget.userInfo;
-        print(_user.username);
       });
     }
     _emailController.text = _user.email;
@@ -58,11 +55,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.initState();
   }
 
-  void getImage({required ImageSource source}) async {
-    final pickedFile = await _picker.getImage(source: source, imageQuality: 70);
-    setState(() {
-      _imageFile = pickedFile;
+  void getImageFromGallery() async {
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
+    if(pickedFile != null){
+      setState(() {
+      _imageFile = File(pickedFile.path);
     });
+    //await GetUser.changeImage(_imageFile!).then((_) {  });
+    }
+    
   }
 
   @override
@@ -102,11 +103,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             //Picture
             EditProfilePic(
-              imagePath: _imageFile == null
-                  ? nullUser.imagePath
-                  : FileImage(File(_imageFile!.path)).toString(),
+              image: 
+               _imageFile == null
+                   ? NetworkImage(_user.imagePath.isEmpty ? nullUser.imagePath : _user.imagePath)
+                   : FileImage(_imageFile!) as ImageProvider,
               onTaped: () {
-                getImage(source: ImageSource.gallery);
+                getImageFromGallery();
               },
             ),
             const SizedBox(
@@ -206,7 +208,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             const SizedBox(
               height: 50,
             ),
-            //Save
+            //Save Button
             RoundedLoadingBtn(
               text: 'Save',
               bottom: 40,
