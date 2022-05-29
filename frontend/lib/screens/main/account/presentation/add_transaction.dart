@@ -22,8 +22,9 @@ import '../../../../core/data/models/category/categories.dart';
 
 class AddTransaction extends StatefulWidget {
   final Function? backTrigger;
-
-  const AddTransaction({Key? key, this.backTrigger}) : super(key: key);
+  final Function?  readMonthJson;
+  final Function?  readDayJson;
+   AddTransaction({Key? key, this.backTrigger, required  this.readMonthJson, required this.readDayJson}) : super(key: key);
 
   @override
   State<AddTransaction> createState() => _AddTransactionState();
@@ -86,6 +87,9 @@ class _AddTransactionState extends State<AddTransaction> {
       _newtransactionBtnController.reset();
       _formkey.currentState!.reset();
     } else {
+      widget.readDayJson!();
+      widget.readMonthJson!();
+      widget.backTrigger!();
       _newtransactionBtnController.success();
       _transactionNavigate();
     }

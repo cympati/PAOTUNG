@@ -26,40 +26,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final RoundedLoadingButtonController _registerBtnController =
       RoundedLoadingButtonController();
   bool checked = false;
-  String? email;
-  String? username;
-  String? password;
-  String? confirmpassword;
   bool isSubmit = false;
   late TapGestureRecognizer _recognizer;
-  // final _emailKey = GlobalKey<FormState>();
-  // final _usernameKey = GlobalKey<FormState>();
-  // final _passwordKey = GlobalKey<FormState>();
-  // final _confirmKey = GlobalKey<FormState>();
 
-  // void _checkEmail() {}
-
-  // void _checkUsername() {}
-
-  // void _checkPassword() {}
-
-  // void _checkConfirm() {}
+  final _emailKey = TextEditingController();
+  final _usernameKey = TextEditingController();
+  final _passwordKey = TextEditingController();
+  final _confirmKey = TextEditingController();
 
   void _registerCall() async {
-    //loginNavigate
-    if (password != confirmpassword) {
-      showAlertDialog(context, "Password not match");
-    } else {
-      var register = await AccountService.register(
-          email!, username!, password!);
-      if (register is ErrorResponse) {
+    if (_passwordKey.text == _confirmKey.text && _passwordKey.text.isNotEmpty && _confirmKey.text.isNotEmpty) {
+      var register =
+      await AccountService.register(_emailKey.text, _usernameKey.text, _passwordKey.text);
+      if (register is ErrorStartResponse) {
         showAlertDialog(context, register.message);
         _registerBtnController.reset();
+        _formkey.currentState!.reset();
       } else {
         _registerBtnController.success();
         _loginNavigate();
       }
     }
+
   }
 
   void _loginNavigate() async {
@@ -80,183 +68,351 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formkey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            //Signup Title
-            const SizedBox(
-              height: 80,
-            ),
-            const AuthenTitle(
-                title: "Create Account",
-                description: "register PAOTUNG to be rich 🤑 "),
-            const SizedBox(
-              height: 20,
-            ),
-            //Input text
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              child: TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
-                onSaved: (value) {
-                  email = value;
-                },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please fill the email';
-                  }
-                  if (!EmailValidator.validate(value)) {
-                    return 'Email is invalid';
-                  }
-                  return null;
-                },
-                autovalidateMode: isSubmit
-                    ? AutovalidateMode.onUserInteraction
-                    : AutovalidateMode.disabled,
-                // key: _formkey,
-                // title: "Email",
-                // obscure: false,
-                // text: '',
-                onChanged: (value) {},
-                // formKey: _emailKey
+        body: ListView(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 55,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              child: TextFormField(
-                onSaved: (value) {
-                  username = value;
-                },
-                decoration: InputDecoration(labelText: 'Username'),
-                // title: "Username",
-                // obscure: false,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter the username';
-                  }
-                  return null;
-                },
-                // autovalidateMode: isSubmit
-                //     ? AutovalidateMode.onUserInteraction
-                //     : AutovalidateMode.disabled,
-                // text: '',
-                onChanged: (value) {},
-                // formKey: _usernameKey,
+              const AuthenTitle(
+                  title: "Create Account",
+                  description: "register PAOTUNG to be rich 🤑 "),
+              const SizedBox(
+                height: 15,
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              child: TextFormField(
-                decoration: InputDecoration(labelText: 'Password'),
-                onSaved: (value) {
-                  password = value;
-                },
-                // title: "Password",
-                obscureText: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter the password';
-                  }
-                  if (value.length < 8) {
-                    return 'Password must have at leasr 8 character';
-                  }
-                  return null;
-                },
-                autovalidateMode: isSubmit
-                    ? AutovalidateMode.onUserInteraction
-                    : AutovalidateMode.disabled,
-                // text: '',
-                onChanged: (value) {},
-                // formKey: _passwordKey,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              child: TextFormField(
-                decoration: InputDecoration(labelText: 'Confirm password'),
-                onSaved: (value) {
-                  confirmpassword = value;
-                },
-                // title: "Confirm Password",
-                obscureText: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter the Confirm Password';
-                  }
-                  return null;
-                },
-                autovalidateMode: isSubmit
-                    ? AutovalidateMode.onUserInteraction
-                    : AutovalidateMode.disabled,
-                // text: '',
-                onChanged: (value) {},
-                // formKey: _confirmKey,
-              ),
-            ),
-            //Go to login page
-            const Spacer(),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(bottom: 20),
-              child: RichText(
-                text: TextSpan(children: <TextSpan>[
-                  const TextSpan(
-                      text: "Already have an accout? ",
-                      style: TextStyle(color: Colors.grey)),
-                  TextSpan(
-                      text: "Log in",
-                      style: TextStyle(color: AppColors.mainColor),
-                      recognizer: _recognizer)
-                ]),
-              ),
-            ),
-            //Button
-            RoundedLoadingBtn(
-              text: 'Create Account',
-              bottom: 40,
-              controller: _registerBtnController,
-              onPressed: () {
-                setState(() {
-                  isSubmit = true;
-                });
-                if (_formkey.currentState!.validate()) {
-                  _formkey.currentState!.save();
-                  isSubmit = false;
-                  _registerCall();
-                }
-                _registerBtnController.reset();
-              },
-            )
-            // RoundedLoadingButton(
-            //   height: 70,
-            //   width: 420,
-            //   child: const Text(
-            //     'Create Account',
-            //     style: TextStyle(
-            //       fontSize: 16,
-            //       color: Colors.white,
-            //     ),
-            //   ),
-            //   color: AppColors.mainColor,
-            //   borderRadius: 20,
-            //   controller: _registerBtnController,
-            //   onPressed: () {
-            //     setState(() {
-            //       isSubmit = true;
-            //     });
-            //     if (_formkey.currentState!.validate()) {
-            //       _formkey.currentState!.save();
-            //       isSubmit = false;
-            //       _registerCall();
-            //     }
-            //     _registerBtnController.reset();
-            //   },
-            // )
-          ],
+              Form(
+                  key: _formkey,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 40, right: 53, top: 40),
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Email",
+                            style: TextStyle(
+                                fontSize: 14, color: AppColors.MedGrey),
+                          ),
+                          TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter email';
+                              }
+                              return null;
+                            },
+                            controller: _emailKey,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            decoration: InputDecoration(
+
+                                fillColor: Colors.white,
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.mainColor))),
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          const Text("Username"),
+                          TextFormField(
+                            autovalidateMode:  AutovalidateMode.onUserInteraction , // turn on automatic verification
+                            controller: _usernameKey,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter username';
+                              }
+                            },
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: AppColors.mainColor))),
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          const Text("Password"),
+                          TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
+                              } else if (value.length< 8) {
+                                return 'Your password length is incorrect';
+                              }
+                            },
+                            autovalidateMode:  AutovalidateMode.onUserInteraction ,
+                            controller: _passwordKey,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: AppColors.mainColor))),
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          const Text("Confirm Password"),
+                          TextFormField(
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter confirm password';
+                              } else if (_passwordKey.text !=
+                                  _confirmKey.text) {
+                                return 'Confirm password is not match';
+                              }
+                            },
+                            controller: _confirmKey,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                    BorderSide(color: AppColors.mainColor))),
+                          ),
+
+                          const SizedBox(
+                            height: 57,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: RichText(
+                              text: TextSpan(children: <TextSpan>[
+                                const TextSpan(
+                                    text: "Already have an account?  ",
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 16)),
+                                TextSpan(
+                                    text: "Log in",
+                                    style: TextStyle(
+                                        color: AppColors.mainColor,
+                                        fontSize: 16),
+                                    recognizer: _recognizer)
+                              ]),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          //Save
+                          RoundedLoadingButton(
+                            height: 70,
+                            child: const Text(
+                              'Create Account',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                            color: AppColors.mainColor,
+                            borderRadius: 20,
+                            controller: _registerBtnController,
+                            onPressed: () {
+                              setState(() {
+                                isSubmit = true;
+                              });
+                              if (_formkey.currentState!.validate()) {
+                                _formkey.currentState!.save();
+                                isSubmit = false;
+                                _registerCall();
+                              }
+                              _registerBtnController.reset();
+                            },
+                          ),
+                          SizedBox(height: 40,)
+                        ],
+                      ),
+                    ),
+                  ))
+
+            ],
+          ),
         ),
-      ),
-    );
+      ],
+    ));
   }
 }
+
+// Form(
+//   key: _formkey,
+//   child: Column(
+//     mainAxisAlignment: MainAxisAlignment.center,
+//     children: <Widget>[
+//       //Signup Title
+//       const SizedBox(
+//         height: 80,
+//       ),
+//       const AuthenTitle(
+//           title: "Create Account",
+//           description: "register PAOTUNG to be rich 🤑 "),
+//       const SizedBox(
+//         height: 20,
+//       ),
+//       //Input text
+//       Padding(
+//         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+//         child: TextFormField(
+//           decoration: InputDecoration(labelText: 'Email'),
+//           onSaved: (value) {
+//             email = value;
+//           },
+//           validator: (value) {
+//             if (value!.isEmpty) {
+//               return 'Please fill the email';
+//             }
+//             if (!EmailValidator.validate(value)) {
+//               return 'Email is invalid';
+//             }
+//             return null;
+//           },
+//           autovalidateMode: isSubmit
+//               ? AutovalidateMode.onUserInteraction
+//               : AutovalidateMode.disabled,
+//           // key: _formkey,
+//           // title: "Email",
+//           // obscure: false,
+//           // text: '',
+//           onChanged: (value) {},
+//           // formKey: _emailKey
+//         ),
+//       ),
+//       Padding(
+//         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+//         child: TextFormField(
+//           onSaved: (value) {
+//             username = value;
+//           },
+//           decoration: InputDecoration(labelText: 'Username'),
+//           // title: "Username",
+//           // obscure: false,
+//           validator: (value) {
+//             if (value!.isEmpty) {
+//               return 'Please enter the username';
+//             }
+//             return null;
+//           },
+//           // autovalidateMode: isSubmit
+//           //     ? AutovalidateMode.onUserInteraction
+//           //     : AutovalidateMode.disabled,
+//           // text: '',
+//           onChanged: (value) {},
+//           // formKey: _usernameKey,
+//         ),
+//       ),
+//       Padding(
+//         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+//         child: TextFormField(
+//           decoration: InputDecoration(labelText: 'Password'),
+//           onSaved: (value) {
+//             password = value;
+//           },
+//           // title: "Password",
+//           obscureText: true,
+//           validator: (value) {
+//             if (value!.isEmpty) {
+//               return 'Please enter the password';
+//             }
+//             if (value.length < 8) {
+//               return 'Password must have at leasr 8 character';
+//             }
+//             return null;
+//           },
+//           autovalidateMode: isSubmit
+//               ? AutovalidateMode.onUserInteraction
+//               : AutovalidateMode.disabled,
+//           // text: '',
+//           onChanged: (value) {},
+//           // formKey: _passwordKey,
+//         ),
+//       ),
+//       Padding(
+//         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+//         child: TextFormField(
+//           decoration: InputDecoration(labelText: 'Confirm password'),
+//           onSaved: (value) {
+//             confirmpassword = value;
+//           },
+//           // title: "Confirm Password",
+//           obscureText: true,
+//           validator: (value) {
+//             if (value!.isEmpty) {
+//               return 'Please enter the Confirm Password';
+//             }
+//             return null;
+//           },
+//           autovalidateMode: isSubmit
+//               ? AutovalidateMode.onUserInteraction
+//               : AutovalidateMode.disabled,
+//           // text: '',
+//           onChanged: (value) {},
+//           // formKey: _confirmKey,
+//         ),
+//       ),
+//       //Go to login page
+//       const Spacer(),
+//       Container(
+//         alignment: Alignment.center,
+//         padding: const EdgeInsets.only(bottom: 20),
+//         child: RichText(
+//           text: TextSpan(children: <TextSpan>[
+//             const TextSpan(
+//                 text: "Already have an accout? ",
+//                 style: TextStyle(color: Colors.grey)),
+//             TextSpan(
+//                 text: "Log in",
+//                 style: TextStyle(color: AppColors.mainColor),
+//                 recognizer: _recognizer)
+//           ]),
+//         ),
+//       ),
+//       //Button
+//       RoundedLoadingBtn(
+//         text: 'Create Account',
+//         bottom: 40,
+//         controller: _registerBtnController,
+//         onPressed: () {
+//           setState(() {
+//             isSubmit = true;
+//           });
+//           if (_formkey.currentState!.validate()) {
+//             _formkey.currentState!.save();
+//             isSubmit = false;
+//             _registerCall();
+//           }
+//           _registerBtnController.reset();
+//         },
+//       )
+//       // RoundedLoadingButton(
+//       //   height: 70,
+//       //   width: 420,
+//       //   child: const Text(
+//       //     'Create Account',
+//       //     style: TextStyle(
+//       //       fontSize: 16,
+//       //       color: Colors.white,
+//       //     ),
+//       //   ),
+//       //   color: AppColors.mainColor,
+//       //   borderRadius: 20,
+//       //   controller: _registerBtnController,
+//       //   onPressed: () {
+//       //     setState(() {
+//       //       isSubmit = true;
+//       //     });
+//       //     if (_formkey.currentState!.validate()) {
+//       //       _formkey.currentState!.save();
+//       //       isSubmit = false;
+//       //       _registerCall();
+//       //     }
+//       //     _registerBtnController.reset();
+//       //   },
+//       // )
+//     ],
+//   ),
+// ),

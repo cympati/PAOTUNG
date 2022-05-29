@@ -14,3 +14,18 @@ class ErrorResponse {
       json['error']);
   }
 }
+
+class ErrorStartResponse {
+  bool success;
+  String code;
+  String message;
+
+  ErrorStartResponse(this.success, this.code, this.message);
+
+  factory ErrorStartResponse.fromJson(Map<String, dynamic> json) {
+    return ErrorStartResponse(
+        json['success'],
+        json['code'],
+        json['message']);
+  }
+}

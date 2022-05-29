@@ -11,7 +11,10 @@ import 'package:paotung_frontend/widgets/main/transaction/transaction_box.dart';
 import 'package:collection/collection.dart';
 
 class MonthTab extends StatefulWidget {
-  const MonthTab({Key? key}) : super(key: key);
+  List<List<TransactionInfo>> transactionList;
+  Function readJson;
+  MonthTab({Key? key, required this.transactionList, required this.readJson})
+      : super(key: key);
 
   @override
   State<MonthTab> createState() => _MonthTabState();
@@ -22,30 +25,17 @@ class _MonthTabState extends State<MonthTab> {
   String formattedDateTimeNow = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   void initState() {
-    _readJson();
     super.initState();
-    WidgetsBinding.instance?.addObserver(LifecycleEventHandler(
-        resumeCallBack: () async => _readJson(),
-        suspendingCallBack: () async => {}));
-  }
+    widget.readJson();
 
-  Future<void> _readJson() async {
-    List<List<TransactionInfo>> responseTransactions =
-        await GetTransactionMonthService.getData();
-
-    if (mounted) {
-      setState(() {
-        _transaction = responseTransactions.reversed.toList();
-      });
-    }
-
-    // _transaction.forEach((key, value) {
-    //   print(value[0].dateString);
-    // });
+    print("----------------");
+    print(widget.transactionList.toString());
   }
 
   @override
   Widget build(BuildContext context) {
+    _transaction = widget.transactionList;
+
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: _transaction.isEmpty
@@ -56,6 +46,9 @@ class _MonthTabState extends State<MonthTab> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          height: 20,
+                        ),
                         Text(
                           DateFormat('yyyy-MM-dd').format(HttpDate.parse(
                                       m[0].dateString + ' 01:02:03 GMT')) ==
