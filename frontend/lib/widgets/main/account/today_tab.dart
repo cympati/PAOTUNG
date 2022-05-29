@@ -10,7 +10,8 @@ import 'package:paotung_frontend/widgets/main/transaction/transaction_box.dart';
 class TodayTab extends StatefulWidget {
   List<Transactions> transactionList;
   Function readJson;
-  TodayTab({Key? key, required this.transactionList, required this.readJson}) : super(key: key);
+  TodayTab({Key? key, required this.transactionList, required this.readJson})
+      : super(key: key);
 
   @override
   State<TodayTab> createState() => _TodayTabState();
@@ -36,26 +37,24 @@ class _TodayTabState extends State<TodayTab> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
-      child: _transaction.isEmpty ? 
-      DefaultText(text: 'transactions',color:true)
-      :
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            "Today",
-            style: TextStyle(color: AppColors.grey, fontSize: 14),
-          ),
-          ..._transaction.map((transaction) {
-            return TransactionBox(
-              color: transaction.categoryColor, 
-              text: transaction.categoryName, 
-              title: transaction.transactionName,
-              amount: transaction.amount
-            );
-          }).toList()
-        ],
-      ),
+      child: _transaction.isEmpty
+          ? DefaultText(text: 'transactions', color: true)
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  "Today",
+                  style: TextStyle(color: AppColors.grey, fontSize: 14),
+                ),
+                ..._transaction.map((transaction) {
+                  return TransactionBox(
+                      color: transaction.categoryColor,
+                      text: transaction.categoryName,
+                      title: transaction.transactionName,
+                      amount: transaction.amount);
+                }).toList()
+              ],
+            ),
     );
   }
 }

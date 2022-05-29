@@ -13,7 +13,8 @@ import 'package:collection/collection.dart';
 class MonthTab extends StatefulWidget {
   List<List<TransactionInfo>> transactionList;
   Function readJson;
-  MonthTab({Key? key, required this.transactionList, required this.readJson}) : super(key: key);
+  MonthTab({Key? key, required this.transactionList, required this.readJson})
+      : super(key: key);
 
   @override
   State<MonthTab> createState() => _MonthTabState();
@@ -45,9 +46,13 @@ class _MonthTabState extends State<MonthTab> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Text(
-                          DateFormat('yyyy-MM-dd').format(HttpDate.parse(m[0].dateString+' 01:02:03 GMT')) == formattedDateTimeNow
+                          DateFormat('yyyy-MM-dd').format(HttpDate.parse(
+                                      m[0].dateString + ' 01:02:03 GMT')) ==
+                                  formattedDateTimeNow
                               ? 'Today'
                               : m[0].dateString,
                           style: TextStyle(color: AppColors.grey, fontSize: 14),
@@ -61,8 +66,7 @@ class _MonthTabState extends State<MonthTab> {
                         }),
                       ],
                     );
-                  }
-                  ).toList(),
+                  }).toList(),
                 ],
               ));
   }

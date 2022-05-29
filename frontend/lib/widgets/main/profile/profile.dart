@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
 import 'package:paotung_frontend/core/data/services/user_service.dart';
-import 'package:paotung_frontend/core/utils/life_cycle.dart';
 import 'package:paotung_frontend/screens/main/profile/edit_profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 
@@ -18,6 +17,7 @@ class _profileSectionState extends State<profileSection> {
 
   User nullUser = UserPreferences.myUser;
 
+  @override
   void initState() {
     _readJson();
     super.initState();
@@ -28,7 +28,6 @@ class _profileSectionState extends State<profileSection> {
     if (mounted) {
       setState(() {
         _user = responseUser;
-        print(_user.username);
       });
     }
   }
@@ -39,7 +38,7 @@ class _profileSectionState extends State<profileSection> {
     _navigate(BuildContext context) async {
       final result = await Navigator.push(context,
               MaterialPageRoute(builder: (context) => EditProfilePage(readJson: _readJson,userInfo: _user,)))
-          .then((_) => setState(() { print("ok"); }));
+          .then((_) => setState(() { }));
     }
 
     return Container(

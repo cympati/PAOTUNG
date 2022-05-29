@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'dart:io';
 
 class EditProfilePic extends StatefulWidget {
-  final String imagePath;
+  final ImageProvider image;
   final void Function()? onTaped;
 
   const EditProfilePic({
     Key? key,
-    required this.imagePath, this.onTaped,
+    required this.image,
+    this.onTaped,
   }) : super(key: key);
 
   @override
@@ -17,7 +16,6 @@ class EditProfilePic extends StatefulWidget {
 }
 
 class _EditProfilePicState extends State<EditProfilePic> {
-  
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -35,13 +33,11 @@ class _EditProfilePicState extends State<EditProfilePic> {
   }
 
   Widget buildImage() {
-    final image = NetworkImage(widget.imagePath);
-
     return ClipOval(
       child: Material(
         color: AppColors.lightgrey,
         child: Ink.image(
-          image: image,
+          image: widget.image,
           fit: BoxFit.cover,
           width: 128,
           height: 128,
@@ -57,7 +53,7 @@ class _EditProfilePicState extends State<EditProfilePic> {
         child: buildCircle(
           color: color,
           all: 8,
-          child: Icon(
+          child: const Icon(
             Icons.edit,
             color: Colors.white,
             size: 20,
@@ -69,13 +65,12 @@ class _EditProfilePicState extends State<EditProfilePic> {
     required Widget child,
     required double all,
     required Color color,
-  }) => ClipOval(
+  }) =>
+      ClipOval(
         child: Container(
           padding: EdgeInsets.all(all),
           color: color,
           child: child,
         ),
       );
-
-  
 }
