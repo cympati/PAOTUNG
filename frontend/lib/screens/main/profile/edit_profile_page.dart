@@ -86,6 +86,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           _editBtnController.reset();
           _formkey.currentState!.reset();
         } else {
+          if (_imageFile != null ) {
+            await GetUser.changeImage(_imageFile!);
+          }
           _editBtnController.success();
           _editNavigate();
         }
