@@ -27,7 +27,7 @@ class HelpCenter extends StatelessWidget {
               const BackwardAppBar(title: "Help Center",),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
-                height: 100,
+                height: 95,
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "FAQ",

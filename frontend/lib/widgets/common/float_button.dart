@@ -12,7 +12,7 @@ class FloattingButton extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => NewCategory()));
+            context, MaterialPageRoute(builder: (context) => NewCategory(readJson: null,)));
       },
       backgroundColor: AppColors.mainColor,
       child: const Icon(Icons.add),

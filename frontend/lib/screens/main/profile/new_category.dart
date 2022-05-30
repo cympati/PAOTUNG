@@ -20,7 +20,8 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class NewCategory extends StatefulWidget {
-  const NewCategory({Key? key}) : super(key: key);
+  final Function? readJson;
+  const NewCategory({Key? key, required this.readJson}) : super(key: key);
 
   @override
   State<NewCategory> createState() => _NewCategoryState();
@@ -54,8 +55,6 @@ class _NewCategoryState extends State<NewCategory> {
   }
 
   void _categoryCall() async {
-    // var hex = '${mycolor.value.toRadixString(16).substring(2)}';
-    // final int selectedColor = int.parse("0x$hex");
     print(_categoryController.text);
     print(selectedColor);
     print(transactionType);
@@ -66,6 +65,7 @@ class _NewCategoryState extends State<NewCategory> {
       _newcategoryBtnController.reset();
       _formkey.currentState!.reset();
     } else {
+      widget.readJson!();
       _newcategoryBtnController.success();
       _categoryNavigate();
     }
@@ -85,8 +85,8 @@ class _NewCategoryState extends State<NewCategory> {
       body: Form(
         key: _formkey,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-          child: Column(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+          child: ListView(
             children: [
               const SizedBox(
                 height: 40,
@@ -195,8 +195,6 @@ class _NewCategoryState extends State<NewCategory> {
                                             setState(() {
                                               mycolor = color;
                                               selectedColor = color.value.toInt() ;
-                                              print(selectedColor);
-                                              print(color);
                                             });
                                           },
                                         ),
@@ -217,8 +215,8 @@ class _NewCategoryState extends State<NewCategory> {
                   ],
                 ),
               )),
-              Spacer(),
-              RoundedLoadingBtn(
+              SizedBox(height: 183,),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 35),child: RoundedLoadingBtn(
                 text: 'Add',
                 bottom: 40,
                 controller: _newcategoryBtnController,
@@ -234,7 +232,7 @@ class _NewCategoryState extends State<NewCategory> {
                   _newcategoryBtnController.reset();
                 },
               )
-            ],
+          ) ,],
           ),
         ),
       ),

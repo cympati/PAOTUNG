@@ -12,7 +12,9 @@ import 'package:paotung_frontend/widgets/common/time_picker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class NewNotification extends StatefulWidget {
-  const NewNotification({Key? key}) : super(key: key);
+  final Function? readJson;
+
+  const NewNotification({Key? key, required this.readJson}) : super(key: key);
 
   @override
   State<NewNotification> createState() => _NewNotificationState();
@@ -33,15 +35,15 @@ class _NewNotificationState extends State<NewNotification> {
   DateTime? selectedDate;
   TextEditingController timeinput = TextEditingController();
   TimeOfDay? pickedTime;
+
   // String? name;
   // String? dateTime;
 
   void initState() {
     _dateKey.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
     formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    _timeKey.text = DateFormat('hh:mm a').format(DateTime.now()) ;
-    formattedTime =
-        DateFormat('hh:mm:ss').format(DateTime.now());
+    _timeKey.text = DateFormat('hh:mm a').format(DateTime.now());
+    formattedTime = DateFormat('hh:mm:ss').format(DateTime.now());
     print(DateTime.now());
     super.initState();
   }
@@ -51,13 +53,15 @@ class _NewNotificationState extends State<NewNotification> {
     var formattedDateTime = formattedDate + "T" + formattedTime + "Z";
     print(formattedDateTime);
     print(_notificationNameKey.text);
-    var addNotification = await GetNotification.newNotification(_notificationNameKey.text, formattedDateTime);
+    var addNotification = await GetNotification.newNotification(
+        _notificationNameKey.text, formattedDateTime);
     print(addNotification);
     if (addNotification is ErrorResponse) {
       showAlertDialog(context, addNotification.message);
       _newnotiBtnController.reset();
       _formkey.currentState!.reset();
     } else {
+      await widget.readJson!();
       _newnotiBtnController.success();
       _notificationNavigate();
     }
@@ -77,8 +81,8 @@ class _NewNotificationState extends State<NewNotification> {
       body: Form(
         key: _formkey,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-          child: Column(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+          child: ListView(
             children: [
               const SizedBox(
                 height: 40,
@@ -91,18 +95,17 @@ class _NewNotificationState extends State<NewNotification> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  const Text("Name"),
-                  TextFormField(
-                    controller: _notificationNameKey,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter name';
-                      }
-                      return null;
-                    },
-                      autovalidateMode: AutovalidateMode.onUserInteraction
-                  ),
-                ]),// ),
+                      const Text("Name"),
+                      TextFormField(
+                          controller: _notificationNameKey,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter name';
+                            }
+                            return null;
+                          },
+                          autovalidateMode: AutovalidateMode.onUserInteraction),
+                    ]), // ),
               ),
               Container(
                 alignment: Alignment.centerLeft,
@@ -114,8 +117,7 @@ class _NewNotificationState extends State<NewNotification> {
                   children: [
                     Text("Date"),
                     TextFormField(
-                      autovalidateMode:
-                      AutovalidateMode.onUserInteraction,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == "" || value!.isEmpty) {
                           return 'Please select date';
@@ -124,18 +126,21 @@ class _NewNotificationState extends State<NewNotification> {
                       },
                       controller: _dateKey,
                       decoration: const InputDecoration(
-                          suffixIcon: Icon(Icons.calendar_today),),
+                        suffixIcon: Icon(Icons.calendar_today),
+                      ),
                       readOnly: true,
                       onTap: () async {
                         DateTime? pickedDate = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
                             firstDate: DateTime.now(),
-                            lastDate: DateTime.now().add(const Duration(days: 365,)));
+                            lastDate: DateTime.now().add(const Duration(
+                              days: 365,
+                            )));
                         if (pickedDate != null) {
                           print(pickedDate);
                           formattedDate =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
                           _dateKey.text =
                               DateFormat('dd-MM-yyyy').format(pickedDate);
                           // print(formattedDate);
@@ -158,8 +163,7 @@ class _NewNotificationState extends State<NewNotification> {
                   children: [
                     Text("Time"),
                     TextFormField(
-                      autovalidateMode:
-                      AutovalidateMode.onUserInteraction,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == "" || value!.isEmpty) {
                           return 'Please select date';
@@ -167,8 +171,8 @@ class _NewNotificationState extends State<NewNotification> {
                         return null;
                       },
                       controller: _timeKey,
-                      decoration: InputDecoration(
-                          suffixIcon: Icon(Icons.timer)),
+                      decoration:
+                          InputDecoration(suffixIcon: Icon(Icons.timer)),
                       readOnly: true,
                       onTap: () async {
                         TimeOfDay? pickedTime = await showTimePicker(
@@ -181,9 +185,10 @@ class _NewNotificationState extends State<NewNotification> {
                               .parse(pickedTime.format(context).toString());
                           print(parsedTime.toString() + "parsedTime");
                           formattedTime =
-                          DateFormat('hh:mm:ss').format(parsedTime);
+                              DateFormat('hh:mm:ss').format(parsedTime);
                           print(formattedTime + "formattedTime");
-                          _timeKey.text = DateFormat('hh:mm a').format(parsedTime) ;
+                          _timeKey.text =
+                              DateFormat('hh:mm a').format(parsedTime);
                           print(_timeKey.text + "_timeKey.text");
                         } else {
                           print("Time is not selected");
@@ -193,11 +198,11 @@ class _NewNotificationState extends State<NewNotification> {
                   ],
                 ),
               ),
-              const Spacer(),
-              RoundedLoadingBtn(
+              SizedBox(height: 230,),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 35),child: RoundedLoadingBtn(
                 text: "Add",
                 controller: _newnotiBtnController,
-                bottom: 80,
+                bottom: 40,
                 onPressed: () {
                   setState(() {
                     isSubmit = true;
@@ -209,7 +214,10 @@ class _NewNotificationState extends State<NewNotification> {
                   }
                   _newnotiBtnController.reset();
                 },
-              )
+              ),
+              ) ,
+
+
             ],
           ),
         ),

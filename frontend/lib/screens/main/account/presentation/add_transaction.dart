@@ -22,9 +22,15 @@ import '../../../../core/data/models/category/categories.dart';
 
 class AddTransaction extends StatefulWidget {
   final Function? backTrigger;
-  final Function?  readMonthJson;
-  final Function?  readDayJson;
-   AddTransaction({Key? key, this.backTrigger, required  this.readMonthJson, required this.readDayJson}) : super(key: key);
+  final Function? readMonthJson;
+  final Function? readDayJson;
+
+  AddTransaction(
+      {Key? key,
+      this.backTrigger,
+      required this.readMonthJson,
+      required this.readDayJson})
+      : super(key: key);
 
   @override
   State<AddTransaction> createState() => _AddTransactionState();
@@ -87,9 +93,9 @@ class _AddTransactionState extends State<AddTransaction> {
       _newtransactionBtnController.reset();
       _formkey.currentState!.reset();
     } else {
-      widget.readDayJson!();
-      widget.readMonthJson!();
-      widget.backTrigger!();
+      await widget.readDayJson!();
+      await widget.readMonthJson!();
+      await widget.backTrigger!();
       _newtransactionBtnController.success();
       _transactionNavigate();
     }
@@ -111,7 +117,7 @@ class _AddTransactionState extends State<AddTransaction> {
               children: [
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                   child: Column(
                     children: [
                       const SizedBox(
@@ -242,7 +248,8 @@ class _AddTransactionState extends State<AddTransaction> {
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter transaction name';
-                                    } return null;
+                                    }
+                                    return null;
                                   },
                                 ),
                               ])),
@@ -275,7 +282,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2000),
                                       lastDate: DateTime.now());
-                                      // lastDate: DateTime.now().add(const Duration(days: 365,)));
+                                  // lastDate: DateTime.now().add(const Duration(days: 365,)));
                                   if (pickedDate != null) {
                                     formattedDate = pickedDate
                                             .toIso8601String()
@@ -299,27 +306,30 @@ class _AddTransactionState extends State<AddTransaction> {
                       const SizedBox(
                         height: 50,
                       ),
-                      RoundedLoadingBtn(
-                        text: "Add",
-                        bottom: 30,
-                        controller: _newtransactionBtnController,
-                        onPressed: () {
-                          setState(() {
-                            print("0000000000");
-                            isSubmit = true;
-                          });
-                          print("11111111111");
-                          if (_formkey.currentState!.validate()) {
-                            print("444444444444444");
-                            _formkey.currentState!.save();
-                            _transactionCall();
-                            isSubmit = false;
-                          }
-                          _newtransactionBtnController.reset();
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 35),
+                        child: RoundedLoadingBtn(
+                          text: "Add",
+                          bottom: 0,
+                          controller: _newtransactionBtnController,
+                          onPressed: () {
+                            setState(() {
+                              print("0000000000");
+                              isSubmit = true;
+                            });
+                            print("11111111111");
+                            if (_formkey.currentState!.validate()) {
+                              print("444444444444444");
+                              _formkey.currentState!.save();
+                              _transactionCall();
+                              isSubmit = false;
+                            }
+                            _newtransactionBtnController.reset();
 
-                          print("9999999999999");
-                        },
-                      )
+                            print("9999999999999");
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

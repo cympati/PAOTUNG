@@ -51,19 +51,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
       });
     }
     _emailController.text = _user.email;
-    _usernameController.text  = _user.username;
+    _usernameController.text = _user.username;
     super.initState();
   }
 
   void getImageFromGallery() async {
-    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
-    if(pickedFile != null){
+    XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
+    if (pickedFile != null) {
       setState(() {
-      _imageFile = File(pickedFile.path);
-    });
-    //await GetUser.changeImage(_imageFile!).then((_) {  });
+        _imageFile = File(pickedFile.path);
+      });
     }
-    
   }
 
   @override
@@ -76,19 +75,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
 
     void _editCall() async {
-      if (_passwordController.text == _confirmPasswordController.text && _passwordController.text.isNotEmpty && _confirmPasswordController.text.isNotEmpty) {
+      if (_passwordController.text == _confirmPasswordController.text &&
+          _passwordController.text.isNotEmpty &&
+          _confirmPasswordController.text.isNotEmpty) {
         var updateProfile = await GetUser.updateProfile(
             username: _usernameController.text,
             email: _emailController.text,
-            password: _passwordController.text);
+            password: _passwordController.text,
+            file: _imageFile);
+        debugPrint("-----------test upload image--------------");
         if (updateProfile is ErrorResponse) {
           showAlertDialog(context, updateProfile.message);
           _editBtnController.reset();
           _formkey.currentState!.reset();
         } else {
-          if (_imageFile != null ) {
-            await GetUser.changeImage(_imageFile!);
-          }
           _editBtnController.success();
           _editNavigate();
         }
@@ -104,23 +104,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Container(
               height: 40,
             ),
-            //Picture
             EditProfilePic(
-              image: 
-               _imageFile == null
-                   ? NetworkImage(_user.imagePath.isEmpty ? nullUser.imagePath : _user.imagePath)
-                   : FileImage(_imageFile!) as ImageProvider,
+              image: _imageFile == null
+                  ? NetworkImage(_user.imagePath.isEmpty
+                      ? nullUser.imagePath
+                      : _user.imagePath)
+                  : FileImage(_imageFile!) as ImageProvider,
               onTaped: () {
                 getImageFromGallery();
               },
             ),
             const SizedBox(
-              height: 48,
+              height: 38,
             ),
-            //Input
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -131,7 +129,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         return 'Please enter email';
                       }
                     },
-                    autovalidateMode:  AutovalidateMode.onUserInteraction , // turn on automatic verification
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _emailController,
                     decoration: InputDecoration(
                         filled: true,
@@ -141,11 +139,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 BorderSide(color: AppColors.mainColor))),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 18,
                   ),
                   const Text("Username"),
                   TextFormField(
-                    autovalidateMode:  AutovalidateMode.onUserInteraction , // turn on automatic verification
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _usernameController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -160,18 +158,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 BorderSide(color: AppColors.mainColor))),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 18,
                   ),
                   const Text("Password"),
                   TextFormField(
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter password';
-                      } else if (value.length< 8) {
+                      } else if (value.length < 8) {
                         return 'Your password length is incorrect';
                       }
                     },
-                    autovalidateMode:  AutovalidateMode.onUserInteraction ,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
@@ -182,7 +180,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 BorderSide(color: AppColors.mainColor))),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 18,
                   ),
                   const Text("Confirm Password"),
                   TextFormField(
@@ -208,27 +206,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
-            //Save Button
-            RoundedLoadingBtn(
-              text: 'Save',
-              bottom: 40,
-              controller: _editBtnController,
-              onPressed: () {
-                setState(() {
-                  isSubmit = true;
-                });
-                if (_formkey.currentState!.validate()) {
-                  _formkey.currentState!.save();
-                  _editCall();
-                  isSubmit = false;
-                }
-                _editBtnController.reset();
-              },
-            ),
-            const SizedBox(
-              height: 40,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 35),
+              child: RoundedLoadingBtn(
+                text: 'Save',
+                bottom: 0,
+                controller: _editBtnController,
+                onPressed: () {
+                  setState(() {
+                    isSubmit = true;
+                  });
+                  if (_formkey.currentState!.validate()) {
+                    _formkey.currentState!.save();
+                    _editCall();
+                    isSubmit = false;
+                  }
+                  _editBtnController.reset();
+                },
+              ),
             ),
           ],
         ),

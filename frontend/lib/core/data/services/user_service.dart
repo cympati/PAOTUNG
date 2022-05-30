@@ -7,7 +7,7 @@ import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GetUser{
+class GetUser {
   static Future<dynamic> getData() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('user');
@@ -18,15 +18,37 @@ class GetUser{
     return userResponse.data;
   }
 
+
+  // อย่าลืมกลับมาแก้
   static Future<dynamic> updateProfile(
-      {required String email, required String username, required String password}) async {
+      {required String email,
+      required String username,
+      required String password,
+      File? file}) async {
+    var fileName = null;
+    var updatedFile = null;
+    debugPrint(file.toString());
+    if (file != null) {
+      fileName = file.path.split('/').last;
+      updatedFile = (await MultipartFile.fromFile(file.path, filename: fileName)).filename;
+      debugPrint(fileName);
+      debugPrint(updatedFile);
+
+    }
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
-      Response response = await Dio().patch(
-          apiEndPoint + '/profile/update',
-          data: {"email": email, "user_name": username, "password": password},
+      debugPrint("test image 2");
+
+      Response response = await Dio().patch(apiEndPoint + '/profile/update',
+          data: {
+            "email": email,
+            "user_name": username,
+            "password": password,
+            "path_profile_picture": updatedFile
+          },
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
+      debugPrint(response.data.toString());
       InfoResponse res = InfoResponse.fromJson(response.data);
       if (res.success) {
         return res;
@@ -51,26 +73,26 @@ class GetUser{
     return "";
   }
 
-  static Future<dynamic> changeImage(File file) async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? userToken = prefs.getString('user');
-    String fileName = file.path.split('/').last;
-    FormData formData = FormData.fromMap({
-      "path_profile_picture": await MultipartFile.fromFile(file.path, filename: fileName),
-    });
-    try {
-      Response response = await Dio().patch(
-          apiEndPoint + '/profile/',
-          data: formData,
-          options: Options(headers: {"Authorization": "Bearer " + userToken!}));
-      InfoResponse res = InfoResponse.fromJson(response.data);
-      return res;
-    } on DioError catch (e) {
-      if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
-        ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
-        return error;
-      }
-    }
-    return "";
-  }
+//   static Future<dynamic> changeImage(File file) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     final String? userToken = prefs.getString('user');
+//     String fileName = file.path.split('/').last;
+//     FormData formData = FormData.fromMap({
+//       "path_profile_picture": await MultipartFile.fromFile(file.path, filename: fileName),
+//     });
+//     try {
+//       Response response = await Dio().patch(
+//           apiEndPoint + '/profile/',
+//           data: formData,
+//           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
+//       InfoResponse res = InfoResponse.fromJson(response.data);
+//       return res;
+//     } on DioError catch (e) {
+//       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
+//         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
+//         return error;
+//       }
+//     }
+//     return "";
+//   }
 }

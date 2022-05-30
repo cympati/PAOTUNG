@@ -31,12 +31,8 @@ class _CategorySettingState extends State<CategorySetting> {
   List<Categories> _categoriesIncome = [];
 
   void initState() {
-    _readJson();
     super.initState();
-
-    WidgetsBinding.instance?.addObserver(
-        LifecycleEventHandler(resumeCallBack: () async =>  _readJson(), suspendingCallBack: () async => {})
-    );
+    _readJson();
   }
 
   Future<void> _readJson() async {
@@ -60,6 +56,7 @@ class _CategorySettingState extends State<CategorySetting> {
           const BackwardAppBar(title: "Category Setting",),
           TextDefine(text: "Income", buttonText: "Clear All", isNotification:false,readJson:_readJson, transactionType: "income"),
           Container(
+
             height: 5,
           ),
           Padding(
@@ -72,7 +69,7 @@ class _CategorySettingState extends State<CategorySetting> {
                             color: category.color, name: category.name, categoryId: category.id,readJson: _readJson,);
                       }).toList(),
                       Container(
-                        height: 30,
+                        height: 10,
                       ),
                     ])),
           // const Spacer(),
@@ -98,8 +95,8 @@ class _CategorySettingState extends State<CategorySetting> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const NewCategory()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewCategory(readJson: _readJson)));
         },
         backgroundColor: AppColors.mainColor,
         child: const Icon(Icons.add),

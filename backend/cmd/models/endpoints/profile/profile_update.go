@@ -35,7 +35,7 @@ func PatchHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	spew.Dump(passwd)
+	spew.Dump(body.Password)
 	if body.Password != passwd {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
@@ -80,12 +80,15 @@ func PatchHandler(c *fiber.Ctx) error {
 			}
 		} else if result.RowsAffected == 0 {
 			// * Update user info
+			spew.Dump(body.PathProfilePicture)
+
 			if result := database.Gorm.First(&user, "id = ?", claims.UserId).
 				Updates(
 					models.User{
-						Email:    &body.Email,
-						UserName: &body.UserName,
-						Password: &body.Password,
+						Email:              &body.Email,
+						UserName:           &body.UserName,
+						Password:           &body.Password,
+						PathProfilePicture: &body.PathProfilePicture,
 					}); result.Error != nil {
 				return &common.GenericError{
 					Message: "Unable to update user information",

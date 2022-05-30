@@ -34,7 +34,6 @@ class _AccountPageState extends State<AccountPage> {
     });
     print("Month");
 
-    // print(_transactionMonthList.toString());
   }
 
   Future<void> _readTransactionDayJson() async {
@@ -57,9 +56,13 @@ class _AccountPageState extends State<AccountPage> {
   @override
   void initState() {
     super.initState();
-    _readJson();
-    _readTransactionMonthJson();
-    _readTransactionDayJson();
+    setState(() {
+      _readJson();
+      _readTransactionMonthJson();
+      _readTransactionDayJson();
+
+    });
+
     print("testtestttedgyshld");
     debugPrint(_transactionMonthList.toString());
 
@@ -94,8 +97,8 @@ class _AccountPageState extends State<AccountPage> {
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("Balance", style: TextStyle(fontSize: 15),),
-                  Text(_user.balance.toString(), style: TextStyle(fontSize: 30),),
+                  const Text("Balance", style: TextStyle(fontSize: 15),),
+                  Text(_user.balance.toString(), style: const TextStyle(fontSize: 30),),
                 ],
               ),
               centerTitle: true,

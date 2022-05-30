@@ -29,13 +29,9 @@ class _NotificationSettingState extends State<NotificationSetting> {
 
   @override
   void initState() {
-    _readJson();
     super.initState();
+    _readJson();
     NotificationApi.init();
-
-    WidgetsBinding.instance?.addObserver(LifecycleEventHandler(
-        resumeCallBack: () async => _readJson(),
-        suspendingCallBack: () async => {}));
   }
 
   Future<void> _readJson() async {
@@ -52,13 +48,9 @@ class _NotificationSettingState extends State<NotificationSetting> {
     return Scaffold(
       appBar: const BackwardAppBar(title: "Notification Setting"),
       body: ListView(
-          // padding: const EdgeInsets.symmetric(
-          //   vertical: 15,
-          //   horizontal: 40,
-          // ),
           children: [
             Padding(
-              padding: const EdgeInsets.all(0),
+              padding: const EdgeInsets.only(top: 10),
               child: _notification.isEmpty
                   ? const DefaultText(text: 'notification', color: true)
                   : Column(
@@ -82,8 +74,8 @@ class _NotificationSettingState extends State<NotificationSetting> {
           ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const NewNotification()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) =>  NewNotification(readJson:_readJson)));
         },
         backgroundColor: AppColors.mainColor,
         child: const Icon(Icons.add),
