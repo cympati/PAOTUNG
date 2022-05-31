@@ -45,19 +45,20 @@ class _NotificationSettingState extends State<NotificationSetting> {
       appBar: const BackwardAppBar(title: "Notification Setting"),
       body: ListView(
           children: [
+            TextDefine(
+              text: "All Notifications",
+              buttonText: "Clear All",
+              isNotification: true,
+              readJson: _readJson,
+              transactionType: "",
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: _notification.isEmpty
                   ? const DefaultText(text: 'notification', color: true)
                   : Column(
                       children: [
-                        TextDefine(
-                          text: "All Notifications",
-                          buttonText: "Clear All",
-                          isNotification: true,
-                          readJson: _readJson,
-                          transactionType: "",
-                        ),
+
                         ..._notification.map((notification) {
                           return NotificationTitle(
                               name: notification.name,

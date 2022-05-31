@@ -41,7 +41,7 @@ func GetExpenseHandler(c *fiber.Ctx) error {
 
 	// * Cal total
 	var total = 0.0
-	totalResult := database.Gorm.Table("transactions").Select("sum(amount) as total").Where("owner_id = ? AND transaction_type = ?", claims.UserId, "expense").Scan(&total)
+	totalResult := database.Gorm.Table("transactions").Select("coalesce(SUM(amount),0) as total").Where("owner_id = ? AND transaction_type = ?", claims.UserId, "expense").Scan(&total)
 
 	if totalResult.Error != nil {
 		return &common.GenericError{

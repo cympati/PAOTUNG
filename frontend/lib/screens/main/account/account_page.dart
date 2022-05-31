@@ -23,7 +23,7 @@ class _AccountPageState extends State<AccountPage> {
   late List<Transactions> _transactionDayList = [];
 
   Future<void> _readTransactionMonthJson() async {
-    List<List<TransactionInfo>> responseTransactions =
+    var responseTransactions =
     await GetTransactionMonthService.getData();
 
     setState(() {

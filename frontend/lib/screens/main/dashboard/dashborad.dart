@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/widgets/common/overview_pie_chart.dart';
 import 'package:paotung_frontend/widgets/common/text_title.dart';
 
@@ -18,7 +19,6 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   List<PieData> _dashboardExpense = List.empty();
   List<PieData> _dashboardIncome = List.empty();
-  
 
   @override
   void initState() {
@@ -31,10 +31,19 @@ class _DashboardState extends State<Dashboard> {
     var responseDashboardExpense = await GetPieDataExpenseService.getData();
     var responseDashboardIncome = await GetPieChartIncomeService.getData();
     if (mounted) {
-      setState(() {
-        _dashboardExpense = responseDashboardExpense;
-        _dashboardIncome = responseDashboardIncome;
-      });
+      if (responseDashboardExpense is List<PieData>) {
+        setState(() {
+          _dashboardExpense = responseDashboardExpense;
+        });
+      }
+      if (responseDashboardIncome is List<PieData>) {
+        setState(() {
+          _dashboardIncome = responseDashboardIncome;
+        });
+      } else {
+        print(responseDashboardExpense.toString());
+        print(responseDashboardIncome.toString());
+      }
     }
   }
 
@@ -67,11 +76,12 @@ class _DashboardState extends State<Dashboard> {
                   padding: const EdgeInsets.all(1),
                   child: _dashboardExpense.isEmpty
                       ? Card(
-                      color: AppColors.lightgrey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: const DefaultText(text: 'category',color:false))
+                          color: AppColors.lightgrey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child:
+                              const DefaultText(text: 'category', color: false))
                       : OverviewPieChart(piedata: _dashboardExpense)),
               const SizedBox(
                 height: 24,
@@ -92,11 +102,12 @@ class _DashboardState extends State<Dashboard> {
                   padding: const EdgeInsets.all(1),
                   child: _dashboardIncome.isEmpty
                       ? Card(
-                      color: AppColors.lightgrey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: const DefaultText(text: 'category',color:false))
+                          color: AppColors.lightgrey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child:
+                              const DefaultText(text: 'category', color: false))
                       : OverviewPieChart(piedata: _dashboardIncome)),
               const SizedBox(
                 height: 24,

@@ -8,7 +8,6 @@ class PieData {
   PieData({required this.name, required this.percent, required this.color});
 
   factory PieData.fromJson(Map<String, dynamic> json) {
-    print(json["percent"]);
     return PieData(
       name: json["category_name"],
       percent: json["percent"].toDouble() ,
@@ -32,14 +31,14 @@ class PieDataResponse {
   PieDataResponse(this.success, this.code, this.piedata);
 
   factory PieDataResponse.fromJson(Map<String, dynamic> json) {
-    var category = json['data'] as List;
-    List<PieData> data =
-        category.map((e) => PieData.fromJson(e)).toList();
+    var category = json['data'] ?? List.empty();
+    List<PieData> temp = List.empty();
+        category.map((e) => temp.add(PieData.fromJson(e)));
 
     return PieDataResponse(
       json['success'],
       json['code'],
-      data,
+      temp,
     );
   }
 }

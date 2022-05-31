@@ -5,17 +5,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/category/piedata.dart';
 import 'package:dio/dio.dart';
 
-
 class GetPieChartIncomeService {
   static Future<dynamic> getData() async {
     final prefs = await SharedPreferences.getInstance();
     final userToken = prefs.getString('user');
-    
+
     try {
-      Response response = await Dio().get(
-          apiEndPoint + '/category/income' ,
-          options: Options(headers: {"Authorization": "Bearer " + (userToken ?? "")}));
-       List<PieData> pieData = PieDataResponse.fromJson(response.data).piedata;
+      Response response = await Dio().get(apiEndPoint + '/category/income',
+          options: Options(
+              headers: {"Authorization": "Bearer " + (userToken ?? "")}));
+      List<PieData> pieData = PieDataResponse.fromJson(response.data).piedata;
       return pieData;
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
@@ -23,6 +22,5 @@ class GetPieChartIncomeService {
         return error;
       }
     }
-    return List.empty();
   }
 }

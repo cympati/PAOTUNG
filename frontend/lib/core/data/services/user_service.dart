@@ -16,6 +16,7 @@ class GetUser {
     try {
       Response response = await dio.get(apiEndPoint + '/profile/info');
       UserResponse userResponse = UserResponse.fromJson(response.data);
+      print(userResponse.data);
       return userResponse.data;
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {

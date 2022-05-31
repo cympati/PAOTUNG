@@ -19,9 +19,9 @@ class GetPieDataExpenseService {
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
+        print(error);
         return error;
       }
     }
-    return List.empty();
   }
 }
