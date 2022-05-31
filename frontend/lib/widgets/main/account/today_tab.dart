@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/transaction/transaction.dart';
-import 'package:paotung_frontend/core/data/models/transaction/transaction_month.dart';
-import 'package:paotung_frontend/core/data/services/transaction_today_service.dart';
-import 'package:paotung_frontend/core/utils/life_cycle.dart';
 import 'package:paotung_frontend/widgets/common/default_text.dart';
 import 'package:paotung_frontend/widgets/main/transaction/transaction_box.dart';
 
@@ -24,11 +21,6 @@ class _TodayTabState extends State<TodayTab> {
     super.initState();
     widget.readJson();
 
-    print("hhhhhhhh");
-    print(_transaction);
-    // WidgetsBinding.instance?.addObserver(
-    //     LifecycleEventHandler(resumeCallBack: () async =>  _readJson(), suspendingCallBack: () async => {})
-    // );
   }
 
   @override
@@ -37,7 +29,7 @@ class _TodayTabState extends State<TodayTab> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
-      child: _transaction.isEmpty
+      child: widget.transactionList.isEmpty
           ? DefaultText(text: 'transactions', color: true)
           : Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -46,7 +38,7 @@ class _TodayTabState extends State<TodayTab> {
                   "Today",
                   style: TextStyle(color: AppColors.grey, fontSize: 14),
                 ),
-                ..._transaction.map((transaction) {
+                ...widget.transactionList.map((transaction) {
                   return TransactionBox(
                       color: transaction.categoryColor,
                       text: transaction.categoryName,

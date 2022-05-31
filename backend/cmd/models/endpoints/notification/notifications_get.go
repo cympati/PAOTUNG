@@ -1,6 +1,7 @@
 package notification
 
 import (
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/common"
@@ -28,8 +29,10 @@ func GetHandler(c *fiber.Ctx) error {
 	}
 
 	for _, noti := range notificationList {
-		noti.DateTime = noti.DateTime.Add(7 * 60 * time.Minute)
+		noti.DateTime = noti.DateTime.Add(5 * 60 * time.Minute)
+		spew.Dump(noti.DateTime)
+		spew.Dump(time.Minute)
 	}
-	
+
 	return c.JSON(common.NewInfoResponse(&notificationList, ""))
 }

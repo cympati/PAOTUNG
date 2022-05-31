@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/services/category_service.dart';
-import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 
 import '../../core/data/services/notification_service.dart';
-import '../../screens/main/profile/notification_setting.dart';
 
 class TextDefine extends StatelessWidget {
   final String text;
@@ -55,7 +53,6 @@ class TextDefine extends StatelessWidget {
                               Navigator.of(context, rootNavigator: true).pop();
                       },
                           ),
-                          // print("delete this category")
                         ],
                       );
                     });

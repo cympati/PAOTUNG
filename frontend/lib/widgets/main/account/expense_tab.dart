@@ -27,14 +27,10 @@ class _TransactionsTabState extends State<TransactionsTab> {
 
   void initState() {
     super.initState();
-    // widget.readTransactionDayJson();
-    // widget.readTransactionMonthJson();
     setState(() {
 
     });
 
-    print("TEst");
-    print(widget.transactionDayList.toString());
   }
 
   @override

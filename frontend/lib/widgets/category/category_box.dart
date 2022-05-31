@@ -70,7 +70,6 @@ class CategoryBox extends StatelessWidget {
                                   Navigator.of(context, rootNavigator: true).pop();
                                 },
                               ),
-                              // print("delete this category")
                             ],
                           );
                         });

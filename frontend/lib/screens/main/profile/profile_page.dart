@@ -28,11 +28,11 @@ class _MyPageState extends State<MyPage> {
     if (mounted) {
       _readJson();
     }
-    //
+
   }
   deleteUserData() async {
     prefs = await SharedPreferences.getInstance();
-    prefs.remove('user');
+    await prefs.clear();
   }
 
 
@@ -42,15 +42,8 @@ class _MyPageState extends State<MyPage> {
       setState(() {
         _user = responseUser;
       });
-      print("my image");
-      print(_user.imagePath);
     }
 
-    // print(_user.email.toString());
-    // print(_user.imagePath);
-    // print(NetworkImage(nullUser.imagePath).url);
-    // print(NetworkImage(nullUser.imagePath));
-    // print(FileImage(File('/storage/emulated/0/Download/${_user.imagePath}'), scale: 1.0));
   }
   @override
   Widget build(BuildContext context) {
@@ -59,19 +52,15 @@ class _MyPageState extends State<MyPage> {
         padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 40.0),
         child: Column(
           children: [
-            //Title
             const TextTitle(title: "Profile", size: 24),
-            //User pic & username
              profileSection(readJson: _readJson, user: _user,),
             const SizedBox(
               height: 35,
             ),
-            //list
             const ListItem(title: "Category Setting", routes: CategorySetting()),
             const ListItem(
                 title: "Notification Setting", routes: NotificationSetting()),
             ListItem(title: "Help Center", routes: HelpCenter()),
-            //Log out
             InkWell(
               onTap: () {
                 deleteUserData();

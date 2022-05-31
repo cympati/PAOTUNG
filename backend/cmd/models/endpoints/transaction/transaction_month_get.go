@@ -20,7 +20,8 @@ func GetMonthHandler(c *fiber.Ctx) error {
 	// * Query transaction_info --> use date to check TodayList is exist or not, and query category_info
 	result := database.Gorm.Table("transactions").
 		Select("transactions.name as transaction_name, transactions.date, transactions.amount, transactions.category_id as category_id, categories.name as category_name, categories.color as category_color").
-		Where("transactions.owner_id = ? AND ((transactions.date <= ? AND transactions.date > ?) OR DATE(transactions.date) = DATE(?) OR DAY(transactions.date) = ?) AND MONTH(transactions.date) = ?", claims.UserId, time.Now(), time.Now().AddDate(0, -1, 0), time.Now(), 1, time.Now().Month()).
+		//Where("transactions.owner_id = ? AND ((transactions.date <= ? AND transactions.date > ?) OR DATE(transactions.date) = DATE(?) OR DAY(transactions.date) = ?) AND MONTH(transactions.date) = ?", claims.UserId, time.Now(), time.Now().AddDate(0, -1, 0), time.Now(), 1, time.Now().Month()).
+		Where("transactions.owner_id = ? AND YEAR(transactions.date) = ? AND MONTH(transactions.date) = ? ", claims.UserId, time.Now().Year(), time.Now().Month()).
 		Joins("left join categories on categories.id = transactions.category_id").
 		Order("transactions.date desc").
 		Scan(&transactionMonth)

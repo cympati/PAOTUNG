@@ -16,7 +16,6 @@ class Indicators extends StatelessWidget {
                   child: buildIndicator(
                     color: Color(data.color),
                     text: data.name,
-                    // isSquare: true,
                   ),),
             )
             .toList(),

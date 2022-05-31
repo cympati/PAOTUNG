@@ -45,10 +45,8 @@ class _DatePickerState extends State<DatePicker> {
                   firstDate: DateTime(2000),
                   lastDate: DateTime(2101));
               if (pickedDate != null) {
-                print(pickedDate);
                 String formattedDate =
                     DateFormat('dd-MM-yyyy HH:mm:ss').format(pickedDate);
-                print(formattedDate);
 
                 setState(() {
                   dateinput.text = formattedDate;

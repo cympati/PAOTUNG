@@ -3,19 +3,13 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/services/category_expense_service.dart';
 import 'package:paotung_frontend/core/data/services/category_income_service.dart';
 import 'package:paotung_frontend/core/data/services/transaction_today_service.dart';
-import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
-import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
-import 'package:paotung_frontend/widgets/common/date_picker.dart';
-import 'package:paotung_frontend/widgets/common/dropdown_form_field.dart';
 import 'package:paotung_frontend/widgets/common/roundloadingbtn.dart';
-import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../core/data/models/category/categories.dart';
@@ -76,11 +70,6 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   void _transactionCall() async {
-    print(_amountKey.text);
-    print(transactionType);
-    print(_transactionNameKey.text);
-    print(formattedDate);
-    print(_categoryIdInput);
 
     var newTransaction = await GetTransactionTodayService.addTransactionService(
         transactionType!.toLowerCase(),
@@ -282,7 +271,6 @@ class _AddTransactionState extends State<AddTransaction> {
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2000),
                                       lastDate: DateTime.now());
-                                  // lastDate: DateTime.now().add(const Duration(days: 365,)));
                                   if (pickedDate != null) {
                                     formattedDate = pickedDate
                                             .toIso8601String()
@@ -314,19 +302,15 @@ class _AddTransactionState extends State<AddTransaction> {
                           controller: _newtransactionBtnController,
                           onPressed: () {
                             setState(() {
-                              print("0000000000");
                               isSubmit = true;
                             });
-                            print("11111111111");
                             if (_formkey.currentState!.validate()) {
-                              print("444444444444444");
                               _formkey.currentState!.save();
                               _transactionCall();
                               isSubmit = false;
                             }
                             _newtransactionBtnController.reset();
 
-                            print("9999999999999");
                           },
                         ),
                       ),

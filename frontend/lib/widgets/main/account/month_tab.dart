@@ -4,12 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/transaction/transaction_month.dart';
-import 'package:paotung_frontend/core/data/services/transaction_month_service.dart';
-import 'package:paotung_frontend/core/utils/life_cycle.dart';
 import 'package:paotung_frontend/widgets/common/default_text.dart';
 import 'package:paotung_frontend/widgets/main/transaction/transaction_box.dart';
-import 'package:collection/collection.dart';
-
 class MonthTab extends StatefulWidget {
   List<List<TransactionInfo>> transactionList;
   Function readJson;
@@ -27,9 +23,6 @@ class _MonthTabState extends State<MonthTab> {
   void initState() {
     super.initState();
     widget.readJson();
-
-    print("----------------");
-    print(widget.transactionList.toString());
   }
 
   @override

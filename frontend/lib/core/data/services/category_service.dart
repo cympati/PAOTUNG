@@ -1,7 +1,6 @@
 
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:paotung_frontend/config/api.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/models/response/delete_reponse.dart';
@@ -18,20 +17,7 @@ class CategoryService {
           apiEndPoint +
               "/category/delete?category_id=${categoryId}");
       DeleteResponse res = DeleteResponse.fromJson(response.data);
-      if (res.success) {
         return res;
-      } else if (response is ErrorResponse) {
-        var error = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(res.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-// ScaffoldMessenger.of(context).showSnackBar(error);
-      }
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
@@ -51,20 +37,7 @@ class CategoryService {
       Response response = await dio.delete(
           apiEndPoint + "/category/expense/delete/all");
       DeleteResponse res = DeleteResponse.fromJson(response.data);
-      if (res.success) {
         return res;
-      } else if (response is ErrorResponse) {
-        var error = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(res.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-// ScaffoldMessenger.of(context).showSnackBar(error);
-      }
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
@@ -84,20 +57,7 @@ class CategoryService {
       Response response = await dio.delete(
           apiEndPoint + "/category/income/delete/all");
       DeleteResponse res = DeleteResponse.fromJson(response.data);
-      if (res.success) {
         return res;
-      } else if (response is ErrorResponse) {
-        var error = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(res.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-// ScaffoldMessenger.of(context).showSnackBar(error);
-      }
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);

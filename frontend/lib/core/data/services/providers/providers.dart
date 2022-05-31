@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -14,8 +13,8 @@ class NotificationApi {
   static final onNotifications = BehaviorSubject<String?>();
 
   static Future _notificationDetails() async {
-    return  NotificationDetails(
-      android: const AndroidNotificationDetails(
+    return  const NotificationDetails(
+      android: AndroidNotificationDetails(
         'channel id',
         'channel name',
         'channel description',

@@ -32,22 +32,13 @@ class GetTransactionTodayService {
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
-        var snb = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(error.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-        // ScaffoldMessenger.of(context).showSnackBar(error);
+        return error;
       }
     }
     return List.empty();
   }
 
-  static Future<List<Transactions>> getData() async {
+  static Future<dynamic> getData() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('user');
     try {
@@ -55,24 +46,11 @@ class GetTransactionTodayService {
       dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
       Response response = await dio.get(apiEndPoint + '/transaction/today');
       TransactionResponse res = TransactionResponse.fromJson(response.data);
-      if (res.success) {
         return res.data;
-      } else if (response is ErrorResponse) {
-        ErrorResponse res = ErrorResponse.fromJson(response.data);
-        var error = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(res.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-        // ScaffoldMessenger.of(context).showSnackBar(error);
-      }
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
+        return error;
       }
     }
     return List.empty();

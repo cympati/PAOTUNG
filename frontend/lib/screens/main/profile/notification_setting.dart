@@ -1,21 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:paotung_frontend/core/data/models/notification/notification.dart';
 import 'package:paotung_frontend/core/data/services/notification_service.dart';
 import 'package:paotung_frontend/screens/main/profile/new_notification.dart';
-import 'package:paotung_frontend/screens/main/profile/profile_page.dart';
 import 'package:paotung_frontend/widgets/category/text_define.dart';
 import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
 
-import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/default_text.dart';
 import 'package:paotung_frontend/widgets/common/notification.dart';
 import 'package:flutter/foundation.dart';
 import '../../../constants/theme.dart';
 import '../../../core/data/services/providers/providers.dart';
-import '../../../core/utils/life_cycle.dart';
 
 class NotificationSetting extends StatefulWidget {
   const NotificationSetting({Key? key}) : super(key: key);

@@ -71,13 +71,8 @@ class BarChartTwoState extends State<BarChartTwo> {
   FlTitlesData _buildAxes() {
     return FlTitlesData(
       show: true,
-      // Build X axis.
       bottomTitles: SideTitles(
         showTitles: true,
-        // Style: const TextStyle(
-        //     color: Color(0xff7589a2),
-        //     fontWeight: FontWeight.bold,
-        //     fontSize: 14),
         margin: 20,
         getTitles: (double value) {
           switch (value.toInt()) {
@@ -100,34 +95,13 @@ class BarChartTwoState extends State<BarChartTwo> {
           }
         },
       ),
-      // Build Y axis.
-      // leftTitles: SideTitles(
-      //   showTitles: true,
-      //   // textStyle: TextStyle(
-      //   //     color: const Color(0xff7589a2),
-      //   //     fontWeight: FontWeight.bold,
-      //   //     fontSize: 14),
-      //   margin: 32,
-      //   reservedSize: 14,
-      //   getTitles: (value) {
-      //     if (value == 0) {
-      //       return '1K';
-      //     } else if (value == 10) {
-      //       return '5K';
-      //     } else if (value == 19) {
-      //       return '10K';
-      //     } else {
-      //       return '';
-      //     }
-      //   },
-      // ),
     );
   }
 
   // Function to draw all the bars.
   List<BarChartGroupData> _buildAllBars() {
     return List.generate(
-      weeklyData.length, // y1                 // y2
+      weeklyData.length,
       (index) => _buildBar(index, weeklyData[index][0], weeklyData[index][1]),
     );
   }
@@ -140,12 +114,10 @@ class BarChartTwoState extends State<BarChartTwo> {
       barRods: [
         BarChartRodData(
           y: y1,
-          //Color: leftBarColor,
           width: width,
         ),
         BarChartRodData(
           y: y2,
-          //Color: rightBarColor,
           width: width,
         ),
       ],

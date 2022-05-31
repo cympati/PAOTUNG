@@ -24,20 +24,9 @@ class GetCategoryExpenseService {
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
       AddCategoryResponse res = AddCategoryResponse.fromJson(response.data);
       return res;
-      // print(AddCategoryResponse.fromJson(response.data));
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
-        var snb = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(error.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-        // ScaffoldMessenger.of(context).showSnackBar(error);
         return error;
       }
     }

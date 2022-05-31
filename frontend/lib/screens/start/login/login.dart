@@ -4,14 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/services/account_service.dart';
-import 'package:paotung_frontend/screens/main/mainpage.dart';
-import 'package:paotung_frontend/screens/main/dashboard/dashborad.dart';
-import 'package:paotung_frontend/screens/main/mainpage.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
-import 'package:paotung_frontend/screens/start/sign_up/sign_up.dart';
 import 'package:paotung_frontend/widgets/authentication/login.dart';
-import 'package:paotung_frontend/widgets/common/text_input_field.dart';
-import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -189,7 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                                 _loginBtnController.reset();
                               },
-                              // disabledColor: AppColors.mainColor,
                             ),
                             SizedBox(height: 40,)
                           ]),

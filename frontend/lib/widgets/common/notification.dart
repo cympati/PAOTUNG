@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
@@ -64,13 +63,10 @@ class NotificationTitle extends StatelessWidget {
                                     readJson();
                                     Navigator.of(context, rootNavigator: true)
                                         .pop();
-                                    //     Navigator.pushReplacementNamed(context, '/notisetting');
-                                    // Route route = MaterialPageRoute(builder: (context) => NotificationSetting());
 
                             }
                                   ,
                                 ),
-                                // print("delete this category")
                               ],
                             );
                           });

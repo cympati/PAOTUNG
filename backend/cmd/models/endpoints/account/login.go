@@ -1,6 +1,7 @@
 package account
 
 import (
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"paotung-backend/cmd/models/common"
 	"paotung-backend/cmd/models/dto/account"
@@ -25,7 +26,7 @@ func Login(c *fiber.Ctx) error {
 	if result := database.Gorm.First(&user, "email = ?", body.Email); result.Error != nil {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
-			Message: "Your account does not exist.",
+			Message: "Your account does not exist",
 			Err:     result.Error,
 		}
 	} else if result.RowsAffected == 0 {
@@ -40,7 +41,7 @@ func Login(c *fiber.Ctx) error {
 	if result := database.Gorm.First(&user, "password = ?", body.Password); result.Error != nil {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
-			Message: "Your password is incorrect.",
+			Message: "Your password is incorrect",
 			Err:     result.Error,
 		}
 	} else if result.RowsAffected == 0 {
@@ -50,6 +51,8 @@ func Login(c *fiber.Ctx) error {
 			Err:     result.Error,
 		}
 	}
+
+	spew.Dump(user.Id)
 
 	// * Generate jwt token
 	if token, err := common.SignJwt(
@@ -68,7 +71,7 @@ func Login(c *fiber.Ctx) error {
 		return c.JSON(account.Response{
 			Success: true,
 			Token:   token, // Jwt token
-			Message: "Your login successful.",
+			Message: "Your login successful",
 		})
 	}
 }

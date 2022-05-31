@@ -1,6 +1,7 @@
 package account
 
 import (
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"paotung-backend/cmd/models/common"
 	"paotung-backend/cmd/models/dto/account"
@@ -44,7 +45,7 @@ func Register(c *fiber.Ctx) error {
 	if !emailRegex.Match([]byte(body.Email)) {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
-			Message: "Malformed email address, please type a correct email.",
+			Message: "Malformed email address, please type a correct email",
 			Err:     fiber.ErrBadRequest,
 		}
 	}
@@ -74,7 +75,7 @@ func Register(c *fiber.Ctx) error {
 			Err:     result.Error,
 		}
 	}
-
+	spew.Dump(user.Id)
 	if token, err := common.SignJwt(
 		&common.UserClaim{
 			UserId: user.Id,
@@ -91,7 +92,7 @@ func Register(c *fiber.Ctx) error {
 		return c.JSON(account.Response{
 			Success: true,
 			Token:   token, // Jwt token
-			Message: "Your account has been created.",
+			Message: "Your account has been created",
 		})
 	}
 }

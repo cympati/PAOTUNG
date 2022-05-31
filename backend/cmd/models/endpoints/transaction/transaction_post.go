@@ -1,12 +1,14 @@
 package transaction
 
 import (
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"paotung-backend/cmd/models/common"
 	"paotung-backend/cmd/models/dto/transaction"
 	"paotung-backend/pkg/database"
 	"paotung-backend/pkg/database/models"
+	"time"
 )
 
 func PostHandler(c *fiber.Ctx) error {
@@ -39,11 +41,15 @@ func PostHandler(c *fiber.Ctx) error {
 		categoryId = nil
 	}
 
+	spew.Dump(body.Date)
+	newDateTime := body.Date.Add(-7 * 60 * time.Minute)
+	spew.Dump(newDateTime)
+
 	// * Create category record
 	transaction := &models.Transaction{
 		CategoryId:      categoryId, //  &body.CategoryId ? &body.CategoryId : nill
 		Amount:          &amount,
-		Date:            &body.Date, // ISOString
+		Date:            &newDateTime, // ISOString
 		Name:            &body.Name,
 		TransactionType: (*models.TransactionType)(&body.TransactionType),
 		OwnerId:         claims.UserId,

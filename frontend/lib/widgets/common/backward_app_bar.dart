@@ -29,7 +29,6 @@ class BackwardAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.black,
           ),
           onPressed: () {
-            print("453543543534");
             Navigator.of(
                 context)
                 .pop();

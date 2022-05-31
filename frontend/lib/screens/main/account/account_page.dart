@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
@@ -9,9 +8,7 @@ import 'package:paotung_frontend/core/data/services/transaction_month_service.da
 import 'package:paotung_frontend/core/data/services/transaction_today_service.dart';
 import 'package:paotung_frontend/core/data/services/user_service.dart';
 import 'package:paotung_frontend/core/utils/app_builder.dart';
-import 'package:paotung_frontend/core/utils/life_cycle.dart';
 import 'package:paotung_frontend/screens/main/account/presentation/add_transaction.dart';
-import 'package:paotung_frontend/utils/user_preferences.dart';
 import 'package:paotung_frontend/widgets/main/account/expense_tab.dart';
 
 class AccountPage extends StatefulWidget {
@@ -32,7 +29,6 @@ class _AccountPageState extends State<AccountPage> {
     setState(() {
       _transactionMonthList = responseTransactions.reversed.toList();
     });
-    print("Month");
 
   }
 
@@ -43,7 +39,6 @@ class _AccountPageState extends State<AccountPage> {
       _transactionDayList = responseTransactions.reversed.toList();
     });
 
-    print("Day");
   }
 
   User _user = User(
@@ -63,13 +58,10 @@ class _AccountPageState extends State<AccountPage> {
 
     });
 
-    print("testtestttedgyshld");
-    debugPrint(_transactionMonthList.toString());
 
   }
 
   void refresh() {
-    debugPrint("1112");
     _readJson();
     AppBuilder.of(context)?.rebuild();
   }
@@ -122,7 +114,6 @@ class _AccountPageState extends State<AccountPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          debugPrint("222");
           refresh();
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddTransaction(backTrigger: refresh,readMonthJson:_readTransactionMonthJson, readDayJson:_readTransactionDayJson,)));

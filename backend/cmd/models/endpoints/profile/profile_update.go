@@ -25,9 +25,9 @@ func PatchHandler(c *fiber.Ctx) error {
 	// * Parse cookie
 	cookie := c.Locals("user").(*jwt.Token)
 	claims := cookie.Claims.(*common.UserClaim)
-
+	spew.Dump(claims.UserId)
 	var passwd = ""
-	if pswResult := database.Gorm.Table("users").Select("password").Where("id != ?", claims.UserId).Scan(&passwd); pswResult.Error != nil {
+	if pswResult := database.Gorm.Table("users").Select("password").Where("id = ?", claims.UserId).Scan(&passwd); pswResult.Error != nil {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
 			Message: "User account is not exist",
@@ -36,6 +36,7 @@ func PatchHandler(c *fiber.Ctx) error {
 	}
 
 	spew.Dump(body.Password)
+	spew.Dump(passwd)
 	if body.Password != passwd {
 		return &common.GenericError{
 			Code:    "INVALID_INFORMATION",
@@ -48,7 +49,7 @@ func PatchHandler(c *fiber.Ctx) error {
 	var emailRegex = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 	if !emailRegex.Match([]byte(body.Email)) {
 		return &common.GenericError{
-			Message: "Malformed email address, please type a correct email.",
+			Message: "Malformed email address, please type a correct email",
 			Code:    "INVALID_INFORMATION",
 			Err:     fiber.ErrBadRequest,
 		}
@@ -59,6 +60,7 @@ func PatchHandler(c *fiber.Ctx) error {
 	// * Check email already exist
 	if result := database.Gorm.First(&user, "email = ? AND id != ?", body.Email, claims.UserId); result.RowsAffected > 0 {
 		if result := database.Gorm.First(&user, "user_name = ? AND id != ?", body.UserName, claims.UserId); result.RowsAffected > 0 {
+			spew.Dump(result.Error)
 			return &common.GenericError{
 				Code:    "INVALID_INFORMATION",
 				Message: "This email and username have already used",

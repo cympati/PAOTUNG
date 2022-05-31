@@ -14,34 +14,21 @@ class AccountService {
         'password': password,
       });
       LoginResponse res = LoginResponse.fromJson(response.data);
-      if (res.success) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('user', res.token);
-        return true;
-      } else if (response is ErrorResponse) {
-        var error = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(res.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-        // ScaffoldMessenger.of(context).showSnackBar(error);
-      }
-
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user', res.token);
+      return true;
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
-        ErrorStartResponse error = ErrorStartResponse.fromJson(e.response?.data);
+        ErrorStartResponse error =
+            ErrorStartResponse.fromJson(e.response?.data);
         return error;
       }
     }
     return "";
   }
 
-  static Future<dynamic> register(String email, String username,
-      String password) async {
+  static Future<dynamic> register(
+      String email, String username, String password) async {
     try {
       Response response =
           await Dio().post(apiEndPoint + '/account/register', data: {
@@ -50,26 +37,13 @@ class AccountService {
         'password': password,
       });
       LoginResponse res = LoginResponse.fromJson(response.data);
-      if (res.success) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('user', res.token);
-        return true;
-      } else if (response is ErrorResponse) {
-        var error = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(res.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-        // ScaffoldMessenger.of(context).showSnackBar(error);
-      }
-
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user', res.token);
+      return true;
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
-        ErrorStartResponse error = ErrorStartResponse.fromJson(e.response?.data);
+        ErrorStartResponse error =
+            ErrorStartResponse.fromJson(e.response?.data);
         return error;
       }
     }

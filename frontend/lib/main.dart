@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/manifest.dart';
 import 'package:paotung_frontend/constants/route.dart';
-import 'package:paotung_frontend/constants/theme.dart';
 import '../../../core/data/services/providers/providers.dart';
 import 'core/data/services/notification_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -37,7 +36,6 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       routes: RouteConstant.route(),
       initialRoute: "/",
-      // theme: ThemeConstant.theme,
     );
   }
 }

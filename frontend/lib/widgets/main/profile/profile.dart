@@ -1,10 +1,8 @@
-// import 'package:http/http.dart' as http;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
-import 'package:paotung_frontend/core/data/services/user_service.dart';
 import 'package:paotung_frontend/screens/main/profile/edit_profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 
@@ -56,7 +54,6 @@ class _profileSectionState extends State<profileSection> {
                           '/data/user/0/com.example.paotung_frontend/cache/${widget.user.imagePath}'))
                       as ImageProvider<Object>,
             ),
-            // FileImage(File('/data/user/0/com.example.paotung_frontend/cache/${_user.imagePath}')) as ImageProvider<Object>
             const Padding(
                 padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12)),
             Column(

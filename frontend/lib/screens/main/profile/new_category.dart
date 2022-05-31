@@ -2,20 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/core/data/models/category/categories.dart';
 import 'package:paotung_frontend/core/data/models/error/error_response.dart';
-import 'package:paotung_frontend/core/data/models/response/response.dart';
 import 'package:paotung_frontend/core/data/services/category_expense_service.dart';
-import 'package:paotung_frontend/core/data/services/category_income_service.dart';
 
-import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
-import 'package:paotung_frontend/widgets/category/category_box.dart';
-import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
-import 'package:paotung_frontend/widgets/common/dropdown_form_field.dart';
 import 'package:paotung_frontend/widgets/common/roundloadingbtn.dart';
-import 'package:paotung_frontend/widgets/common/text_input_field.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -30,10 +22,8 @@ class NewCategory extends StatefulWidget {
 class _NewCategoryState extends State<NewCategory> {
   final _formkey = GlobalKey<FormState>();
   final _categoryController = TextEditingController();
-  final _colorPickerKey = TextEditingController();
   final RoundedLoadingButtonController _newcategoryBtnController =
       RoundedLoadingButtonController();
-  // String? categoryName;
   String? transactionType;
   int? selectedColor;
   bool isSubmit = false;
@@ -55,9 +45,6 @@ class _NewCategoryState extends State<NewCategory> {
   }
 
   void _categoryCall() async {
-    print(_categoryController.text);
-    print(selectedColor);
-    print(transactionType);
     var addCategory = await GetCategoryExpenseService.addCategoryService(
         _categoryController.text, transactionType!.toLowerCase(), selectedColor!);
     if (addCategory is ErrorResponse) {
@@ -74,7 +61,6 @@ class _NewCategoryState extends State<NewCategory> {
   void _categoryNavigate() async {
     Timer(const Duration(milliseconds: 1500), () {
       Navigator.of(context, rootNavigator: true).pop();
-      // Navigator.restorablePushReplacementNamed(context, '/categorysetting');
     });
   }
 

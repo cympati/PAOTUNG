@@ -38,7 +38,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   User _user = User(email: "", username: "", imagePath: "", balance: 0);
   User nullUser = UserPreferences.myUser;
 
-  // ignore: avoid_init_to_null
   File? _imageFile = null;
   final ImagePicker _picker = ImagePicker();
 
@@ -63,8 +62,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
-        print("changed image");
-        print(_imageFile);
       });
     }
   }
@@ -86,16 +83,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
             username: _usernameController.text,
             email: _emailController.text,
             password: _passwordController.text,
-            file: _imageFile);
-        debugPrint("-----------test upload image--------------");
+            file: _imageFile,
+          defaultImage: widget.userInfo.imagePath
+        );
         if (updateProfile is ErrorResponse) {
           showAlertDialog(context, updateProfile.message);
           _editBtnController.reset();
           _formkey.currentState!.reset();
         } else {
+
+
           await widget.readJson();
-          print("New image");
-          print(widget.userInfo.imagePath);
           _editBtnController.success();
           _editNavigate();
         }

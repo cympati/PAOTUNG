@@ -8,7 +8,6 @@ class TransactionBox extends StatelessWidget {
   final String text;
   final int color;
   final String amount;
-  // final bool isExpense = true;
   const TransactionBox({
     Key? key,
     required this.color,
@@ -19,8 +18,6 @@ class TransactionBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // double number = amount;
-    // String str = number.toString();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
       child: Row(
@@ -28,18 +25,17 @@ class TransactionBox extends StatelessWidget {
           Row(
             children: [
               ColorDots(color: color),
-              Gap(10),
+              const Gap(10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 16,
-                        // fontWeight: FontWeight.w500,
                         color: Colors.black),
                   ),
-                  Gap(5),
+                  const Gap(5),
                   Text(
                     text,
                     style: TextStyle(fontSize: 10, color: AppColors.grey),

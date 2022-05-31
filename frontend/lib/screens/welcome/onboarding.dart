@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paotung_frontend/constants/theme.dart';
-import 'package:paotung_frontend/main.dart';
-import 'package:paotung_frontend/screens/start/login/login.dart';
 import 'package:paotung_frontend/screens/welcome/content_model.dart';
 import 'package:paotung_frontend/widgets/common/rounded_button.dart';
 

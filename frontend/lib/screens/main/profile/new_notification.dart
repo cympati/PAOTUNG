@@ -6,9 +6,7 @@ import 'package:paotung_frontend/core/data/models/error/error_response.dart';
 import 'package:paotung_frontend/core/data/services/notification_service.dart';
 import 'package:paotung_frontend/screens/start/sign_up/alertdialog.dart';
 import 'package:paotung_frontend/widgets/common/close_app_bar.dart';
-import 'package:paotung_frontend/widgets/common/date_picker.dart';
 import 'package:paotung_frontend/widgets/common/roundloadingbtn.dart';
-import 'package:paotung_frontend/widgets/common/time_picker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class NewNotification extends StatefulWidget {
@@ -44,18 +42,14 @@ class _NewNotificationState extends State<NewNotification> {
     formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     _timeKey.text = DateFormat('hh:mm a').format(DateTime.now());
     formattedTime = DateFormat('hh:mm:ss').format(DateTime.now());
-    print(DateTime.now());
     super.initState();
   }
 
   void _notificationCall() async {
     // var formattedDateTime = formattedDate + "T" + formattedTime + "Z";
     var formattedDateTime = formattedDate + "T" + formattedTime + "Z";
-    print(formattedDateTime);
-    print(_notificationNameKey.text);
     var addNotification = await GetNotification.newNotification(
         _notificationNameKey.text, formattedDateTime);
-    print(addNotification);
     if (addNotification is ErrorResponse) {
       showAlertDialog(context, addNotification.message);
       _newnotiBtnController.reset();
@@ -70,7 +64,6 @@ class _NewNotificationState extends State<NewNotification> {
   void _notificationNavigate() async {
     Timer(const Duration(milliseconds: 1500), () {
       Navigator.of(context, rootNavigator: true).pop();
-      // Navigator.restorablePushReplacementNamed(context, '/notisetting');
     });
   }
 
@@ -105,7 +98,7 @@ class _NewNotificationState extends State<NewNotification> {
                             return null;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction),
-                    ]), // ),
+                    ]),
               ),
               Container(
                 alignment: Alignment.centerLeft,
@@ -138,13 +131,10 @@ class _NewNotificationState extends State<NewNotification> {
                               days: 365,
                             )));
                         if (pickedDate != null) {
-                          print(pickedDate);
                           formattedDate =
                               DateFormat('yyyy-MM-dd').format(pickedDate);
                           _dateKey.text =
                               DateFormat('dd-MM-yyyy').format(pickedDate);
-                          // print(formattedDate);
-                          print(_dateKey.text);
                         } else {
                           print("Date is not selected");
                         }
@@ -180,16 +170,12 @@ class _NewNotificationState extends State<NewNotification> {
                           initialTime: TimeOfDay.now(),
                         );
                         if (pickedTime != null) {
-                          print(pickedTime.format(context));
                           DateTime parsedTime = DateFormat.jm()
                               .parse(pickedTime.format(context).toString());
-                          print(parsedTime.toString() + "parsedTime");
                           formattedTime =
                               DateFormat('hh:mm:ss').format(parsedTime);
-                          print(formattedTime + "formattedTime");
                           _timeKey.text =
                               DateFormat('hh:mm a').format(parsedTime);
-                          print(_timeKey.text + "_timeKey.text");
                         } else {
                           print("Time is not selected");
                         }

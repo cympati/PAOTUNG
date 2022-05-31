@@ -10,7 +10,7 @@ showAlertDialog(BuildContext context, String message) {
           Navigator.of(context, rootNavigator: true).pop();
         });
         return AlertDialog(
-          title: const Text('Error!', style: TextStyle(color: Colors.white)),
+          title: const Text('SOMETHING WRONG!', style: TextStyle(color: Colors.white)),
           backgroundColor: AppColors.mainColor,
           content: Text(message, style: const TextStyle(color: Colors.white)),
           actions: [

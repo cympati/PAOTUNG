@@ -40,13 +40,10 @@ class _TimePickerState extends State<TimePicker> {
                   initialTime: TimeOfDay.now(),
                 );
                 if (pickedTime != null) {
-                  print(pickedTime.format(context));
                   DateTime parsedTime = DateFormat.jm()
                       .parse(pickedTime.format(context).toString());
-                  print(parsedTime);
                   String formattedTime =
                       DateFormat('HH:mm:ss').format(parsedTime);
-                  print(formattedTime);
 
                   setState(() {
                     timeinput.text = formattedTime;

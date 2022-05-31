@@ -4,7 +4,6 @@ import 'package:paotung_frontend/widgets/common/backward_app_bar.dart';
 import 'package:paotung_frontend/widgets/common/my_custom_expansion_tile.dart';
 import '../../constants/theme.dart';
 import '../../widgets/common/backward_app_bar.dart';
-import '../main/profile/profile_page.dart';
 
 class HelpCenter extends StatelessWidget {
   HelpCenter({Key? key}) : super(key: key);

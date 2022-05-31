@@ -20,7 +20,6 @@ class AppBuilderState extends State<AppBuilder> {
   }
 
   void rebuild() {
-    debugPrint("7777");
     setState(() {});
   }
 }

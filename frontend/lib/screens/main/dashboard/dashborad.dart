@@ -22,8 +22,9 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
-    _readJson();
     super.initState();
+
+    _readJson();
   }
 
   Future<void> _readJson() async {
@@ -46,9 +47,6 @@ class _DashboardState extends State<Dashboard> {
         padding: EdgeInsets.only(left: 40, top: 70, right: 40),
         child: TextTitle(title: "My Finance", size: 24),
       ),
-      // const SizedBox(
-      //   height: 24,
-      // ),
       Container(
           padding: const EdgeInsets.only(left: 40, right: 40),
           child: Column(

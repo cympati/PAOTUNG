@@ -32,7 +32,6 @@ class GetNotification {
               .isBefore(DateTime.now())) {
             continue;
           }
-          debugPrint(DateTime.parse(res[i].dateTime).toString());
           NotificationApi.showScheduledNotification(
             id: res[i].id,
             title: res[i].name,
@@ -44,21 +43,10 @@ class GetNotification {
         }
       }
       return res;
-      // print(AddCategoryResponse.fromJson(response.data));
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
-        var snb = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(error.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-        // ScaffoldMessenger.of(context).showSnackBar(error);
-        return e.error;
+        return error;
       }
     }
     return List.empty();
@@ -82,20 +70,9 @@ class GetNotification {
           "/notification/delete?notification_id=${notificationId}");
       DeleteResponse res = DeleteResponse.fromJson(response.data);
       return res;
-      // print(AddCategoryResponse.fromJson(response.data));
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
-        var snb = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(error.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-        // ScaffoldMessenger.of(context).showSnackBar(error);
         return error;
       }
     }
@@ -112,20 +89,9 @@ class GetNotification {
           await dio.delete(apiEndPoint + "/notification/delete/all");
       DeleteResponse res = DeleteResponse.fromJson(response.data);
       return res;
-      // print(AddCategoryResponse.fromJson(response.data));
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
-        var snb = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(error.message),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-        // ScaffoldMessenger.of(context).showSnackBar(error);
         return error;
       }
     }
@@ -135,9 +101,6 @@ class GetNotification {
   static Future<dynamic> newNotification(String name, String dateTime) async {
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
-    print("Something wrong");
-    print(name);
-    print(dateTime);
     try {
       Response response = await Dio().post(apiEndPoint + '/notification/add',
           data: {
@@ -145,26 +108,12 @@ class GetNotification {
             'date_time': dateTime,
           },
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
-      print(response.data);
       AddNotiResponse res = AddNotiResponse.fromJson(response.data);
-      print(res.data.id);
-      print(res.data);
-
       return res;
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
-        var snb = SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          content: Text(error.error),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
-        );
-        // ScaffoldMessenger.of(context).showSnackBar(error);
-        // return error.message;
+        return error;
       }
     }
     return null;

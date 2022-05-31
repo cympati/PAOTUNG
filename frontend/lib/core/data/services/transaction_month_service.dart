@@ -14,23 +14,8 @@ class GetTransactionMonthService {
     Dio dio = Dio();
     dio.options.headers["Authorization"] = "Bearer " + (token ?? " ");
     Response response = await dio.get(apiEndPoint + '/transaction/month');
-    print("Month service");
-    debugPrint(response.data.toString());
     TransactionMonthResponse res = TransactionMonthResponse.fromJson(response.data);
-    if (res.success) {
       return res.data.transactionMap;
-    } else if (res is ErrorResponse) {
-      var error = SnackBar(
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(left: 15, right: 15),
-        content: Text(res.code),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {},
-        ),
-      );
-      // ScaffoldMessenger.of(context).showSnackBar(error);
-    }
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
         ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
