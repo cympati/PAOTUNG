@@ -44,6 +44,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   void initState() {
+    super.initState();
+
     widget.readJson();
     if (mounted) {
       setState(() {
@@ -52,7 +54,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
     _emailController.text = _user.email;
     _usernameController.text = _user.username;
-    super.initState();
+
   }
 
   void getImageFromGallery() async {
@@ -61,6 +63,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
+        print("changed image");
+        print(_imageFile);
       });
     }
   }
@@ -69,7 +73,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     void _editNavigate() {
       Timer(const Duration(milliseconds: 1000), () {
-        widget.readJson();
+
         Navigator.of(context, rootNavigator: true).pop();
       });
     }
@@ -89,6 +93,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           _editBtnController.reset();
           _formkey.currentState!.reset();
         } else {
+          await widget.readJson();
+          print("New image");
+          print(widget.userInfo.imagePath);
           _editBtnController.success();
           _editNavigate();
         }
@@ -104,16 +111,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Container(
               height: 40,
             ),
-            EditProfilePic(
-              image: _imageFile == null
-                  ? NetworkImage(_user.imagePath.isEmpty
-                      ? nullUser.imagePath
-                      : _user.imagePath)
-                  : FileImage(_imageFile!) as ImageProvider,
+            _imageFile == null ? EditProfilePic(
+              image: widget.userInfo.imagePath.isEmpty
+                  ? NetworkImage(nullUser.imagePath)
+                  : FileImage(File(
+                  '/data/user/0/com.example.paotung_frontend/cache/${widget.userInfo.imagePath}'))
+              as ImageProvider<Object>,
               onTaped: () {
                 getImageFromGallery();
               },
-            ),
+            ) : EditProfilePic(
+              image: FileImage(_imageFile!),
+              onTaped: () {
+                getImageFromGallery();
+              },
+            )
+            ,
             const SizedBox(
               height: 38,
             ),

@@ -1,3 +1,6 @@
+// import 'package:http/http.dart' as http;
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
 import 'package:paotung_frontend/core/data/models/user/user.dart';
@@ -6,40 +9,38 @@ import 'package:paotung_frontend/screens/main/profile/edit_profile_page.dart';
 import 'package:paotung_frontend/utils/user_preferences.dart';
 
 class profileSection extends StatefulWidget {
-  const profileSection({Key? key}) : super(key: key);
+  Function readJson;
+  User user;
+   profileSection({Key? key, required this.readJson, required this.user}) : super(key: key);
 
   @override
   State<profileSection> createState() => _profileSectionState();
 }
 
 class _profileSectionState extends State<profileSection> {
-  User _user = User(email: "", username: "", imagePath: "", balance: 0);
 
   User nullUser = UserPreferences.myUser;
 
   @override
   void initState() {
-    _readJson();
     super.initState();
-  }
+    widget.readJson();
 
-  Future<void> _readJson() async {
-    var responseUser = await GetUser.getData();
-    if (mounted) {
-      setState(() {
-        _user = responseUser;
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     //reload page after Pop edit profile page
     _navigate(BuildContext context) async {
-      final result = await Navigator.push(context,
-              MaterialPageRoute(builder: (context) => EditProfilePage(readJson: _readJson,userInfo: _user,)))
-          .then((_) => setState(() { }));
+      await Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => EditProfilePage(
+                    readJson: widget.readJson,
+                    userInfo: widget.user,
+                  ))).then((_) => setState(() {}));
     }
+
 
     return Container(
         padding: const EdgeInsets.only(top: 10),
@@ -49,17 +50,20 @@ class _profileSectionState extends State<profileSection> {
             CircleAvatar(
               maxRadius: 40.0,
               backgroundColor: AppColors.lightgrey,
-              backgroundImage: _user.imagePath.isEmpty
+              backgroundImage: widget.user.imagePath.isEmpty
                   ? NetworkImage(nullUser.imagePath)
-                  : NetworkImage(_user.imagePath),
+                  : FileImage(File(
+                          '/data/user/0/com.example.paotung_frontend/cache/${widget.user.imagePath}'))
+                      as ImageProvider<Object>,
             ),
+            // FileImage(File('/data/user/0/com.example.paotung_frontend/cache/${_user.imagePath}')) as ImageProvider<Object>
             const Padding(
                 padding: EdgeInsets.symmetric(vertical: 25, horizontal: 12)),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _user.username,
+                  widget.user.username,
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,

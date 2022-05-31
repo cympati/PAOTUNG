@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paotung_frontend/constants/theme.dart';
+import 'package:paotung_frontend/core/data/models/user/user.dart';
+import 'package:paotung_frontend/core/data/services/user_service.dart';
 import 'package:paotung_frontend/screens/help_center/help_center.dart';
 import 'package:paotung_frontend/screens/main/profile/category_setting.dart';
 import 'package:paotung_frontend/screens/main/profile/notification_setting.dart';
@@ -17,10 +19,38 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
   late SharedPreferences prefs;
+  User _user = User(imagePath: '', email: '', username: '', balance: 0);
 
+
+  @override
+  void initState() {
+    super.initState();
+    if (mounted) {
+      _readJson();
+    }
+    //
+  }
   deleteUserData() async {
     prefs = await SharedPreferences.getInstance();
     prefs.remove('user');
+  }
+
+
+  Future<void> _readJson() async {
+    var responseUser = await GetUser.getData();
+    if (mounted) {
+      setState(() {
+        _user = responseUser;
+      });
+      print("my image");
+      print(_user.imagePath);
+    }
+
+    // print(_user.email.toString());
+    // print(_user.imagePath);
+    // print(NetworkImage(nullUser.imagePath).url);
+    // print(NetworkImage(nullUser.imagePath));
+    // print(FileImage(File('/storage/emulated/0/Download/${_user.imagePath}'), scale: 1.0));
   }
   @override
   Widget build(BuildContext context) {
@@ -32,7 +62,7 @@ class _MyPageState extends State<MyPage> {
             //Title
             const TextTitle(title: "Profile", size: 24),
             //User pic & username
-            const profileSection(),
+             profileSection(readJson: _readJson, user: _user,),
             const SizedBox(
               height: 35,
             ),
